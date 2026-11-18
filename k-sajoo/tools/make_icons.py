@@ -92,7 +92,7 @@ def main():
     m.save(OUT / "icon-maskable-512.png", optimize=True)
     print("wrote icon-maskable-512.png")
     # 스튜디오 카드 아이콘
-    apps = OUT.parent / "apps"
+    apps = OUT.parent.parent / "apps"
     apps.mkdir(exist_ok=True)
     make(192).save(apps / "k-sajoo.png", optimize=True)
     make(512).save(apps / "k-sajoo-512.png", optimize=True)
