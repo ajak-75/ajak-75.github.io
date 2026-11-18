@@ -88,5 +88,32 @@ window.AJAK_STUDIO_APPS = [
       th: 'เกมรวมร่างสุดน่ารัก ปล่อยโคมิกับโมโม่ให้เพื่อนที่เหมือนกันชนกัน แล้วโตขึ้นเรื่อย ๆ จนเป็นโคมิทองคำองค์ใหญ่ สถิติสูงสุดเก็บไว้ในเครื่องของคุณ',
       ar: 'لعبة دمج لطيفة: أسقط كۆمي ومومو، واجمع الصديقين المتشابهين لينموا حتى ملك كومي الذهبي. أفضل نتيجة تُحفظ على جهازك.'
     }
+  },
+  {
+    id: 'k-sajoo',
+    name: 'K-Sajoo',
+    status: 'live',
+    category: 'Fortune · Global',
+    url: 'https://ajak-75.github.io/k-sajoo/',
+    icon: './apps/k-sajoo.png',
+    icon2x: './apps/k-sajoo-512.png',
+    iconBg: 'transparent',
+    desc: {
+      "ko": "태양의 24절기와 출생지의 시간으로 세우는 글로벌 만세력. 년·월·일·시 네 기둥과 오행의 균형을 11개 언어로 읽고, 결과 카드를 PNG로 저장하세요.",
+      "en": "A global four-pillars reading built from the 24 solar terms and your birthplace’s own clock. Year, month, day and hour pillars with the balance of five elements in 11 languages, plus a result card to save.",
+      "ja": "太陽の二十四節気と出生地の時刻から立てるグローバル四柱推命。年・月・日・時の四柱と五行のバランスを11言語で読み、結果カードをPNGで保存できます。",
+      "zh": "以太阳二十四节气和出生地时间排盘的全球四柱命理。用11种语言查看年月日时四柱与五行平衡，并可把结果保存为图片。",
+      "zh-tw": "以太陽二十四節氣與出生地時間排盤的全球四柱命理。用11種語言查看年月日時四柱與五行平衡，並可把結果存成圖片。",
+      "es": "Una lectura global de los cuatro pilares a partir de los 24 términos solares y del reloj de tu lugar de nacimiento. Tus pilares de año, mes, día y hora con los cinco elementos en 11 idiomas, y una tarjeta para guardar.",
+      "fr": "Une lecture globale des quatre piliers, calculée avec les 24 termes solaires et l’heure de votre lieu de naissance. Vos piliers année, mois, jour et heure et les cinq éléments en 11 langues, avec une carte à enregistrer.",
+      "de": "Eine globale Vier-Säulen-Lesung aus den 24 Sonnenabschnitten und der Uhr deines Geburtsorts. Deine Säulen für Jahr, Monat, Tag und Stunde mit den fünf Elementen in 11 Sprachen – und einer Karte zum Speichern.",
+      "pt": "Uma leitura global dos quatro pilares a partir dos 24 termos solares e do relógio do seu local de nascimento. Seus pilares de ano, mês, dia e hora com os cinco elementos em 11 idiomas, e um cartão para salvar.",
+      "it": "Una lettura globale dei quattro pilastri dai 24 termini solari e dall’orologio del tuo luogo di nascita. I pilastri di anno, mese, giorno e ora con i cinque elementi in 11 lingue, e una card da salvare.",
+      "ru": "Глобальный разбор четырёх столпов по 24 солнечным терминам и часам места рождения. Столпы года, месяца, дня и часа и баланс пяти стихий на 11 языках — с карточкой результата.",
+      "id": "Bacaan empat pilar global dari 24 istilah matahari dan jam tempat lahirmu. Pilar tahun, bulan, hari, dan jam dengan lima unsur dalam 11 bahasa, plus kartu hasil untuk disimpan.",
+      "vi": "Lá số tứ trụ toàn cầu tính từ 24 tiết khí và giờ nơi bạn sinh. Bốn trụ năm, tháng, ngày, giờ cùng ngũ hành bằng 11 ngôn ngữ, kèm thẻ kết quả để lưu.",
+      "th": "การอ่านสี่เสาสำหรับคนทั้งโลก จาก 24 สุริยคติและเวลาของสถานที่เกิด ดูเสาปี เดือน วัน ชั่วโมง พร้อมธาตุทั้งห้าใน 11 ภาษา และบันทึกการ์ดผลลัพธ์ได้",
+      "ar": "قراءة عالمية للأعمدة الأربعة من الفصول الشمسية الأربعة والعشرين وساعة مكان الميلاد. أعمدة السنة والشهر واليوم والساعة مع توازن العناصر الخمسة بإحدى عشرة لغة، وبطاقة نتيجة قابلة للحفظ."
+    }
   }
 ];
