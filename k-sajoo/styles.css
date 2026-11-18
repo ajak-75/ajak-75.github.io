@@ -122,23 +122,23 @@ html[data-theme="pastel"] body::after {
   pointer-events: none;
   z-index: 0;
 }
-/* 1) 민화 원화 — 원색이 살짝 비치도록 보통 합성으로 은은하게, 넓은 화면은 줌이 커져 농도를 낮춘다 */
+/* 1) 민화 원화 — 모란 위·호랑이 아래, 원색이 비치도록 보통 합성. 넓은 화면은 확대 배율이 커서 농도를 낮춘다 */
 html[data-theme="pastel"] body::before {
   background: url("./bg-minhwa.jpg") center top / cover no-repeat;
-  opacity: .46;
-  filter: contrast(1.12) saturate(1.08);
+  opacity: .62;
+  filter: contrast(1.06) saturate(1.04);
 }
 /* 2) 위아래에 한지 빛을 덜어 그림이 글을 방해하지 않게 */
 html[data-theme="pastel"] body::after {
   background:
-    linear-gradient(180deg, rgba(252, 246, 234, .4) 0%, rgba(250, 241, 226, .16) 20%, rgba(247, 234, 214, 0) 36%, rgba(247, 234, 214, 0) 80%, rgba(238, 220, 194, .2) 100%);
+    linear-gradient(180deg, rgba(252, 246, 234, .26) 0%, rgba(250, 241, 226, .08) 18%, rgba(247, 234, 214, 0) 34%, rgba(247, 234, 214, 0) 82%, rgba(238, 220, 194, .14) 100%);
 }
 /* 글자 밑에만 한지 빛을 한 겹 — 민화가 글자에 닿지 않게 */
 html[data-theme="pastel"] .hero-title { text-shadow: 0 0 18px rgba(253, 247, 236, .95), 0 0 7px rgba(253, 247, 236, .9); }
 html[data-theme="pastel"] .hero-lead { text-shadow: 0 0 14px rgba(252, 246, 234, .92); }
 /* 넓은 화면은 그림이 크게 확대되므로 더 연하게 */
 @media (min-width: 900px) {
-  html[data-theme="pastel"] body::before { opacity: .2; filter: blur(1px) saturate(.96); }
+  html[data-theme="pastel"] body::before { opacity: .3; filter: blur(1px) saturate(.98); }
   html[data-theme="pastel"] body::after {
     background:
       radial-gradient(62% 70% at 50% 40%, rgba(251, 244, 232, .55), rgba(251, 244, 232, 0) 72%),
@@ -151,9 +151,9 @@ html[data-theme="pastel"] body.is-preview::after { display: none; }
 /* 반투명 한지 카드 — 배경 민화가 카드 앞에서도 숨소리처럼 비친다 */
 html[data-theme="pastel"] .panel,
 html[data-theme="pastel"] .result {
-  background: rgba(255, 250, 240, .87);
-  -webkit-backdrop-filter: blur(5px) saturate(1.03);
-  backdrop-filter: blur(5px) saturate(1.03);
+  background: rgba(255, 250, 240, .72);
+  -webkit-backdrop-filter: blur(9px) saturate(1.04);
+  backdrop-filter: blur(9px) saturate(1.04);
 }
 html[data-theme="pastel"] .daymaster { background: rgba(248, 238, 218, .72); }
 html[data-theme="pastel"] .premium { background: rgba(251, 241, 223, .8); }

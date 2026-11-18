@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>K-Sajoo · 휴대폰 화면 검수</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #e9e4da; }
+  body { display: flex; gap: 24px; justify-content: center; align-items: flex-start; padding: 20px; font: 12px/1.4 system-ui, sans-serif; color: #6b6257; }
+  figure { margin: 0; }
+  figcaption { padding: 6px 2px 8px; text-align: center; letter-spacing: .04em; }
+  iframe { width: 390px; height: 844px; border: 0; display: block; background: #f7ead6; box-shadow: 0 10px 30px rgba(90, 70, 45, .22); }
+</style>
+</head>
+<body>
+  <figure>
+    <figcaption>입력 화면 · 390×844</figcaption>
+    <iframe id="form" src="../index.html?v=21" title="입력 화면"></iframe>
+  </figure>
+  <figure>
+    <figcaption>결과 화면 · 390×844</figcaption>
+    <iframe id="result" src="../index.html?v=21" title="결과 화면"></iframe>
+  </figure>
+<script>
+  /* 결과 iframe — 폼을 채워 실제 제출까지 간다 (미리보기 모드 아님) */
+  document.getElementById('result').addEventListener('load', function () {
+    var d = this.contentDocument;
+    try {
+      d.getElementById('birthDate').value = '1990-05-20';
+      d.getElementById('birthTime').value = '14:30';
+      d.getElementById('place').value = 'seoul';
+      d.getElementById('gender').value = 'male';
+      d.getElementById('sajooForm').dispatchEvent(new Event('submit', { cancelable: true }));
+    } catch (e) { document.title = 'ERR ' + e.message; }
+  });
+</script>
+</body>
+</html>
