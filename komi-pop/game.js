@@ -47,7 +47,11 @@
     return key;
   }
 
-  var langSel = document.getElementById('langSel');
+  var langWrap = document.getElementById('langWrap');
+  var langBtn = document.getElementById('langBtn');
+  var langMenu = document.getElementById('langMenu');
+  var langCur = document.getElementById('langCur');
+  var langSel = document.getElementById('langSel');   /* 예전 마크업(<select>) 호환용 */
   var soundBtn = document.getElementById('soundBtn');
 
   function applyLang(lang) {
@@ -65,21 +69,101 @@
     }
     if (soundBtn) soundBtn.setAttribute('aria-label', muted ? t('soundOn') : t('soundOff'));
     if (cv) cv.setAttribute('aria-label', t('board'));
+    if (langCur) langCur.textContent = NATIVE[LANG] || LANG;
+    if (langBtn) langBtn.setAttribute('aria-label', t('lang'));
     if (langSel) langSel.value = LANG;
+    syncMenu();
   }
 
-  function buildLangSelect() {
-    if (!langSel) return;
+  /* 언어 메뉴 — 브라우저 기본 <select> 대신 페이지 안 목록을 쓴다.
+     (안드로이드 웹뷰·인앱 브라우저에서 기본 선택창이 change 이벤트를 안 주거나
+      label 안의 select가 두 번 열리던 문제를 피한다.) */
+  function pickLang(code) {
+    if (!DICT[code]) return;
+    store(LANG_KEY, code);
+    applyLang(code);
+    sfxClick();
+  }
+
+  function syncMenu() {
+    if (!langMenu) return;
+    var opts = langMenu.querySelectorAll('.lang-opt');
+    for (var i = 0; i < opts.length; i++) {
+      var on = opts[i].getAttribute('data-lang') === LANG;
+      opts[i].setAttribute('aria-selected', on ? 'true' : 'false');
+    }
+  }
+
+  function closeMenu() {
+    if (!langMenu || !langBtn) return;
+    langMenu.hidden = true;
+    langBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  function openMenu() {
+    if (!langMenu || !langBtn) return;
+    langMenu.hidden = false;
+    langBtn.setAttribute('aria-expanded', 'true');
+    var sel = langMenu.querySelector('[aria-selected="true"]');
+    if (sel) {
+      if (sel.scrollIntoView) sel.scrollIntoView({ block: 'nearest' });
+      try { sel.focus({ preventScroll: true }); } catch (e) {}
+    }
+  }
+
+  function buildLangMenu() {
+    if (!langMenu || !langBtn) {
+      /* 예전 HTML이 캐시에 남은 경우 — 기본 select로도 언어가 바뀌게 */
+      if (langSel) {
+        var onOldChange = function () { pickLang(langSel.value); };
+        langSel.addEventListener('change', onOldChange);
+        langSel.addEventListener('input', onOldChange);
+      }
+      return;
+    }
+
     var html = '';
     for (var i = 0; i < LANGS.length; i++) {
-      html += '<option value="' + LANGS[i] + '">' + NATIVE[LANGS[i]] + '</option>';
+      var code = LANGS[i];
+      html += '<button class="lang-opt" type="button" role="option" aria-selected="false" data-lang="' + code + '">' + NATIVE[code] + '</button>';
     }
-    langSel.innerHTML = html;
-    langSel.value = LANG;
-    langSel.addEventListener('change', function () {
-      store(LANG_KEY, langSel.value);
-      applyLang(langSel.value);
-      sfxClick();
+    langMenu.innerHTML = html;
+
+    /* 항목 선택 — click(터치 포함) 하나로 처리해 change 이벤트에 기대지 않는다 */
+    langMenu.addEventListener('click', function (ev) {
+      var el = ev.target;
+      while (el && el !== langMenu && !(el.getAttribute && el.getAttribute('data-lang'))) el = el.parentNode;
+      if (!el || el === langMenu) return;
+      pickLang(el.getAttribute('data-lang'));
+      closeMenu();
+      if (langBtn) langBtn.focus({ preventScroll: true });
+    });
+
+    langBtn.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (langMenu.hidden) openMenu(); else closeMenu();
+    });
+
+    document.addEventListener('click', function (ev) {
+      if (langWrap && !langWrap.contains(ev.target)) closeMenu();
+    });
+
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Escape' && !langMenu.hidden) {
+        closeMenu();
+        if (langBtn) langBtn.focus({ preventScroll: true });
+      }
+    });
+
+    langMenu.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'ArrowDown' && ev.key !== 'ArrowUp') return;
+      var opts = langMenu.querySelectorAll('.lang-opt');
+      var i = -1;
+      for (var n = 0; n < opts.length; n++) { if (opts[n] === document.activeElement) i = n; }
+      var next = ev.key === 'ArrowDown' ? Math.min(opts.length - 1, i + 1) : Math.max(0, i - 1);
+      ev.preventDefault();
+      if (opts[next]) opts[next].focus();
     });
   }
 
@@ -918,7 +1002,7 @@
     resizeTimer = setTimeout(layout, 220);
   });
 
-  buildLangSelect();
+  buildLangMenu();
   applyLang(LANG);
   paintSound();
   paintBest();

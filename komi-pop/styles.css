@@ -75,6 +75,8 @@ body::after {
 
 /* ---------- 헤더 ---------- */
 .top {
+  position: relative;
+  z-index: 20;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -147,13 +149,17 @@ body::after {
   position: relative;
   display: inline-flex;
   align-items: center;
+  flex: 0 0 auto;
 }
-#langSel {
-  appearance: none;
-  -webkit-appearance: none;
-  max-width: 118px;
-  height: 34px;
-  padding: 0 24px 0 10px;
+.lang-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 96px;
+  max-width: 132px;
+  height: 36px;
+  padding: 0 26px 0 11px;
   border: 1px solid var(--pink-line);
   border-radius: 11px;
   background: #fff;
@@ -162,21 +168,75 @@ body::after {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: -.01em;
+  line-height: 1;
   cursor: pointer;
-  text-overflow: ellipsis;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
   box-shadow: 0 2px 6px rgba(226, 47, 118, .07);
+}
+.lang-btn:active { transform: scale(.97); }
+.lang-btn[aria-expanded="true"] { border-color: var(--pink); color: var(--pink-deep); }
+.lang-cur {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .lang-caret {
   position: absolute;
   right: 8px;
+  top: 50%;
   width: 11px; height: 11px;
+  margin-top: -5.5px;
   pointer-events: none;
   fill: none;
   stroke: var(--ink-3);
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: transform .16s ease;
 }
+.lang-btn[aria-expanded="true"] .lang-caret { transform: rotate(180deg); }
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 40;
+  width: 198px;
+  max-height: min(56vh, 336px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 6px;
+  border: 1px solid var(--pink-line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 36px rgba(226, 47, 118, .2);
+}
+.lang-opt {
+  display: block;
+  width: 100%;
+  padding: 10px 11px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.lang-opt:active { background: #FFEFF6; }
+.lang-opt[aria-selected="true"] {
+  background: var(--pink-soft);
+  color: var(--pink-deep);
+  font-weight: 800;
+}
+.lang-opt:focus-visible { outline: 2px solid var(--pink); outline-offset: -2px; }
 
 /* ---------- 점수 / 다음 ---------- */
 .hud {
