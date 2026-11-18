@@ -680,8 +680,10 @@
         boutique: '시안 3 · 모던 K-부티크 (일월오봉도)'
       };
       var lab = $('previewLabel');
-      lab.textContent = labels[document.documentElement.getAttribute('data-theme')] || '';
-      lab.hidden = false;
+      if (params.get('compare') === '1') {
+        lab.textContent = labels[document.documentElement.getAttribute('data-theme')] || '';
+        lab.hidden = false;
+      }
 
       $('birthDate').value = '1990-05-20';
       $('birthTime').value = '14:30';
