@@ -344,6 +344,10 @@ body.is-preview .preview-label {
   color: #3b2f2a; background: rgba(255, 255, 255, .65); border: 1px solid rgba(0, 0, 0, .08); border-radius: 6px; text-align: center;
 }
 body.is-preview .masthead { padding-bottom: 10px; }
+body.is-preview.show-form .result { display: none; }
+body.is-preview.show-form .hero { display: block; }
+body.is-preview.show-form .form-panel { display: block; }
+body.is-preview.show-form .preview-label { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

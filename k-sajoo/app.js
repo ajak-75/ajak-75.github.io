@@ -650,7 +650,11 @@
       $('place').value = 'seoul';
       $('gender').value = 'male';
       state.city = cityById('seoul');
-      run(false);
+      if (params.get('view') === 'form') {
+        document.body.classList.add('show-form');
+      } else {
+        run(false);
+      }
     }
   }
 
