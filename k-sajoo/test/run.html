@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>K-Sajoo engine test</title>
+</head>
+<body>
+<pre id="out">running…</pre>
+<script src="../engine.js"></script>
+<script src="./suite.js"></script>
+<script>
+(function () {
+  var r = KSajooTestSuite.run(KSajoo);
+  window.__RESULTS__ = r;
+  var lines = [r.passed + ' / ' + r.total + ' passed'];
+  r.results.forEach(function (t) {
+    lines.push((t.pass ? 'PASS  ' : 'FAIL  ') + t.name + (t.pass ? '' : '   [' + t.detail + ']'));
+  });
+  document.getElementById('out').textContent = lines.join('\n');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "name": "K-Sajoo — 글로벌 만세력",
+  "short_name": "K-Sajoo",
+  "description": "24절기와 진태양시로 세우는 사주 네 기둥. 오행의 균형과 결과 카드.",
+  "lang": "ko",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#efe3cd",
+  "theme_color": "#efe3cd",
+  "icons": [
+    { "src": "./icon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
