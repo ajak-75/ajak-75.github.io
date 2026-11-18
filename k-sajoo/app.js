@@ -645,7 +645,7 @@
       document.body.classList.add('is-preview');
       var labels = {
         classic: '시안 1 · 조선 서책 클래식',
-        pastel: '시안 2 · 2030 모던 민화 파스텔',
+        pastel: '시안 2 · 모던 민화 (동백·호랑이·달)',
         boutique: '시안 3 · 모던 K-부티크'
       };
       var lab = $('previewLabel');
