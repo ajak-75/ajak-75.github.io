@@ -16,7 +16,7 @@ window.AJAK_STUDIO_APPS = [
     url: 'https://ajak-75.github.io/diary/',
     icon: './apps/ajak.png',
     icon2x: './apps/ajak-512.png',
-    iconBg: '#111111',
+    iconBg: 'transparent',
     desc: {
       ko: '코미·모모 캐릭터 없이 남녀노소 누구나 가볍게 일상과 생각을 나누는 한국판 스레드형 미니 SNS. 접속한 기기의 언어를 자동으로 감지해 각자의 언어로 열립니다.',
       en: 'A light, Threads-style mini social network for everyday thoughts — no mascots, just people. It detects each visitor’s device language and opens in their own.',

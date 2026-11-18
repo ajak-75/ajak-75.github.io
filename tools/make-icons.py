@@ -137,7 +137,7 @@ try:
     if not os.path.exists(komi_logo):
         komi_logo = os.path.join(ROOT, "..", "KOMI-Diary", "icons", "icon-192.png")
     app_k = Image.open(komi_logo).convert("RGBA")
-    a = shadowed(app_a, (116, 116))
+    a = shadowed_alpha(app_a, (116, 116))
     k = shadowed_alpha(app_k, (116, 116))
     og.paste(a, (772, 236), a)
     og.paste(k, (952, 236), k)
