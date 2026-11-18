@@ -1,0 +1,47 @@
+/* Ajak Studio — apps.js
+   쇼케이스에 올라가는 앱 목록. 새 앱은 이 배열에 항목 하나만 추가하면 카드로 자동 렌더된다.
+   desc 는 언어별 문구(ko·en·ja·zh·zh-tw·es 내장). 그 밖의 언어는 app.js가 자동 번역해 캐시한다.
+   ─────────────────────────────────────────────────────────────
+   status : 'live' (지금 사용 가능) | 'soon' (준비 중, url 없이도 됨)
+   url    : 카드 전체를 눌렀을 때 열리는 주소
+   icon / icon2x : 카드 아이콘(192·512px)
+   iconBg : 아이콘 뒤 배경(투명 PNG 대비) — 생략하면 흰색
+*/
+window.AJAK_STUDIO_APPS = [
+  {
+    id: 'ajak',
+    name: 'Ajak',
+    status: 'live',
+    category: 'Thread · Global',
+    url: 'https://ajak-75.github.io/diary/',
+    icon: './apps/ajak.png',
+    icon2x: './apps/ajak-512.png',
+    iconBg: '#111111',
+    desc: {
+      ko: '코미·모모 캐릭터 없이 남녀노소 누구나 가볍게 일상과 생각을 나누는 한국판 스레드형 미니 SNS. 접속한 기기의 언어를 자동으로 감지해 각자의 언어로 열립니다.',
+      en: 'A light, Threads-style mini social network for everyday thoughts — no mascots, just people. It detects each visitor’s device language and opens in their own.',
+      ja: 'キャラクターなしで、誰でも気軽に日常や考えを共有できる韓国版Threads風ミニSNS。端末の言語を自動で検出し、それぞれの言葉で開きます。',
+      zh: '没有角色设定，谁都能轻松分享日常与想法的韩版Threads风迷你社交网络。自动识别设备语言，以各自的母语打开。',
+      'zh-tw': '沒有角色設定，誰都能輕鬆分享日常與想法的韓版Threads風迷你社群。自動偵測裝置語言，以各自的語言開啟。',
+      es: 'Una mini red social estilo Threads para el día a día, sin mascotas: solo personas. Detecta el idioma del dispositivo y se abre en el idioma de cada visitante.'
+    }
+  },
+  {
+    id: 'komi-diary',
+    name: 'KOMI-Diary',
+    status: 'live',
+    category: 'K-Culture · Community',
+    url: 'https://ajak-75.github.io/KOMI-Diary/',
+    icon: './apps/komi-diary.png',
+    icon2x: './apps/komi-diary-512.png',
+    iconBg: '#FFFFFF',
+    desc: {
+      ko: '전 세계 케미(Kemi)들이 모이는 K-컬처 팬덤 다이어리 · 모모 샵 · K-스타 케미 궁합 · 16개국어와 전 세계 언어를 자동 번역합니다.',
+      en: 'A K-culture fandom diary where Kemis around the world meet — Momo Shop, K-star compatibility, and automatic translation into 16 languages and beyond.',
+      ja: '世界中のケミ（Kemi）が集まるK-カルチャーファンダムダイアリー。モモショップ、Kスター相性診断、16言語＋世界の言語を自動翻訳。',
+      zh: '全球Kemi汇聚的K-Culture粉丝日记。莫莫商店、K明星缘分测试，16种语言及全球语言自动翻译。',
+      'zh-tw': '全球Kemi齊聚的K-Culture粉絲日記。莫莫商店、K明星緣分測驗，16種語言及全球語言自動翻譯。',
+      es: 'El diario de fandom K-culture donde se encuentran Kemis de todo el mundo: Momo Shop, afinidad con estrellas K y traducción automática a 16 idiomas y más.'
+    }
+  }
+];
