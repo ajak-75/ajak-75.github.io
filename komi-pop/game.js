@@ -877,11 +877,11 @@
     var w = c.width, h = c.height;
     g.clearRect(0, 0, w, h);
     g.imageSmoothingQuality = 'high';
-    /* 1단계 젤리 발바닥 → 코미 → 대왕 골드 코미 순으로 커지게 */
+    /* 모모 → 코미 → 대왕 골드 코미 순으로 커지게 */
     var trio = [
-      { stage: 0, size: 66, x: 8 },
-      { stage: 4, size: 88, x: 76 },
-      { stage: 8, size: 104, x: 132 }
+      { stage: 2, size: 92, x: -4 },
+      { stage: 4, size: 112, x: 54 },
+      { stage: 8, size: 126, x: 110 }
     ];
     for (var i = 0; i < trio.length; i++) {
       var t = trio[i];
