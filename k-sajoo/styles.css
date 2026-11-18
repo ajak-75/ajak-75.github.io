@@ -436,7 +436,6 @@ html[data-theme="boutique"] .hero::after {
 }
 html[data-theme="boutique"] .hero > * { position: relative; z-index: 1; }
 
-.ilwol-sm { display: none; }
 
 /* 다듬기 */
 html[data-theme="boutique"] .lang select { border-radius: 0; background: transparent; }
