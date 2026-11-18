@@ -73,9 +73,11 @@
     ctx.scale(k, k);
 
     ctx.beginPath();
-    ctx.moveTo(-0.62 * RB, -0.10 * RB);
-    ctx.bezierCurveTo(-1.02 * RB, -0.38 * RB, -1.06 * RB, -1.02 * RB, -0.86 * RB, -1.10 * RB);
-    ctx.bezierCurveTo(-0.70 * RB, -1.17 * RB, -0.40 * RB, -0.80 * RB, -0.22 * RB, -0.52 * RB);
+    ctx.moveTo(-0.74 * RB, -0.12 * RB);
+    ctx.bezierCurveTo(-1.04 * RB, -0.42 * RB, -1.10 * RB, -0.94 * RB, -0.96 * RB, -1.06 * RB);
+    ctx.quadraticCurveTo(-0.86 * RB, -1.13 * RB, -0.74 * RB, -0.99 * RB);
+    ctx.bezierCurveTo(-0.62 * RB, -0.86 * RB, -0.46 * RB, -0.68 * RB, -0.30 * RB, -0.56 * RB);
+    ctx.bezierCurveTo(-0.42 * RB, -0.36 * RB, -0.60 * RB, -0.22 * RB, -0.74 * RB, -0.12 * RB);
     ctx.closePath();
     ctx.fillStyle = fur;
     ctx.fill();
@@ -85,11 +87,15 @@
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(-0.60 * RB, -0.22 * RB);
-    ctx.bezierCurveTo(-0.86 * RB, -0.44 * RB, -0.90 * RB, -0.88 * RB, -0.80 * RB, -0.94 * RB);
-    ctx.bezierCurveTo(-0.68 * RB, -0.99 * RB, -0.46 * RB, -0.72 * RB, -0.34 * RB, -0.52 * RB);
+    ctx.moveTo(-0.72 * RB, -0.24 * RB);
+    ctx.bezierCurveTo(-0.94 * RB, -0.48 * RB, -0.99 * RB, -0.88 * RB, -0.90 * RB, -0.96 * RB);
+    ctx.quadraticCurveTo(-0.84 * RB, -1.00 * RB, -0.77 * RB, -0.90 * RB);
+    ctx.bezierCurveTo(-0.68 * RB, -0.78 * RB, -0.55 * RB, -0.64 * RB, -0.44 * RB, -0.56 * RB);
+    ctx.bezierCurveTo(-0.53 * RB, -0.42 * RB, -0.65 * RB, -0.31 * RB, -0.72 * RB, -0.24 * RB);
     ctx.closePath();
-    ctx.fillStyle = inner;
+    ctx.fillStyle = rg(ctx, -0.80 * RB, -0.80 * RB, 0.04 * RB, -0.70 * RB, -0.60 * RB, 0.42 * RB, [
+      [0, '#FFD3DF'], [1, inner]
+    ]);
     ctx.fill();
     ctx.restore();
   }
@@ -318,10 +324,10 @@
     ctx.arc(CX, CY, RB - 1, 0, TAU);
     ctx.clip();
 
-    // 흰 주둥이
+    // 주둥이
     ctx.beginPath();
-    ctx.ellipse(CX, CY + 0.55 * RB, 0.60 * RB, 0.44 * RB, 0, 0, TAU);
-    ctx.fillStyle = rg(ctx, CX, CY + 0.38 * RB, 0.05 * RB, CX, CY + 0.55 * RB, 0.75 * RB, [
+    ctx.ellipse(CX, CY + 0.56 * RB, 0.54 * RB, 0.40 * RB, 0, 0, TAU);
+    ctx.fillStyle = rg(ctx, CX, CY + 0.40 * RB, 0.05 * RB, CX, CY + 0.56 * RB, 0.70 * RB, [
       [0, '#FFFEFB'], [0.65, '#FBF1E3'], [1, '#E8D5C0']
     ]);
     ctx.fill();
@@ -329,11 +335,11 @@
     // 이마의 흰 줄
     ctx.beginPath();
     ctx.moveTo(CX, CY - 0.99 * RB);
-    ctx.bezierCurveTo(CX + 0.05 * RB, CY - 0.68 * RB, CX + 0.15 * RB, CY - 0.40 * RB, CX + 0.16 * RB, CY - 0.05 * RB);
-    ctx.bezierCurveTo(CX + 0.17 * RB, CY + 0.10 * RB, CX + 0.30 * RB, CY + 0.12 * RB, CX + 0.32 * RB, CY + 0.26 * RB);
-    ctx.lineTo(CX - 0.32 * RB, CY + 0.26 * RB);
-    ctx.bezierCurveTo(CX - 0.30 * RB, CY + 0.12 * RB, CX - 0.17 * RB, CY + 0.10 * RB, CX - 0.16 * RB, CY - 0.05 * RB);
-    ctx.bezierCurveTo(CX - 0.15 * RB, CY - 0.40 * RB, CX - 0.05 * RB, CY - 0.68 * RB, CX, CY - 0.99 * RB);
+    ctx.bezierCurveTo(CX + 0.035 * RB, CY - 0.68 * RB, CX + 0.10 * RB, CY - 0.40 * RB, CX + 0.11 * RB, CY - 0.05 * RB);
+    ctx.bezierCurveTo(CX + 0.12 * RB, CY + 0.10 * RB, CX + 0.22 * RB, CY + 0.12 * RB, CX + 0.24 * RB, CY + 0.24 * RB);
+    ctx.lineTo(CX - 0.24 * RB, CY + 0.24 * RB);
+    ctx.bezierCurveTo(CX - 0.22 * RB, CY + 0.12 * RB, CX - 0.12 * RB, CY + 0.10 * RB, CX - 0.11 * RB, CY - 0.05 * RB);
+    ctx.bezierCurveTo(CX - 0.10 * RB, CY - 0.40 * RB, CX - 0.035 * RB, CY - 0.68 * RB, CX, CY - 0.99 * RB);
     ctx.closePath();
     ctx.fillStyle = rg(ctx, CX, CY - 0.9 * RB, 0.05 * RB, CX, CY - 0.2 * RB, 0.8 * RB, [
       [0, '#FFFDF8'], [1, '#F6E9DA']
@@ -341,18 +347,18 @@
     ctx.fill();
 
     // 볼 쪽 살구색 털
-    ellipse(ctx, CX - 0.66 * RB, CY + 0.14 * RB, 0.20 * RB, 0.14 * RB, 0.25, 'rgba(226,169,108,.55)');
-    ellipse(ctx, CX + 0.66 * RB, CY + 0.14 * RB, 0.20 * RB, 0.14 * RB, -0.25, 'rgba(226,169,108,.55)');
+    ellipse(ctx, CX - 0.68 * RB, CY + 0.20 * RB, 0.19 * RB, 0.13 * RB, 0.25, 'rgba(226,169,108,.5)');
+    ellipse(ctx, CX + 0.68 * RB, CY + 0.20 * RB, 0.19 * RB, 0.13 * RB, -0.25, 'rgba(226,169,108,.5)');
     // 눈썹 자리 밝은 털
-    ellipse(ctx, CX - 0.34 * RB, CY - 0.36 * RB, 0.15 * RB, 0.065 * RB, 0.16, 'rgba(243,222,197,.85)');
-    ellipse(ctx, CX + 0.34 * RB, CY - 0.36 * RB, 0.15 * RB, 0.065 * RB, -0.16, 'rgba(243,222,197,.85)');
+    ellipse(ctx, CX - 0.36 * RB, CY - 0.37 * RB, 0.14 * RB, 0.055 * RB, 0.16, 'rgba(243,222,197,.75)');
+    ellipse(ctx, CX + 0.36 * RB, CY - 0.37 * RB, 0.14 * RB, 0.055 * RB, -0.16, 'rgba(243,222,197,.75)');
     ctx.restore();
 
     // 눈
-    eye(ctx, CX - 0.35 * RB, CY + 0.02 * RB, 0.195 * RB, 0.215 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
+    eye(ctx, CX - 0.35 * RB, CY + 0.02 * RB, 0.215 * RB, 0.235 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
       socket: 'rgba(255,250,244,.20)', pupil: '#150C12'
     });
-    eye(ctx, CX + 0.35 * RB, CY + 0.02 * RB, 0.195 * RB, 0.215 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
+    eye(ctx, CX + 0.35 * RB, CY + 0.02 * RB, 0.215 * RB, 0.235 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
       socket: 'rgba(255,250,244,.20)', pupil: '#150C12'
     });
 
@@ -442,11 +448,11 @@
     ctx.stroke();
 
     // 눈
-    eye(ctx, CX - 0.36 * RB, CY + 0.01 * RB, 0.185 * RB, 0.205 * RB, ['#6B4438', '#3A2521', '#241512'], {
-      sclera: '#FFFAF2', pupil: '#1A0F0C'
+    eye(ctx, CX - 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, ['#7A4E3C', '#3A2521', '#221310'], {
+      sclera: '#FFFAF2', pupil: '#170D0A'
     });
-    eye(ctx, CX + 0.36 * RB, CY + 0.01 * RB, 0.185 * RB, 0.205 * RB, ['#6B4438', '#3A2521', '#241512'], {
-      sclera: '#FFFAF2', pupil: '#1A0F0C'
+    eye(ctx, CX + 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, ['#7A4E3C', '#3A2521', '#221310'], {
+      sclera: '#FFFAF2', pupil: '#170D0A'
     });
     // 속눈썹
     ctx.strokeStyle = 'rgba(70,40,32,.55)';
@@ -604,10 +610,10 @@
       ctx.beginPath();
       ctx.arc(CX, CY, RB, 0, TAU);
       ctx.clip();
-      ctx.globalAlpha = 0.5;
+      ctx.globalAlpha = 0.22;
       ctx.fillStyle = 'rgba(255,255,255,.6)';
       ctx.beginPath();
-      ctx.ellipse(CX + 0.30 * RB, CY - 0.30 * RB, 0.10 * RB, 0.62 * RB, 0.7, 0, TAU);
+      ctx.ellipse(CX + 0.34 * RB, CY - 0.34 * RB, 0.07 * RB, 0.55 * RB, 0.7, 0, TAU);
       ctx.fill();
       ctx.restore();
     }

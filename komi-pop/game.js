@@ -829,10 +829,10 @@
     var gap = 1;
     var arrowW = 7;
     var avail = w - arrowW * (STAGES - 1) - gap * 2 * (STAGES - 1);
-    var base = Math.min(24, Math.max(11, avail / (STAGES * 1.12)));
+    var base = Math.min(26, Math.max(10, avail / (STAGES * 1.06)));
     var html = '';
     for (var i = 0; i < STAGES; i++) {
-      var size = Math.round(base * (0.72 + 0.34 * i));
+      var size = Math.round(base * (0.70 + 0.055 * i));
       html += '<span class="evo-item"><canvas class="evo-cv" data-stage="' + i + '" width="' +
         (size * 2) + '" height="' + (size * 2) + '" style="width:' + size + 'px;height:' + size + 'px"></canvas></span>';
       if (i < STAGES - 1) html += '<span class="evo-arrow">›</span>';
