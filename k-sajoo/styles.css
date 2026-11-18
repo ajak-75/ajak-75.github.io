@@ -433,3 +433,9 @@ html[data-theme="classic"] .folk-band, html[data-theme="pastel"] .folk-band { bo
 html[data-theme="boutique"] .ilwol-band { border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 html[data-theme="boutique"] .lang select { border-radius: 0; background: transparent; }
 html[data-theme="boutique"] .el-bar { border-radius: 0; height: 6px; }
+
+/* 대운 가로 스크롤 막대를 얇게 */
+.daeun-list { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+.daeun-list::-webkit-scrollbar { height: 3px; }
+.daeun-list::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 3px; }
+.daeun-list::-webkit-scrollbar-track { background: transparent; }
