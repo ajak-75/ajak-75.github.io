@@ -64,6 +64,7 @@
       if (v) nodes[i].textContent = v;
     }
     if (soundBtn) soundBtn.setAttribute('aria-label', muted ? t('soundOn') : t('soundOff'));
+    if (cv) cv.setAttribute('aria-label', t('board'));
     if (langSel) langSel.value = LANG;
   }
 
@@ -218,7 +219,18 @@
 
   /* ---------- 크기 ---------- */
   function layout() {
+    /* 판이 지나치게 길어지지 않도록 높이를 폭의 1.62배로 제한한다 */
     var rect = wrap.getBoundingClientRect();
+    var maxH = Math.round(rect.width * 1.62);
+    if (rect.height > maxH + 4) {
+      wrap.style.height = maxH + 'px';
+      wrap.style.flex = '0 0 auto';
+      rect = wrap.getBoundingClientRect();
+    } else if (wrap.style.height) {
+      wrap.style.height = '';
+      wrap.style.flex = '';
+      rect = wrap.getBoundingClientRect();
+    }
     var w = Math.max(220, Math.round(rect.width));
     var h = Math.max(260, Math.round(rect.height));
     var oldW = box.w, oldH = box.h;
@@ -730,10 +742,11 @@
     }
 
     var sprite = SPR.make(b.stage, Math.min(1200, Math.ceil(size * DPR)));
+    var headShift = -0.0375 * d;   /* 그림의 얼굴 중심(172/320)을 충돌 원 중심에 맞춘다 */
     ctx.save();
     ctx.translate(b.x, b.y);
     if (b.angle) ctx.rotate(b.angle);
-    ctx.drawImage(sprite, -d / 2, -d / 2, d, d);
+    ctx.drawImage(sprite, -d / 2, -d / 2 + headShift, d, d);
     ctx.restore();
   }
 

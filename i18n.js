@@ -20,14 +20,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: '새로운 아이디어 준비 중',
     soonDesc: '생활 속 작은 불편을 앱으로 푸는 중이에요. 다음 앱이 곧 공개됩니다.',
     studioTitle: '스튜디오',
-    studioBody: 'Ajak Studio는 매일 손이 가는 작은 도구를 만듭니다. 화려함보다 편안함을 먼저 생각하고, 누구나 설치 없이 자기 언어로 바로 쓸 수 있게 만듭니다. 지금은 두 개의 앱이 살아 있고, 다음 앱을 만들고 있습니다.',
-    stat1v: '2', stat1l: '라이브 앱',
+    studioBody: 'Ajak Studio는 매일 손이 가는 작은 도구를 만듭니다. 화려함보다 편안함을 먼저 생각하고, 누구나 설치 없이 자기 언어로 바로 쓸 수 있게 만듭니다. 지금은 세 개의 앱이 살아 있고, 다음 앱을 만들고 있습니다.',
+    stat1v: '3', stat1l: '라이브 앱',
     stat2v: '15+', stat2l: '내장 언어',
     stat3v: '0', stat3l: '설치·가입 절차',
     footerNote: '© 2026 Ajak Studio · 모든 앱은 브라우저에서 바로 실행됩니다',
     footerTop: '맨 위로',
     metaTitle: 'Ajak Studio — 아이디어가 앱이 되는 스튜디오',
-    metaDesc: '생활 속 작은 불편을 앱으로 풀어내는 스튜디오. Ajak과 KOMI-Diary를 설치 없이 바로 만나보세요.'
+    metaDesc: '생활 속 작은 불편을 앱으로 풀어내는 스튜디오. Ajak과 KOMI-Diary, KOMI & MOMO POP을 설치 없이 바로 만나보세요.'
   },
   en: {
     eyebrow: 'APP SHOWCASE',
@@ -45,14 +45,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Something new in the works',
     soonDesc: 'We’re turning another small everyday annoyance into an app. The next one is coming soon.',
     studioTitle: 'Studio',
-    studioBody: 'Ajak Studio builds the small tools you reach for every day. Comfort before flash: everything runs in the browser, in your own language, with nothing to install. Two apps are live today, and the next one is being built.',
-    stat1v: '2', stat1l: 'apps live',
+    studioBody: 'Ajak Studio builds the small tools you reach for every day. Comfort before flash: everything runs in the browser, in your own language, with nothing to install. Three apps are live today, and the next one is being built.',
+    stat1v: '3', stat1l: 'apps live',
     stat2v: '15+', stat2l: 'built-in languages',
     stat3v: '0', stat3l: 'installs or sign-ups',
     footerNote: '© 2026 Ajak Studio · Every app runs right in your browser',
     footerTop: 'Back to top',
     metaTitle: 'Ajak Studio — where ideas become apps',
-    metaDesc: 'A studio that turns small everyday frictions into apps. Try Ajak and KOMI-Diary right away — no install.'
+    metaDesc: 'A studio that turns small everyday frictions into apps. Try Ajak, KOMI-Diary and KOMI & MOMO POP right away — no install.'
   },
   ja: {
     eyebrow: 'アプリショーケース',
@@ -70,14 +70,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: '新しいアイデアを準備中',
     soonDesc: '暮らしの小さな不便をまたひとつアプリにしています。次のアプリはまもなく公開です。',
     studioTitle: 'スタジオ',
-    studioBody: 'Ajak Studio は、毎日手に取る小さな道具をつくります。派手さより心地よさを大切に、誰でもインストールなしで自分の言葉のまま使えるように。今は2つのアプリが動いていて、次のアプリをつくっています。',
-    stat1v: '2', stat1l: '公開中のアプリ',
+    studioBody: 'Ajak Studio は、毎日手に取る小さな道具をつくります。派手さより心地よさを大切に、誰でもインストールなしで自分の言葉のまま使えるように。今は3つのアプリが動いていて、次のアプリをつくっています。',
+    stat1v: '3', stat1l: '公開中のアプリ',
     stat2v: '15+', stat2l: '内蔵言語',
     stat3v: '0', stat3l: 'インストール・登録',
     footerNote: '© 2026 Ajak Studio · すべてのアプリはブラウザですぐ動きます',
     footerTop: 'ページ上部へ',
     metaTitle: 'Ajak Studio — アイデアがアプリになるスタジオ',
-    metaDesc: '暮らしの小さな不便をアプリにするスタジオ。Ajak と KOMI-Diary をインストールなしで今すぐ。'
+    metaDesc: '暮らしの小さな不便をアプリにするスタジオ。Ajak と KOMI-Diary、KOMI & MOMO POP をインストールなしで今すぐ。'
   },
   zh: {
     eyebrow: '应用展示',
@@ -95,14 +95,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: '新想法正在酝酿',
     soonDesc: '又一个生活中的小麻烦正在变成应用。下一个应用即将发布。',
     studioTitle: '工作室',
-    studioBody: 'Ajak Studio 制作每天都会用到的小工具。我们把舒服放在花哨之前：无需安装，用自己的语言即可使用。现在有两个应用在线，下一个正在制作中。',
-    stat1v: '2', stat1l: '在线应用',
+    studioBody: 'Ajak Studio 制作每天都会用到的小工具。我们把舒服放在花哨之前：无需安装，用自己的语言即可使用。现在有三个应用在线，下一个正在制作中。',
+    stat1v: '3', stat1l: '在线应用',
     stat2v: '15+', stat2l: '内置语言',
     stat3v: '0', stat3l: '安装与注册',
     footerNote: '© 2026 Ajak Studio · 所有应用都在浏览器中直接运行',
     footerTop: '回到顶部',
     metaTitle: 'Ajak Studio — 把想法变成应用的工作室',
-    metaDesc: '把生活中的小麻烦做成应用的工作室。无需安装，立即体验 Ajak 与 KOMI-Diary。'
+    metaDesc: '把生活中的小麻烦做成应用的工作室。无需安装，立即体验 Ajak、KOMI-Diary 与 KOMI & MOMO POP。'
   },
   'zh-tw': {
     eyebrow: '應用展示',
@@ -120,14 +120,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: '新想法正在醞釀',
     soonDesc: '又一個生活中的小麻煩正在變成應用。下一個應用即將推出。',
     studioTitle: '工作室',
-    studioBody: 'Ajak Studio 製作每天都會用到的小工具。我們把舒適放在花俏之前：無需安裝，用自己的語言就能使用。現在有兩個應用上線，下一個正在製作中。',
-    stat1v: '2', stat1l: '上線應用',
+    studioBody: 'Ajak Studio 製作每天都會用到的小工具。我們把舒適放在花俏之前：無需安裝，用自己的語言就能使用。現在有三個應用上線，下一個正在製作中。',
+    stat1v: '3', stat1l: '上線應用',
     stat2v: '15+', stat2l: '內建語言',
     stat3v: '0', stat3l: '安裝與註冊',
     footerNote: '© 2026 Ajak Studio · 所有應用都在瀏覽器中直接執行',
     footerTop: '回到頂部',
     metaTitle: 'Ajak Studio — 把想法變成應用的工作室',
-    metaDesc: '把生活中的小麻煩做成應用的工作室。無需安裝，立即體驗 Ajak 與 KOMI-Diary。'
+    metaDesc: '把生活中的小麻煩做成應用的工作室。無需安裝，立即體驗 Ajak、KOMI-Diary 與 KOMI & MOMO POP。'
   },
   es: {
     eyebrow: 'VITRINA DE APPS',
@@ -145,14 +145,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Algo nuevo en camino',
     soonDesc: 'Estamos convirtiendo otra pequeña molestia cotidiana en una app. La siguiente llega pronto.',
     studioTitle: 'Estudio',
-    studioBody: 'Ajak Studio crea las pequeñas herramientas que usas cada día. Comodidad antes que brillo: todo funciona en el navegador, en tu idioma y sin instalar nada. Hoy hay dos apps activas y la siguiente ya está en marcha.',
-    stat1v: '2', stat1l: 'apps activas',
+    studioBody: 'Ajak Studio crea las pequeñas herramientas que usas cada día. Comodidad antes que brillo: todo funciona en el navegador, en tu idioma y sin instalar nada. Hoy hay tres apps activas y la siguiente ya está en marcha.',
+    stat1v: '3', stat1l: 'apps activas',
     stat2v: '15+', stat2l: 'idiomas incluidos',
     stat3v: '0', stat3l: 'instalaciones o registros',
     footerNote: '© 2026 Ajak Studio · Todas las apps funcionan en tu navegador',
     footerTop: 'Volver arriba',
     metaTitle: 'Ajak Studio — donde las ideas se vuelven apps',
-    metaDesc: 'Un estudio que convierte pequeños roces cotidianos en apps. Prueba Ajak y KOMI-Diary sin instalar nada.'
+    metaDesc: 'Un estudio que convierte pequeños roces cotidianos en apps. Prueba Ajak, KOMI-Diary y KOMI & MOMO POP sin instalar nada.'
   },
   fr: {
     eyebrow: 'VITRINE D’APPLIS',
@@ -170,14 +170,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Quelque chose se prépare',
     soonDesc: 'Nous transformons un nouveau petit tracas du quotidien en appli. La prochaine arrive bientôt.',
     studioTitle: 'Studio',
-    studioBody: 'Ajak Studio crée les petits outils du quotidien. Le confort avant le clinquant : tout fonctionne dans le navigateur, dans votre langue, sans rien installer. Deux applis sont en ligne, la prochaine est en cours.',
-    stat1v: '2', stat1l: 'applis en ligne',
+    studioBody: 'Ajak Studio crée les petits outils du quotidien. Le confort avant le clinquant : tout fonctionne dans le navigateur, dans votre langue, sans rien installer. Trois applis sont en ligne, la prochaine est en cours.',
+    stat1v: '3', stat1l: 'applis en ligne',
     stat2v: '15+', stat2l: 'langues intégrées',
     stat3v: '0', stat3l: 'installations',
     footerNote: '© 2026 Ajak Studio · Toutes les applis fonctionnent dans votre navigateur',
     footerTop: 'Haut de page',
     metaTitle: 'Ajak Studio — où les idées deviennent des applis',
-    metaDesc: 'Un studio qui transforme les petits tracas du quotidien en applis. Essayez Ajak et KOMI-Diary sans rien installer.'
+    metaDesc: 'Un studio qui transforme les petits tracas du quotidien en applis. Essayez Ajak, KOMI-Diary et KOMI & MOMO POP sans rien installer.'
   },
   de: {
     eyebrow: 'APP-SCHAUKASTEN',
@@ -195,14 +195,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Etwas Neues entsteht',
     soonDesc: 'Wir machen wieder ein kleines Alltagsärgernis zu einer App. Die nächste erscheint bald.',
     studioTitle: 'Studio',
-    studioBody: 'Ajak Studio baut die kleinen Werkzeuge für jeden Tag. Bequem vor schick: alles läuft im Browser, in deiner Sprache, ohne Installation. Zwei Apps sind live, die nächste entsteht gerade.',
-    stat1v: '2', stat1l: 'Apps live',
+    studioBody: 'Ajak Studio baut die kleinen Werkzeuge für jeden Tag. Bequem vor schick: alles läuft im Browser, in deiner Sprache, ohne Installation. Drei Apps sind live, die nächste entsteht gerade.',
+    stat1v: '3', stat1l: 'Apps live',
     stat2v: '15+', stat2l: 'Sprachen',
     stat3v: '0', stat3l: 'Installationen',
     footerNote: '© 2026 Ajak Studio · Alle Apps laufen direkt im Browser',
     footerTop: 'Nach oben',
     metaTitle: 'Ajak Studio — wo Ideen zu Apps werden',
-    metaDesc: 'Ein Studio, das kleine Alltagsärgernisse zu Apps macht. Probiere Ajak und KOMI-Diary ohne Installation.'
+    metaDesc: 'Ein Studio, das kleine Alltagsärgernisse zu Apps macht. Probiere Ajak, KOMI-Diary und KOMI & MOMO POP ohne Installation.'
   },
   pt: {
     eyebrow: 'VITRINE DE APPS',
@@ -220,14 +220,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Algo novo a caminho',
     soonDesc: 'Estamos transformando outro pequeno incômodo do dia a dia em app. O próximo chega em breve.',
     studioTitle: 'Estúdio',
-    studioBody: 'O Ajak Studio cria as pequenas ferramentas do dia a dia. Conforto antes de brilho: tudo roda no navegador, no seu idioma, sem instalar nada. Dois apps estão no ar e o próximo está em produção.',
-    stat1v: '2', stat1l: 'apps no ar',
+    studioBody: 'O Ajak Studio cria as pequenas ferramentas do dia a dia. Conforto antes de brilho: tudo roda no navegador, no seu idioma, sem instalar nada. Três apps estão no ar e o próximo está em produção.',
+    stat1v: '3', stat1l: 'apps no ar',
     stat2v: '15+', stat2l: 'idiomas',
     stat3v: '0', stat3l: 'instalações',
     footerNote: '© 2026 Ajak Studio · Todos os apps rodam direto no navegador',
     footerTop: 'Voltar ao topo',
     metaTitle: 'Ajak Studio — onde ideias viram apps',
-    metaDesc: 'Um estúdio que transforma pequenos incômodos do dia a dia em apps. Experimente Ajak e KOMI-Diary sem instalar.'
+    metaDesc: 'Um estúdio que transforma pequenos incômodos do dia a dia em apps. Experimente Ajak, KOMI-Diary e KOMI & MOMO POP sem instalar.'
   },
   it: {
     eyebrow: 'VETRINA DI APP',
@@ -245,14 +245,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Qualcosa bolle in pentola',
     soonDesc: 'Stiamo trasformando un altro piccolo fastidio quotidiano in un’app. La prossima arriva presto.',
     studioTitle: 'Studio',
-    studioBody: 'Ajak Studio crea i piccoli strumenti di ogni giorno. La comodità prima dell’effetto: tutto funziona nel browser, nella tua lingua, senza installare nulla. Due app sono attive, la prossima è in lavorazione.',
-    stat1v: '2', stat1l: 'app attive',
+    studioBody: 'Ajak Studio crea i piccoli strumenti di ogni giorno. La comodità prima dell’effetto: tutto funziona nel browser, nella tua lingua, senza installare nulla. Tre app sono attive, la prossima è in lavorazione.',
+    stat1v: '3', stat1l: 'app attive',
     stat2v: '15+', stat2l: 'lingue',
     stat3v: '0', stat3l: 'installazioni',
     footerNote: '© 2026 Ajak Studio · Tutte le app funzionano nel browser',
     footerTop: 'Torna su',
     metaTitle: 'Ajak Studio — dove le idee diventano app',
-    metaDesc: 'Uno studio che trasforma i piccoli fastidi quotidiani in app. Prova Ajak e KOMI-Diary senza installare.'
+    metaDesc: 'Uno studio che trasforma i piccoli fastidi quotidiani in app. Prova Ajak, KOMI-Diary e KOMI & MOMO POP senza installare.'
   },
   ru: {
     eyebrow: 'ВИТРИНА ПРИЛОЖЕНИЙ',
@@ -270,14 +270,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Готовим кое-что новое',
     soonDesc: 'Ещё одно маленькое неудобство превращается в приложение. Следующее выйдет скоро.',
     studioTitle: 'Студия',
-    studioBody: 'Ajak Studio делает маленькие инструменты на каждый день. Удобство важнее эффектности: всё работает в браузере, на вашем языке и без установки. Сейчас работают два приложения, а следующее в разработке.',
-    stat1v: '2', stat1l: 'приложения онлайн',
+    studioBody: 'Ajak Studio делает маленькие инструменты на каждый день. Удобство важнее эффектности: всё работает в браузере, на вашем языке и без установки. Сейчас работают три приложения, а следующее в разработке.',
+    stat1v: '3', stat1l: 'приложения онлайн',
     stat2v: '15+', stat2l: 'языков',
     stat3v: '0', stat3l: 'установок',
     footerNote: '© 2026 Ajak Studio · Все приложения работают прямо в браузере',
     footerTop: 'Наверх',
     metaTitle: 'Ajak Studio — где идеи становятся приложениями',
-    metaDesc: 'Студия, которая превращает мелкие бытовые неудобства в приложения. Попробуйте Ajak и KOMI-Diary без установки.'
+    metaDesc: 'Студия, которая превращает мелкие бытовые неудобства в приложения. Попробуйте Ajak, KOMI-Diary и KOMI & MOMO POP без установки.'
   },
   id: {
     eyebrow: 'GALERI APLIKASI',
@@ -295,14 +295,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Ada yang baru disiapkan',
     soonDesc: 'Satu lagi hal kecil sehari-hari sedang kami jadikan aplikasi. Aplikasi berikutnya segera hadir.',
     studioTitle: 'Studio',
-    studioBody: 'Ajak Studio membuat alat kecil yang kamu pakai setiap hari. Nyaman lebih dulu daripada gaya: semuanya berjalan di browser, dalam bahasamu, tanpa instal. Dua aplikasi sudah aktif, yang berikutnya sedang dibuat.',
-    stat1v: '2', stat1l: 'aplikasi aktif',
+    studioBody: 'Ajak Studio membuat alat kecil yang kamu pakai setiap hari. Nyaman lebih dulu daripada gaya: semuanya berjalan di browser, dalam bahasamu, tanpa instal. Tiga aplikasi sudah aktif, yang berikutnya sedang dibuat.',
+    stat1v: '3', stat1l: 'aplikasi aktif',
     stat2v: '15+', stat2l: 'bahasa',
     stat3v: '0', stat3l: 'instalasi',
     footerNote: '© 2026 Ajak Studio · Semua aplikasi berjalan di browser',
     footerTop: 'Kembali ke atas',
     metaTitle: 'Ajak Studio — tempat ide menjadi aplikasi',
-    metaDesc: 'Studio yang mengubah hal kecil sehari-hari menjadi aplikasi. Coba Ajak dan KOMI-Diary tanpa instal.'
+    metaDesc: 'Studio yang mengubah hal kecil sehari-hari menjadi aplikasi. Coba Ajak, KOMI-Diary dan KOMI & MOMO POP tanpa instal.'
   },
   vi: {
     eyebrow: 'GIAN TRƯNG BÀY ỨNG DỤNG',
@@ -320,14 +320,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'Đang chuẩn bị điều mới',
     soonDesc: 'Một bất tiện nhỏ nữa đang được biến thành ứng dụng. Ứng dụng tiếp theo sẽ sớm ra mắt.',
     studioTitle: 'Studio',
-    studioBody: 'Ajak Studio làm những công cụ nhỏ bạn dùng mỗi ngày. Dễ chịu trước hào nhoáng: mọi thứ chạy trên trình duyệt, bằng ngôn ngữ của bạn, không cần cài. Hiện có hai ứng dụng đang chạy và ứng dụng tiếp theo đang được làm.',
-    stat1v: '2', stat1l: 'ứng dụng đang chạy',
+    studioBody: 'Ajak Studio làm những công cụ nhỏ bạn dùng mỗi ngày. Dễ chịu trước hào nhoáng: mọi thứ chạy trên trình duyệt, bằng ngôn ngữ của bạn, không cần cài. Hiện có ba ứng dụng đang chạy và ứng dụng tiếp theo đang được làm.',
+    stat1v: '3', stat1l: 'ứng dụng đang chạy',
     stat2v: '15+', stat2l: 'ngôn ngữ',
     stat3v: '0', stat3l: 'lần cài đặt',
     footerNote: '© 2026 Ajak Studio · Mọi ứng dụng chạy ngay trên trình duyệt',
     footerTop: 'Lên đầu trang',
     metaTitle: 'Ajak Studio — nơi ý tưởng thành ứng dụng',
-    metaDesc: 'Studio biến những bất tiện nhỏ hằng ngày thành ứng dụng. Dùng thử Ajak và KOMI-Diary ngay, không cần cài.'
+    metaDesc: 'Studio biến những bất tiện nhỏ hằng ngày thành ứng dụng. Dùng thử Ajak, KOMI-Diary và KOMI & MOMO POP ngay, không cần cài.'
   },
   th: {
     eyebrow: 'โชว์เคสแอป',
@@ -345,14 +345,14 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'กำลังเตรียมสิ่งใหม่',
     soonDesc: 'เรากำลังเปลี่ยนความยุ่งยากเล็ก ๆ อีกอย่างให้เป็นแอป แอปถัดไปจะเปิดตัวเร็ว ๆ นี้',
     studioTitle: 'สตูดิโอ',
-    studioBody: 'Ajak Studio สร้างเครื่องมือเล็ก ๆ ที่คุณหยิบใช้ทุกวัน เราให้ความสบายมาก่อนความหวือหวา ทุกอย่างทำงานในเบราว์เซอร์ ในภาษาของคุณ และไม่ต้องติดตั้ง ตอนนี้มีสองแอปที่ใช้งานได้จริง และกำลังทำแอปถัดไป',
-    stat1v: '2', stat1l: 'แอปที่ใช้งานอยู่',
+    studioBody: 'Ajak Studio สร้างเครื่องมือเล็ก ๆ ที่คุณหยิบใช้ทุกวัน เราให้ความสบายมาก่อนความหวือหวา ทุกอย่างทำงานในเบราว์เซอร์ ในภาษาของคุณ และไม่ต้องติดตั้ง ตอนนี้มีสามแอปที่ใช้งานได้จริง และกำลังทำแอปถัดไป',
+    stat1v: '3', stat1l: 'แอปที่ใช้งานอยู่',
     stat2v: '15+', stat2l: 'ภาษา',
     stat3v: '0', stat3l: 'การติดตั้ง',
     footerNote: '© 2026 Ajak Studio · ทุกแอปใช้งานได้ในเบราว์เซอร์',
     footerTop: 'กลับขึ้นด้านบน',
     metaTitle: 'Ajak Studio — ที่ที่ไอเดียกลายเป็นแอป',
-    metaDesc: 'สตูดิโอที่เปลี่ยนความยุ่งยากเล็ก ๆ ในชีวิตประจำวันให้เป็นแอป ลองใช้ Ajak และ KOMI-Diary ได้เลยโดยไม่ต้องติดตั้ง'
+    metaDesc: 'สตูดิโอที่เปลี่ยนความยุ่งยากเล็ก ๆ ในชีวิตประจำวันให้เป็นแอป ลองใช้ Ajak, KOMI-Diary และ KOMI & MOMO POP ได้เลยโดยไม่ต้องติดตั้ง'
   },
   ar: {
     eyebrow: 'معرض التطبيقات',
@@ -370,13 +370,13 @@ window.AJAK_STUDIO_I18N = {
     soonTitle: 'شيء جديد قيد الإعداد',
     soonDesc: 'نحوّل مشكلة صغيرة أخرى إلى تطبيق. التطبيق التالي قادم قريبًا.',
     studioTitle: 'الاستوديو',
-    studioBody: 'يبني Ajak Studio الأدوات الصغيرة التي تستخدمها كل يوم. الراحة قبل البهرجة: كل شيء يعمل في المتصفح، بلغتك، وبلا تثبيت. تطبيقان يعملان الآن، والتالي قيد البناء.',
-    stat1v: '2', stat1l: 'تطبيقات تعمل',
+    studioBody: 'يبني Ajak Studio الأدوات الصغيرة التي تستخدمها كل يوم. الراحة قبل البهرجة: كل شيء يعمل في المتصفح، بلغتك، وبلا تثبيت. ثلاثة تطبيقات تعمل الآن، والتالي قيد البناء.',
+    stat1v: '3', stat1l: 'تطبيقات تعمل',
     stat2v: '15+', stat2l: 'لغة مدعومة',
     stat3v: '0', stat3l: 'عمليات تثبيت',
     footerNote: '© 2026 Ajak Studio · كل التطبيقات تعمل مباشرة في المتصفح',
     footerTop: 'إلى الأعلى',
     metaTitle: 'Ajak Studio — حيث تتحول الأفكار إلى تطبيقات',
-    metaDesc: 'استوديو يحوّل المشكلات الصغيرة اليومية إلى تطبيقات. جرّب Ajak وKOMI-Diary بلا تثبيت.'
+    metaDesc: 'استوديو يحوّل المشكلات الصغيرة اليومية إلى تطبيقات. جرّب Ajak وKOMI-Diary وKOMI & MOMO POP بلا تثبيت.'
   }
 };

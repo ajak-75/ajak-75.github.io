@@ -61,5 +61,32 @@ window.AJAK_STUDIO_APPS = [
       th: 'ไดอารี่แฟนดอม K-culture ที่เหล่า Kemi ทั่วโลกมาพบกัน: Momo Shop การเช็กดวงกับศิลปิน K และแปลอัตโนมัติกว่า 16 ภาษา',
       ar: 'مفكرة فاندوم K-culture حيث يلتقي الكيمي من كل العالم: متجر مومو، وتوافق نجوم K، وترجمة تلقائية إلى 16 لغة وأكثر.'
     }
+  },
+  {
+    id: 'komi-pop',
+    name: 'KOMI & MOMO POP',
+    status: 'live',
+    category: 'Game · Cozy',
+    url: 'https://ajak-75.github.io/komi-pop/',
+    icon: './apps/komi-pop.png?v=1',
+    icon2x: './apps/komi-pop-512.png?v=1',
+    iconBg: 'transparent',
+    desc: {
+      ko: '코미와 모모를 떨어뜨려 같은 친구끼리 합치는 힐링 퍼즐. 대왕 골드 코미까지 키워 보세요. 최고 점수는 기기에 저장돼요.',
+      en: 'A cozy merge puzzle: drop Komi and Momo, pair the same friends and grow them all the way to the Golden King Komi. Your best score stays on your device.',
+      ja: 'コミとモモを落として、同じ仲間どうしを合体。大王ゴールドコミまで育てる、やさしい合体パズル。ベストスコアは端末に保存されます。',
+      zh: '把科米和莫莫放下来，两个相同的朋友碰在一起就会进化。一路养成大王黄金科米，最高分保存在你的设备上。',
+      'zh-tw': '把科米和莫莫放下來，兩個相同的朋友碰在一起就會進化。一路養成大王黃金科米，最高分保存在你的裝置上。',
+      es: 'Un puzle de fusiones para todos: deja caer a Komi y Momo, une a los amigos iguales y llévalos hasta el Gran Komi Dorado. Tu récord se queda en tu dispositivo.',
+      fr: 'Un puzzle de fusion tout doux : lâchez Komi et Momo, réunissez les amis identiques et faites-les grandir jusqu’au Grand Komi Doré. Votre record reste sur votre appareil.',
+      de: 'Ein gemütliches Fusion-Puzzle: Lass Komi und Momo fallen, verbinde gleiche Freunde und ziehe sie bis zum Goldenen König-Komi auf. Dein Bestwert bleibt auf deinem Gerät.',
+      pt: 'Um quebra-cabeça de fusões fofinho: solte Komi e Momo, junte os amigos iguais e cresça até o Grande Komi Dourado. Seu recorde fica no seu aparelho.',
+      it: 'Un puzzle di fusioni tenero: lascia cadere Komi e Momo, unisci gli amici uguali e cresci fino al Grande Komi Dorato. Il record resta sul tuo dispositivo.',
+      ru: 'Уютная головоломка: бросайте Коми и Момо, соединяйте одинаковых друзей и растите до Золотого Короля Коми. Рекорд хранится на вашем устройстве.',
+      id: 'Puzzle gabung yang gemas: jatuhkan Komi dan Momo, satukan teman yang sama, dan tumbuhkan sampai Komi Emas Raksasa. Rekor tersimpan di perangkatmu.',
+      vi: 'Trò chơi ghép dễ thương: thả Komi và Momo, ghép hai người bạn giống nhau và lớn dần thành Komi Vàng Đại Vương. Kỷ lục lưu trên thiết bị của bạn.',
+      th: 'เกมรวมร่างสุดน่ารัก ปล่อยโคมิกับโมโม่ให้เพื่อนที่เหมือนกันชนกัน แล้วโตขึ้นเรื่อย ๆ จนเป็นโคมิทองคำองค์ใหญ่ สถิติสูงสุดเก็บไว้ในเครื่องของคุณ',
+      ar: 'لعبة دمج لطيفة: أسقط كۆمي ومومو، واجمع الصديقين المتشابهين لينموا حتى ملك كومي الذهبي. أفضل نتيجة تُحفظ على جهازك.'
+    }
   }
 ];

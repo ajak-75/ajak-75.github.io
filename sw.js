@@ -1,7 +1,7 @@
 /* Ajak Studio — sw.js
    셸(HTML·CSS·JS·아이콘)을 캐시해 두고, 문서는 네트워크 우선(실패 시 캐시)으로 연다.
    번역 API 같은 외부 요청은 건드리지 않는다. */
-const VER = 'ajak-studio-v11';
+const VER = 'ajak-studio-v12';
 const SHELL = [
   './',
   './index.html',
@@ -15,7 +15,9 @@ const SHELL = [
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
   './apps/ajak.png?v=3',
-  './apps/komi-diary.png'
+  './apps/komi-diary.png',
+  './apps/komi-pop.png?v=1',
+  './apps/komi-pop-512.png?v=1'
 ];
 
 self.addEventListener('install', (e) => {

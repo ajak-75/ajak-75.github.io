@@ -5,6 +5,7 @@ window.KOMI_POP_I18N = {
   ko: {
     metaTitle: 'KOMI & MOMO POP — 코미·모모 합치기 퍼즐',
     metaDesc: '코미와 모모를 합쳐 대왕 골드 코미를 만드는 캐주얼 합치기 퍼즐.',
+    board: '게임판',
     score: '점수', best: '최고', next: '다음', evolution: '진화',
     startDesc: '같은 친구끼리 만나면 한 단계 위로 변신해요. 가장 큰 대왕 골드 코미를 만들어 보세요!',
     hint: '좌우로 움직여 떨어뜨리세요',
@@ -21,6 +22,7 @@ window.KOMI_POP_I18N = {
   en: {
     metaTitle: 'KOMI & MOMO POP — a cozy merge puzzle',
     metaDesc: 'Merge Komi and Momo to crown the Golden King Komi.',
+    board: 'Game board',
     score: 'Score', best: 'Best', next: 'Next', evolution: 'Grow',
     startDesc: 'Two of the same friend meet and grow one step bigger. Can you reach the Golden King Komi?',
     hint: 'Slide left or right, then let go',
@@ -37,6 +39,7 @@ window.KOMI_POP_I18N = {
   ja: {
     metaTitle: 'KOMI & MOMO POP — コミとモモの合体パズル',
     metaDesc: 'コミとモモを合体させて、大王ゴールドコミを目指そう。',
+    board: 'ゲーム盤',
     score: 'スコア', best: 'ベスト', next: '次', evolution: '進化',
     startDesc: '同じ仲間どうしがくっつくと、ひとつ上の仲間に進化します。いちばん大きい大王ゴールドコミを作れるかな？',
     hint: '左右に動かして落とそう',
@@ -53,6 +56,7 @@ window.KOMI_POP_I18N = {
   zh: {
     metaTitle: 'KOMI & MOMO POP — 科米与莫莫合体拼图',
     metaDesc: '把科米和莫莫合体，养成大王黄金科米。',
+    board: '游戏板',
     score: '分数', best: '最高', next: '下一个', evolution: '进化',
     startDesc: '两个相同的朋友碰在一起，就会进化成更高一级。快来养成最大的大王黄金科米吧！',
     hint: '左右移动后松手',
@@ -69,6 +73,7 @@ window.KOMI_POP_I18N = {
   'zh-tw': {
     metaTitle: 'KOMI & MOMO POP — 科米與莫莫合體拼圖',
     metaDesc: '把科米和莫莫合體，養成大王黃金科米。',
+    board: '遊戲板',
     score: '分數', best: '最高', next: '下一個', evolution: '進化',
     startDesc: '兩個相同的朋友碰在一起，就會進化成更高一級。快來養成最大的大王黃金科米吧！',
     hint: '左右移動後放開',
@@ -85,6 +90,7 @@ window.KOMI_POP_I18N = {
   es: {
     metaTitle: 'KOMI & MOMO POP — un puzle de fusiones',
     metaDesc: 'Une a Komi y Momo para crear al Gran Komi Dorado.',
+    board: 'Tablero',
     score: 'Puntos', best: 'Récord', next: 'Siguiente', evolution: 'Evolución',
     startDesc: 'Dos amigos iguales se unen y suben un nivel. ¿Puedes llegar al Gran Komi Dorado?',
     hint: 'Muévete a los lados y suelta',
@@ -101,6 +107,7 @@ window.KOMI_POP_I18N = {
   fr: {
     metaTitle: 'KOMI & MOMO POP — un puzzle de fusion',
     metaDesc: 'Fusionnez Komi et Momo pour créer le Grand Komi Doré.',
+    board: 'Plateau de jeu',
     score: 'Score', best: 'Record', next: 'Suivant', evolution: 'Évolution',
     startDesc: 'Deux amis identiques se rejoignent et passent un niveau au-dessus. Saurez-vous créer le Grand Komi Doré ?',
     hint: 'Déplacez-vous puis relâchez',
@@ -117,6 +124,7 @@ window.KOMI_POP_I18N = {
   de: {
     metaTitle: 'KOMI & MOMO POP — ein gemütliches Fusion-Puzzle',
     metaDesc: 'Fusioniere Komi und Momo zum Goldenen König-Komi.',
+    board: 'Spielfeld',
     score: 'Punkte', best: 'Bestwert', next: 'Nächste', evolution: 'Entwicklung',
     startDesc: 'Zwei gleiche Freunde treffen sich und wachsen eine Stufe. Schaffst du den Goldenen König-Komi?',
     hint: 'Seitlich bewegen und loslassen',
@@ -133,6 +141,7 @@ window.KOMI_POP_I18N = {
   pt: {
     metaTitle: 'KOMI & MOMO POP — um quebra-cabeça de fusões',
     metaDesc: 'Junte Komi e Momo para criar o Grande Komi Dourado.',
+    board: 'Tabuleiro',
     score: 'Pontos', best: 'Recorde', next: 'Próximo', evolution: 'Evolução',
     startDesc: 'Dois amigos iguais se encontram e viram um nível acima. Você consegue chegar ao Grande Komi Dourado?',
     hint: 'Mova para os lados e solte',
@@ -149,6 +158,7 @@ window.KOMI_POP_I18N = {
   ru: {
     metaTitle: 'KOMI & MOMO POP — головоломка слияний',
     metaDesc: 'Соединяйте Коми и Момо и создайте Золотого Короля Коми.',
+    board: 'Игровое поле',
     score: 'Очки', best: 'Рекорд', next: 'Далее', evolution: 'Эволюция',
     startDesc: 'Два одинаковых друга встречаются и становятся на ступень выше. Сможете создать Золотого Короля Коми?',
     hint: 'Двигайте в стороны и отпустите',
@@ -165,6 +175,7 @@ window.KOMI_POP_I18N = {
   id: {
     metaTitle: 'KOMI & MOMO POP — puzzle gabung yang gemas',
     metaDesc: 'Gabungkan Komi dan Momo jadi Komi Emas Raksasa.',
+    board: 'Papan permainan',
     score: 'Skor', best: 'Rekor', next: 'Berikut', evolution: 'Evolusi',
     startDesc: 'Dua teman yang sama akan bergabung dan naik satu tingkat. Bisakah kamu membuat Komi Emas Raksasa?',
     hint: 'Geser ke kiri-kanan lalu lepaskan',
@@ -181,6 +192,7 @@ window.KOMI_POP_I18N = {
   vi: {
     metaTitle: 'KOMI & MOMO POP — trò chơi ghép đáng yêu',
     metaDesc: 'Ghép Komi và Momo để tạo Komi Vàng Đại Vương.',
+    board: 'Bàn chơi',
     score: 'Điểm', best: 'Kỷ lục', next: 'Tiếp', evolution: 'Tiến hóa',
     startDesc: 'Hai người bạn giống nhau chạm vào sẽ lớn thêm một bậc. Bạn có tạo được Komi Vàng Đại Vương không?',
     hint: 'Di chuyển sang hai bên rồi thả',
