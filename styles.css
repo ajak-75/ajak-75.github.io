@@ -34,6 +34,10 @@ body {
   overflow-x: hidden;
 }
 
+/* 한국어는 단어 중간에서 끊기지 않게 (제목·본문 모두 어절 단위 줄바꿈) */
+body { word-break: keep-all; }
+h1, h2, h3, .hero-lead, .card-desc, .studio-body, .section-lead, .soon-text { overflow-wrap: break-word; }
+
 img { display: block; max-width: 100%; }
 a { color: inherit; }
 h1, h2, h3, p, dl, dd, dt { margin: 0; }

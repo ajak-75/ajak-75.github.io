@@ -201,7 +201,7 @@
       var live = app.status !== 'soon';
       var tag = live ? 'a' : 'div';
       var attrs = live
-        ? ' href="' + esc(app.url) + '" target="_blank" rel="noopener" aria-label="' + esc(t('openAria', { app: app.name })) + '"'
+        ? ' href="' + esc(app.url) + '" target="_blank" rel="noopener"'
         : '';
       var badge = live
         ? '<span class="badge"><span class="dot"></span>' + esc(t('live')) + '</span>'
