@@ -330,6 +330,8 @@
   /* =========================================================
      5. 물리
      ========================================================= */
+  var PAD = 5;   /* 벽 안쪽 여백 — 공이 판 테두리에 파묻히지 않게 */
+
   function substep(h) {
     var g = box.w * 6.9;
     var balls = G.balls;
@@ -352,17 +354,17 @@
     // 벽·바닥
     for (i = 0; i < balls.length; i++) {
       b = balls[i];
-      if (b.x - b.r < 0) {
-        b.x = b.r;
+      if (b.x - b.r < PAD) {
+        b.x = b.r + PAD;
         if (b.vx < 0) b.vx = -b.vx * 0.20;
         b.spin *= 0.94;
-      } else if (b.x + b.r > box.w) {
-        b.x = box.w - b.r;
+      } else if (b.x + b.r > box.w - PAD) {
+        b.x = box.w - b.r - PAD;
         if (b.vx > 0) b.vx = -b.vx * 0.20;
         b.spin *= 0.94;
       }
-      if (b.y + b.r > box.h) {
-        b.y = box.h - b.r;
+      if (b.y + b.r > box.h - PAD) {
+        b.y = box.h - b.r - PAD;
         if (b.vy > 0) {
           b.vy = Math.abs(b.vy) > 140 ? -b.vy * 0.16 : 0;
         }
@@ -736,7 +738,7 @@
       ctx.globalAlpha = 0.10;
       ctx.fillStyle = '#B23A6B';
       ctx.beginPath();
-      ctx.ellipse(b.x, b.y + b.r * 0.94, b.r * 0.78, b.r * 0.20, 0, 0, Math.PI * 2);
+      ctx.ellipse(b.x, Math.min(b.y + b.r * 0.94, box.h - PAD - 1), b.r * 0.78, b.r * 0.20, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -745,7 +747,7 @@
     var headShift = -0.0375 * d;   /* 그림의 얼굴 중심(172/320)을 충돌 원 중심에 맞춘다 */
     ctx.save();
     ctx.translate(b.x, b.y);
-    if (b.angle) ctx.rotate(b.angle);
+    if (b.angle) ctx.rotate(clamp(b.angle, -0.22, 0.22));
     ctx.drawImage(sprite, -d / 2, -d / 2 + headShift, d, d);
     ctx.restore();
   }
@@ -766,13 +768,13 @@
   function setAim(x) {
     if (!G.held) return;
     var r = radiusOf(G.held.stage);
-    G.held.x = clamp(x, r + 1, box.w - r - 1);
+    G.held.x = clamp(x, r + PAD, box.w - r - PAD);
   }
 
   function drop() {
     if (G.state !== 'playing' || !G.held || G.cooldown > 0) return;
     var r = radiusOf(G.held.stage);
-    var x = clamp(G.held.x, r + 1, box.w - r - 1);
+    var x = clamp(G.held.x, r + PAD, box.w - r - PAD);
     G.balls.push({
       x: x, y: r + 8, vx: 0, vy: 40,
       r: r, stage: G.held.stage,
