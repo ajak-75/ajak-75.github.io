@@ -7,6 +7,19 @@
 (function () {
   'use strict';
 
+/* GitHub Pages는 frame-ancestors 헤더를 보낼 수 없어서, 페이지 스스로 남의 프레임에
+   들어가지 않는다. 다른 출처의 부모면 그 창을 이 페이지로 옮기고, 부모에 닿을 수 없으면
+   아무것도 보여 주지 않는다. 같은 출처(우리 페이지)의 프레임은 그대로 허용한다. */
+(function frameGuard(){
+  if (window.top === window.self) return;
+  try {
+    if (window.top.location.origin === window.location.origin) return;
+    window.top.location.href = window.location.href;
+  } catch (e) {
+    document.documentElement.style.display = 'none';
+  }
+})();
+
   var APPS = window.AJAK_STUDIO_APPS || [];
   var BUILTIN = window.AJAK_STUDIO_I18N || {};
   var CACHE_VER = '1';
