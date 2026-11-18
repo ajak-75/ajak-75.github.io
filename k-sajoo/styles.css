@@ -424,3 +424,6 @@ html[data-theme="boutique"] .hero::after {
   opacity: .82; z-index: 0; pointer-events: none;
 }
 html[data-theme="boutique"] .hero > * { position: relative; z-index: 1; }
+
+.ilwol-sm { margin: -4px 0 10px; opacity: .95; }
+html[data-theme="boutique"] .ilwol-sm { display: block; }
