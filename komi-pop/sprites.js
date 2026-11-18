@@ -237,24 +237,43 @@
     ctx.restore();
   }
 
-  /* ---------- 1단계 · 젤리 발바닥 ---------- */
+  /* ---------- 1단계 · 젤리 발바닥 ----------
+     v3: 연분홍 게임판 위에서 묻히지 않도록 진보라 배지 + 흰 테두리 링 +
+     광택 있는 흰 발바닥으로 대비를 확실히 준다. */
   function stagePaw(ctx) {
-    ball(ctx, '#FFEDF5', '#FFB6D4', '#FF8DBA', 'rgba(213,74,127,.18)');
-    gloss(ctx, 0.6);
-    var pad = rg(ctx, CX - 0.1 * RB, CY + 0.2 * RB, 0.04 * RB, CX, CY + 0.38 * RB, 0.55 * RB, [
-      [0, '#FF9CC4'], [0.55, '#FF6BA4'], [1, '#EF3E83']
+    ball(ctx, '#9B5CEA', '#5B22B8', '#3A0F80', 'rgba(255,255,255,.60)');
+    gloss(ctx, 0.40);
+    var pad = rg(ctx, CX - 0.12 * RB, CY + 0.16 * RB, 0.04 * RB, CX, CY + 0.40 * RB, 0.62 * RB, [
+      [0, '#FFFFFF'], [0.58, '#FBFAFF'], [1, '#DED6F6']
     ]);
+    var LINE = 'rgba(52,16,104,.92)';
+    var toes = [[-0.54, -0.26, -0.5], [-0.24, -0.5, -0.18], [0.24, -0.5, 0.18], [0.54, -0.26, 0.5]];
+    ctx.save();
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 0.055 * RB;
+    ctx.strokeStyle = LINE;
+    // 발바닥 본체
     ctx.beginPath();
     ctx.ellipse(CX, CY + 0.34 * RB, 0.44 * RB, 0.35 * RB, 0, 0, TAU);
     ctx.fillStyle = pad;
     ctx.fill();
-    var toes = [[-0.54, -0.26, -0.5], [-0.24, -0.5, -0.18], [0.24, -0.5, 0.18], [0.54, -0.26, 0.5]];
+    ctx.stroke();
+    // 발가락 네 개
     for (var i = 0; i < toes.length; i++) {
       var t = toes[i];
-      ellipse(ctx, CX + t[0] * RB, CY + t[1] * RB, 0.155 * RB, 0.19 * RB, t[2], pad);
-      ellipse(ctx, CX + t[0] * RB - 0.03 * RB, CY + t[1] * RB - 0.05 * RB, 0.05 * RB, 0.045 * RB, 0, 'rgba(255,255,255,.55)');
+      ctx.beginPath();
+      ctx.ellipse(CX + t[0] * RB, CY + t[1] * RB, 0.155 * RB, 0.19 * RB, t[2], 0, TAU);
+      ctx.fillStyle = pad;
+      ctx.fill();
+      ctx.stroke();
+      ellipse(ctx, CX + t[0] * RB - 0.03 * RB, CY + t[1] * RB - 0.05 * RB, 0.05 * RB, 0.045 * RB, 0, 'rgba(255,255,255,.85)');
     }
-    ellipse(ctx, CX - 0.13 * RB, CY + 0.24 * RB, 0.13 * RB, 0.06 * RB, -0.35, 'rgba(255,255,255,.5)');
+    ctx.restore();
+    ellipse(ctx, CX - 0.14 * RB, CY + 0.24 * RB, 0.15 * RB, 0.07 * RB, -0.35, 'rgba(255,255,255,.75)');
+    // 반짝임 — 배지 느낌
+    sparkle(ctx, CX - 0.62 * RB, CY - 0.52 * RB, 0.07 * RB, '#FFFFFF', 0.95);
+    sparkle(ctx, CX + 0.60 * RB, CY - 0.30 * RB, 0.055 * RB, '#FFFFFF', 0.85);
+    sparkle(ctx, CX + 0.44 * RB, CY + 0.62 * RB, 0.045 * RB, '#FFFFFF', 0.7);
   }
 
   /* ---------- 2단계 · 핑크 리본 ---------- */
@@ -629,9 +648,9 @@
      모두 로드되기 전에는 위의 벡터 그림으로 그린다(fallback).
      ========================================================= */
   var FILES = [
-    'chars/stage-0.png', 'chars/stage-1.png', 'chars/stage-2.png',
-    'chars/stage-3.png', 'chars/stage-4.png', 'chars/stage-5.png',
-    'chars/stage-6.png', 'chars/stage-7.png', 'chars/stage-8.png'
+    'chars/stage-0.png?v=3', 'chars/stage-1.png?v=3', 'chars/stage-2.png?v=3',
+    'chars/stage-3.png?v=3', 'chars/stage-4.png?v=3', 'chars/stage-5.png?v=3',
+    'chars/stage-6.png?v=3', 'chars/stage-7.png?v=3', 'chars/stage-8.png?v=3'
   ];
   var IMG = [];
   var settled = 0, allReady = false, readyCbs = [];
@@ -729,11 +748,22 @@
     ctx.fillRect(-r, 0, d, r);
     ctx.restore();
 
-    // 테두리 링
+    // 테두리 링 — 단계별 옷·배경색에 맞춘 포인트 색
+    var RING = [
+      'rgba(255,255,255,.72)',  /* 1 젤리 발바닥 — 진보라 배지 위 흰 링 */
+      'rgba(255,214,84,.55)',   /* 2 단청 꽃 */
+      'rgba(150,200,255,.50)',  /* 3 기본 모모 — 파란 후드 */
+      'rgba(255,206,72,.55)',   /* 4 변신 모모 — 노랑 자켓 */
+      'rgba(255,152,196,.50)',  /* 5 기본 코미 — 핑크 후드 */
+      'rgba(201,166,255,.60)',  /* 6 아이돌 코미 — 라벤더 */
+      'rgba(64,214,184,.55)',   /* 7 단청 코미 — 비취 */
+      'rgba(255,170,120,.55)',  /* 8 한복 왕비 — 다홍 */
+      'rgba(255,216,110,.72)'   /* 9 대왕 골드 */
+    ];
     ctx.beginPath();
     ctx.arc(0, 0, r - Math.max(0.7, r * 0.03), 0, TAU);
     ctx.lineWidth = Math.max(1, r * 0.045);
-    ctx.strokeStyle = 'rgba(255,255,255,.34)';
+    ctx.strokeStyle = RING[stage] || 'rgba(255,255,255,.34)';
     ctx.stroke();
 
     ctx.restore();

@@ -68,7 +68,7 @@ window.AJAK_STUDIO_APPS = [
     status: 'live',
     category: 'Game · Cozy',
     url: 'https://ajak-75.github.io/komi-pop/',
-    icon: './apps/komi-pop.png?v=2',
+    icon: './apps/komi-pop.png?v=3',
     icon2x: './apps/komi-pop-512.png?v=2',
     iconBg: 'transparent',
     desc: {
