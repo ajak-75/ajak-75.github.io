@@ -879,14 +879,14 @@
     g.imageSmoothingQuality = 'high';
     /* 1단계 젤리 발바닥 → 코미 → 대왕 골드 코미 순으로 커지게 */
     var trio = [
-      { stage: 0, size: 70, x: 12, y: h - 82 },
-      { stage: 4, size: 92, x: 84, y: h - 104 },
-      { stage: 8, size: 112, x: 150, y: h - 124 }
+      { stage: 0, size: 66, x: 8 },
+      { stage: 4, size: 88, x: 76 },
+      { stage: 8, size: 104, x: 132 }
     ];
     for (var i = 0; i < trio.length; i++) {
       var t = trio[i];
       var sprite = SPR.make(t.stage, Math.round(t.size * 2));
-      g.drawImage(sprite, t.x, t.y, t.size, t.size);
+      g.drawImage(sprite, t.x, h - t.size - 12, t.size, t.size);
     }
   }
 
