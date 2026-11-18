@@ -218,9 +218,9 @@
 
     var when = result.meta.birthDate + (result.meta.birthTime ? ' · ' + result.meta.birthTime : '') +
       ' · ' + cityLabel(state.resultCity);
-    $('resultSub').textContent = when + ' · ' + (result.meta.trueSolarTime ? L.noteSolar : L.noteStandard);
+    $('resultSub').textContent = when;
 
-    var notes = [];
+    var notes = [result.meta.trueSolarTime ? L.noteSolar : L.noteStandard];
     if (result.meta.timeUnknown) notes.push(L.unknownTimeNote);
     if (result.meta.term.nearBoundary) notes.push(L.noteBoundary);
     var noteEl = $('resultNote');
@@ -245,7 +245,7 @@
     var box = $('elements');
     box.innerHTML = '';
     ELEM_ORDER.forEach(function (name) {
-      var row = el('div', 'el-row');
+      var row = el('div', 'el-row el-' + name);
       var nameEl = el('span', 'el-name', d.elements[ELEM_INDEX[name]]);
       var bar = el('div', 'el-bar');
       var fill = document.createElement('i');
@@ -256,10 +256,17 @@
       box.appendChild(row);
     });
 
+    var counts = result.fiveElements.counts;
     var absent = result.fiveElements.absent;
-    var balance = vars(d.balance.dominant, { element: d.elements[ELEM_INDEX[result.fiveElements.dominant]] });
-    if (absent) balance += ' ' + vars(d.balance.absent, { element: d.elements[ELEM_INDEX[absent]] });
-    else balance += ' ' + d.balance.steady;
+    var maxC = 0, minC = 99;
+    ELEM_ORDER.forEach(function (e) { maxC = Math.max(maxC, counts[e]); minC = Math.min(minC, counts[e]); });
+    var balance;
+    if (!absent && maxC - minC <= 1) {
+      balance = d.balance.steady;
+    } else {
+      balance = vars(d.balance.dominant, { element: d.elements[ELEM_INDEX[result.fiveElements.dominant]] });
+      if (absent) balance += ' ' + vars(d.balance.absent, { element: d.elements[ELEM_INDEX[absent]] });
+    }
     $('balanceLine').textContent = balance;
 
     /* 십성 */
@@ -305,7 +312,7 @@
       dl.appendChild(wrap);
     }
     row(L.detailUtc, fmtTz(result.meta.utc, 'UTC'));
-    row(L.detailKst, fmtTz(result.meta.kst, 'Asia/Seoul') + ' (GMT+9)');
+    row(L.detailKst, fmtTz(result.meta.kst, 'UTC') + ' (GMT+9)');
     row(L.detailSolar, prettySolar(result.meta.solarTime));
     row(L.detailOffset, fmtOffset(result.meta.offsetMinutes));
     row(L.detailTerm, fmtTz(result.meta.term.at, result.meta.timezone) + ' (' + cityLabel(state.resultCity) + ')');
