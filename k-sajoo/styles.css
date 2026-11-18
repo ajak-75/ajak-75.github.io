@@ -367,7 +367,7 @@ body.is-preview .result { margin-top: 6px; animation: none; }
 body.is-preview .pillars { grid-template-columns: repeat(2, 1fr); }
 body.is-preview .actions { grid-template-columns: 1fr; }
 .preview-label { display: none; }
-body.is-preview .preview-label {
+body.is-preview .preview-label:not([hidden]) {
   display: block; margin: 0 0 10px; padding: 7px 10px; font-size: 11px; letter-spacing: .04em;
   color: #3b2f2a; background: rgba(255, 255, 255, .65); border: 1px solid rgba(0, 0, 0, .08); border-radius: 6px; text-align: center;
 }
