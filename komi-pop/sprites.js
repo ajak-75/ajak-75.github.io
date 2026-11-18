@@ -623,16 +623,62 @@
   /* ---------- 공개 API ---------- */
   var cache = {};
 
+  /* =========================================================
+     이미지 스프라이트 — chars/stage-0.png ~ stage-8.png
+     원본 사진에서 만든 원형 배지(정사각형에 내접하는 원, 모서리 투명).
+     모두 로드되기 전에는 위의 벡터 그림으로 그린다(fallback).
+     ========================================================= */
+  var FILES = [
+    'chars/stage-0.png', 'chars/stage-1.png', 'chars/stage-2.png',
+    'chars/stage-3.png', 'chars/stage-4.png', 'chars/stage-5.png',
+    'chars/stage-6.png', 'chars/stage-7.png', 'chars/stage-8.png'
+  ];
+  var IMG = [];
+  var settled = 0, allReady = false, readyCbs = [];
+
+  function whenReady(fn) {
+    if (allReady) { try { fn(); } catch (e) { } return; }
+    readyCbs.push(fn);
+  }
+
+  function settle() {
+    settled++;
+    if (settled < FILES.length) return;
+    allReady = true;
+    cache = {};
+    var cbs = readyCbs;
+    readyCbs = [];
+    for (var i = 0; i < cbs.length; i++) { try { cbs[i](); } catch (e) { } }
+  }
+
+  (function loadAll() {
+    if (typeof Image === 'undefined') { allReady = true; return; }
+    for (var i = 0; i < FILES.length; i++) {
+      (function (idx) {
+        var im = new Image();
+        im.decoding = 'async';
+        im.onload = function () { IMG[idx] = im; settle(); };
+        im.onerror = function () { settle(); };
+        im.src = FILES[idx];
+      })(i);
+    }
+  })();
+
   function makeSprite(stage, px) {
-    px = Math.max(32, Math.round(px));
+    px = Math.max(24, Math.round(px));
     var key = stage + ':' + px;
     var hit = cache[key];
     if (hit) return hit;
     var c = document.createElement('canvas');
     c.width = c.height = px;
     var g = c.getContext('2d');
-    g.scale(px / 320, px / 320);
-    drawStage(g, stage);
+    g.imageSmoothingQuality = 'high';
+    if (IMG[stage]) {
+      g.drawImage(IMG[stage], 0, 0, px, px);
+    } else {
+      g.scale(px / 320, px / 320);
+      drawStage(g, stage);
+    }
     cache[key] = c;
     return c;
   }
@@ -642,13 +688,68 @@
     ctx.drawImage(c, x, y, size, size);
   }
 
+  /* 게임판의 공 하나 — 반지름 r 에 원형 배지를 정확히 맞춰 그리고 은은한 광택 링을 얹는다 */
+  function drawBall(ctx, stage, x, y, r, angle) {
+    var im = IMG[stage];
+    var rot = angle || 0;
+    if (rot > 0.22) rot = 0.22; else if (rot < -0.22) rot = -0.22;
+
+    ctx.save();
+    ctx.translate(x, y);
+    if (rot) ctx.rotate(rot);
+
+    if (!im) {
+      var d2 = r * 2 * 1.25;
+      var c = makeSprite(stage, Math.min(1024, Math.ceil(d2 * 2)));
+      ctx.drawImage(c, -d2 / 2, -d2 / 2 - 0.0375 * d2, d2, d2);
+      ctx.restore();
+      return;
+    }
+
+    var d = r * 2;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(im, -r, -r, d, d);
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(0, 0, r - 0.4, 0, TAU);
+    ctx.clip();
+    // 위쪽 광택
+    var g1 = ctx.createRadialGradient(-r * 0.34, -r * 0.44, r * 0.03, 0, 0, r * 1.04);
+    g1.addColorStop(0, 'rgba(255,255,255,.30)');
+    g1.addColorStop(0.40, 'rgba(255,255,255,.07)');
+    g1.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = g1;
+    ctx.fillRect(-r, -r, d, d);
+    // 아래쪽 옅은 그늘로 입체감
+    var g2 = ctx.createLinearGradient(0, r * 0.30, 0, r);
+    g2.addColorStop(0, 'rgba(96,48,78,0)');
+    g2.addColorStop(1, 'rgba(96,48,78,.16)');
+    ctx.fillStyle = g2;
+    ctx.fillRect(-r, 0, d, r);
+    ctx.restore();
+
+    // 테두리 링
+    ctx.beginPath();
+    ctx.arc(0, 0, r - Math.max(0.7, r * 0.03), 0, TAU);
+    ctx.lineWidth = Math.max(1, r * 0.045);
+    ctx.strokeStyle = 'rgba(255,255,255,.34)';
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
   window.KOMI_POP_SPRITES = {
     count: 9,
-    /** 스프라이트 정사각형은 몸통 반지름의 2.5배(=지름의 1.25배). 여백에 귀·왕관이 들어간다 */
+    /** 벡터 fallback 스프라이트는 몸통 반지름의 2.5배 정사각형 (지름의 1.25배) */
     ratio: 1.25,
     drawStage: drawStage,
     make: makeSprite,
     drawInto: drawInto,
+    drawBall: drawBall,
+    whenReady: whenReady,
+    isReady: function () { return allReady; },
+    hasImage: function (stage) { return !!IMG[stage]; },
     clearCache: function () { cache = {}; }
   };
 })();

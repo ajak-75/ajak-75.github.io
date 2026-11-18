@@ -68,8 +68,8 @@ window.AJAK_STUDIO_APPS = [
     status: 'live',
     category: 'Game · Cozy',
     url: 'https://ajak-75.github.io/komi-pop/',
-    icon: './apps/komi-pop.png?v=1',
-    icon2x: './apps/komi-pop-512.png?v=1',
+    icon: './apps/komi-pop.png?v=2',
+    icon2x: './apps/komi-pop-512.png?v=2',
     iconBg: 'transparent',
     desc: {
       ko: '코미와 모모를 떨어뜨려 같은 친구끼리 합치는 힐링 퍼즐. 대왕 골드 코미까지 키워 보세요. 최고 점수는 기기에 저장돼요.',

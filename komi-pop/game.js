@@ -742,9 +742,7 @@
   }
 
   function drawBall(b) {
-    var size = b.r * 2 * SPR.ratio;
     var scale = b.age < 0.19 ? 0.55 + 0.45 * easeOut(b.age / 0.19) : 1;
-    var d = size * scale;
 
     // 바닥 그림자
     if (!b.held) {
@@ -757,13 +755,8 @@
       ctx.restore();
     }
 
-    var sprite = SPR.make(b.stage, Math.min(1200, Math.ceil(size * DPR)));
-    var headShift = -0.0375 * d;   /* 그림의 얼굴 중심(172/320)을 충돌 원 중심에 맞춘다 */
-    ctx.save();
-    ctx.translate(b.x, b.y);
-    if (b.angle) ctx.rotate(clamp(b.angle, -0.22, 0.22));
-    ctx.drawImage(sprite, -d / 2, -d / 2 + headShift, d, d);
-    ctx.restore();
+    // 원형 배지 스프라이트(이미지) · 로드 전에는 벡터 그림 — sprites.js 안에서 갈래를 정한다
+    SPR.drawBall(ctx, b.stage, b.x, b.y, b.r * scale, b.angle || 0);
   }
 
   function easeOut(x) {
@@ -883,10 +876,18 @@
     var g = c.getContext('2d');
     var w = c.width, h = c.height;
     g.clearRect(0, 0, w, h);
-    var small = SPR.make(2, 220);
-    var big = SPR.make(8, 300);
-    g.drawImage(small, -6, h - 128, 128, 128);
-    g.drawImage(big, w - 144, 4, 152, 152);
+    g.imageSmoothingQuality = 'high';
+    /* 1단계 젤리 발바닥 → 코미 → 대왕 골드 코미 순으로 커지게 */
+    var trio = [
+      { stage: 0, size: 70, x: 12, y: h - 82 },
+      { stage: 4, size: 92, x: 84, y: h - 104 },
+      { stage: 8, size: 112, x: 150, y: h - 124 }
+    ];
+    for (var i = 0; i < trio.length; i++) {
+      var t = trio[i];
+      var sprite = SPR.make(t.stage, Math.round(t.size * 2));
+      g.drawImage(sprite, t.x, t.y, t.size, t.size);
+    }
   }
 
   /* =========================================================
@@ -924,6 +925,17 @@
   layout();
   drawIntroArt();
   requestAnimationFrame(loop);
+
+  /* 캐릭터 이미지가 모두 도착하면 진화표·다음 미리보기·시작 그림을 바로 다시 그린다 */
+  if (SPR.whenReady) {
+    SPR.whenReady(function () {
+      SPR.clearCache();
+      buildEvo();
+      drawNext();
+      drawIntroArt();
+      render();
+    });
+  }
 
   /* 확인용 읽기 전용 상태(게임에는 영향 없음) */
   window.KMP_STATE = function () {
