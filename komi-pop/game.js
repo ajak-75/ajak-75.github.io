@@ -585,9 +585,9 @@
     // 판
     roundRectPath(ctx, 0, 0, w, h, boardR);
     var bg = ctx.createLinearGradient(0, 0, w * 0.4, h);
-    bg.addColorStop(0, '#FFFCFE');
-    bg.addColorStop(0.45, '#FFF6FB');
-    bg.addColorStop(1, '#FFECF5');
+    bg.addColorStop(0, '#FFFAFD');
+    bg.addColorStop(0.45, '#FFF1F9');
+    bg.addColorStop(1, '#FFE4F1');
     ctx.fillStyle = bg;
     ctx.fill();
 
@@ -721,7 +721,7 @@
     // 테두리
     roundRectPath(ctx, 1, 1, w - 2, h - 2, boardR - 1);
     ctx.lineWidth = 2;
-    ctx.strokeStyle = G.danger > 0.2 ? 'rgba(255,120,150,.65)' : 'rgba(255,196,220,.95)';
+    ctx.strokeStyle = G.danger > 0.2 ? 'rgba(255,110,145,.75)' : 'rgba(255,174,207,.95)';
     ctx.stroke();
 
     ctx.restore();

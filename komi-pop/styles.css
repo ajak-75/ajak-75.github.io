@@ -271,7 +271,7 @@ body::after {
   padding: 4px 6px;
   text-align: center;
 }
-.intro-art { width: 132px; height: 99px; display: block; margin-bottom: -6px; }
+.intro-art { width: 150px; height: 112px; display: block; margin-bottom: -8px; }
 
 .panel-eyebrow {
   margin: 0;
