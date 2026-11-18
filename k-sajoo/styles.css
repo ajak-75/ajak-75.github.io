@@ -124,7 +124,7 @@ html[data-theme="pastel"] body::after {
 }
 /* 1) 민화 원화 — 모란 위·호랑이 아래, 원색이 비치도록 보통 합성. 넓은 화면은 확대 배율이 커서 농도를 낮춘다 */
 html[data-theme="pastel"] body::before {
-  background: url("./bg-minhwa.jpg?v=24") center top / cover no-repeat;
+  background: url("./bg-minhwa.jpg?v=25") center top / cover no-repeat;
   opacity: .56;
   filter: contrast(1.05) saturate(1.02);
 }
@@ -151,9 +151,9 @@ html[data-theme="pastel"] body.is-preview::after { display: none; }
 /* 반투명 한지 카드 — 배경 민화가 카드 앞에서도 숨소리처럼 비친다 */
 html[data-theme="pastel"] .panel,
 html[data-theme="pastel"] .result {
-  background: rgba(255, 250, 241, .68);
-  -webkit-backdrop-filter: blur(7px) saturate(1.04);
-  backdrop-filter: blur(7px) saturate(1.04);
+  background: rgba(255, 250, 241, .6);
+  -webkit-backdrop-filter: blur(3px) saturate(1.03);
+  backdrop-filter: blur(3px) saturate(1.03);
 }
 html[data-theme="pastel"] .daymaster { background: rgba(248, 238, 218, .64); }
 html[data-theme="pastel"] .premium { background: rgba(251, 241, 223, .72); }
