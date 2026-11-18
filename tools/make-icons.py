@@ -106,11 +106,39 @@ def shadowed(src, box, radius_ratio=0.24, pad=22):
     sh.alpha_composite(rounded, (pad, pad))
     return sh
 
+def shadowed_alpha(src, box, pad=30, blur=13, strength=95, offset=9, fit=True):
+    """투명 PNG용: 사각 마스크 없이 알파(실루엣) 윤곽을 따라 은은한 그림자를 깔고 합성한다.
+    fit=True면 투명 여백을 잘라내 실루엣이 상자 크기에 꽉 차게 맞춘다."""
+    w, h = box
+    if fit:
+        bb = src.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox()
+        if bb:
+            src = src.crop(bb)
+        scale = min(w / src.width, h / src.height)
+        src = src.resize((max(1, round(src.width * scale)), max(1, round(src.height * scale))), Image.LANCZOS)
+        fitted = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+        fitted.alpha_composite(src, ((w - src.width) // 2, (h - src.height) // 2))
+        src = fitted
+    else:
+        src = src.resize((w, h), Image.LANCZOS)
+    alpha = src.getchannel("A")
+    mask = Image.new("L", (w + pad * 2, h + pad * 2), 0)
+    mask.paste(alpha.point(lambda v: v * strength // 255), (pad, pad + offset))
+    mask = mask.filter(ImageFilter.GaussianBlur(blur))
+    sh = Image.new("RGBA", mask.size, (0, 0, 0, 0))
+    sh.putalpha(mask)
+    sh.alpha_composite(src, (pad, pad))
+    return sh
+
 try:
     app_a = Image.open(os.path.join(ROOT, "..", "diary", "icons", "icon-192.png")).convert("RGBA")
-    app_k = Image.open(os.path.join(ROOT, "..", "KOMI-Diary", "icons", "icon-192.png")).convert("RGBA")
+    # KOMI-Diary는 흰 배경 없는 투명 로고를 써서 사각 그림자 상자가 생기지 않게 한다.
+    komi_logo = os.path.join(ROOT, "..", "KOMI-Diary", "img", "komi-diary-logo.png")
+    if not os.path.exists(komi_logo):
+        komi_logo = os.path.join(ROOT, "..", "KOMI-Diary", "icons", "icon-192.png")
+    app_k = Image.open(komi_logo).convert("RGBA")
     a = shadowed(app_a, (116, 116))
-    k = shadowed(app_k, (116, 116))
+    k = shadowed_alpha(app_k, (116, 116))
     og.paste(a, (772, 236), a)
     og.paste(k, (952, 236), k)
     text((794, 402), "Ajak", f_small, fill=(110, 110, 110))

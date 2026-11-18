@@ -5,7 +5,7 @@
    status : 'live' (지금 사용 가능) | 'soon' (준비 중, url 없이도 됨)
    url    : 카드 전체를 눌렀을 때 열리는 주소
    icon / icon2x : 카드 아이콘(192·512px)
-   iconBg : 아이콘 뒤 배경(투명 PNG 대비) — 생략하면 흰색
+   iconBg : 아이콘 뒤 배경(투명 PNG 대비) — 생략하면 흰색, 'transparent'면 흰 박스 없이 그림자만
 */
 window.AJAK_STUDIO_APPS = [
   {
@@ -43,7 +43,7 @@ window.AJAK_STUDIO_APPS = [
     url: 'https://ajak-75.github.io/KOMI-Diary/',
     icon: './apps/komi-diary.png',
     icon2x: './apps/komi-diary-512.png',
-    iconBg: '#FFFFFF',
+    iconBg: 'transparent',
     desc: {
       ko: '전 세계 케미(Kemi)들이 모이는 K-컬처 팬덤 다이어리 · 모모 샵 · K-스타 케미 궁합 · 16개국어와 전 세계 언어를 자동 번역합니다.',
       en: 'A K-culture fandom diary where Kemis around the world meet — Momo Shop, K-star compatibility, and automatic translation into 16 languages and beyond.',

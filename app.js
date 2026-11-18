@@ -206,11 +206,12 @@
       var badge = live
         ? '<span class="badge"><span class="dot"></span>' + esc(t('live')) + '</span>'
         : '<span class="badge badge--soon">' + esc(t('soon')) + '</span>';
+      var noBox = app.iconBg === 'transparent';   /* 투명 아이콘: 흰 사각 박스 없이 */
       var icon = app.icon
-        ? '<img class="app-icon" src="' + esc(app.icon) + '"' +
+        ? '<img class="app-icon' + (noBox ? ' app-icon--nobox' : '') + '" src="' + esc(app.icon) + '"' +
           (app.icon2x ? ' srcset="' + esc(app.icon) + ' 1x, ' + esc(app.icon2x) + ' 2x"' : '') +
           ' alt="' + esc(app.name) + '" width="60" height="60" loading="lazy" decoding="async"' +
-          (app.iconBg ? ' style="background:' + esc(app.iconBg) + '"' : '') + '>'
+          (app.iconBg && !noBox ? ' style="background:' + esc(app.iconBg) + '"' : '') + '>'
         : '<div class="app-icon"></div>';
 
       html += '<' + tag + ' class="card reveal' + (live ? '' : ' card--soon') + '"' + attrs + '>' +

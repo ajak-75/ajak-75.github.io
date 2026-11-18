@@ -29,7 +29,7 @@
   url: 'https://ajak-75.github.io/my-app/',
   icon: './apps/my-app.png',          // 192px
   icon2x: './apps/my-app-512.png',    // 512px (선택)
-  iconBg: '#FFFFFF',
+  iconBg: '#FFFFFF',                  // 아이콘 뒤 타일 배경색. 'transparent'면 흰 박스 없이 그림자만
   desc: {
     ko: '한 줄 소개',
     en: 'One-line description'
@@ -57,3 +57,7 @@ python3 -m http.server 8080   # 이 폴더에서
 
 `main` 브랜치 루트를 그대로 올리면 GitHub Pages(유저 사이트)가 `https://ajak-75.github.io/`로 서비스한다.
 `apps/` 아이콘을 바꾸면 `sw.js`의 `VER`를 올려 캐시를 갱신한다.
+
+아이콘 PNG에 알파(투명)가 있으면 `iconBg: 'transparent'`로 둔다. 카드에서는 흰 사각 타일·테두리 없이
+`filter: drop-shadow(...)`만 아이콘 윤곽을 따라가고, OG 커버(`tools/make-icons.py`)도 사각 그림자 대신
+alpha 실루엣 그림자를 쓴다.

@@ -210,6 +210,12 @@ a.card:active { transform: translateY(-1px); }
   box-shadow: 0 8px 18px -12px rgba(14,14,16,.45);
   background: #fff;
 }
+/* 아이콘 자체가 투명 PNG일 때: 흰 사각 박스·테두리 없이 3D 모양만 남기고,
+   그림자는 알파 윤곽을 따라간다. */
+.app-icon--nobox {
+  border: none; border-radius: 0; background: transparent; box-shadow: none;
+  filter: drop-shadow(0 6px 12px rgba(14,14,16,.15));
+}
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
   height: 24px; padding-inline: 10px; border-radius: 999px;
