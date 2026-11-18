@@ -500,9 +500,9 @@
       ctx.fillText(labels[k], cx, baseY + 36);
 
       if (p) {
-        var innerW = colW - 22;
+        var innerW = colW - 44;
         var col = cssVar('--el-' + p.stemElement, ink);
-        var stemSize = fitFont(ctx, d.stems[p.stem], innerW, '700', display, 46, 18);
+        var stemSize = fitFont(ctx, d.stems[p.stem], innerW, '700', display, 42, 17);
         ctx.fillStyle = col; ctx.font = '700 ' + stemSize + 'px ' + display;
         ctx.fillText(d.stems[p.stem], cx, baseY + 108);
         var animalSize = fitFont(ctx, d.animals[p.branch], innerW, '400', body, 26, 15);
