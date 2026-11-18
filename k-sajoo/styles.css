@@ -67,49 +67,71 @@ html[data-theme="classic"] .pillar + .pillar { border-left: 1px solid var(--line
 html[data-theme="classic"] .pillar-stem { font-weight: 700; }
 html[data-theme="classic"] .seal { box-shadow: 0 2px 0 rgba(90, 20, 15, .25); }
 
-/* ── 시안 2 · 2030 모던 민화 파스텔 ───────────────────────── */
+/* ── 시안 2 · 모던 민화 (동백·호랑이·달) ───────────────────── */
 html[data-theme="pastel"] {
-  --bg: #fff6f2;
+  --bg: #f7ead6;
   --bg-image:
-    radial-gradient(60% 40% at 8% 4%, rgba(255, 214, 224, .85), transparent 65%),
-    radial-gradient(55% 45% at 96% 12%, rgba(214, 232, 255, .9), transparent 70%),
-    radial-gradient(70% 55% at 50% 108%, rgba(226, 221, 255, .9), transparent 72%),
-    linear-gradient(165deg, #fff8f2 0%, #ffeef4 46%, #f2f1ff 100%);
-  --surface: rgba(255, 255, 255, .82);
-  --surface-2: #fff4f7;
-  --ink: #3b2f3d;
-  --ink-soft: #7f6f83;
-  --line: #f1dfe7;
-  --line-strong: #e6cdd8;
-  --accent: #d9708f;
-  --accent-soft: rgba(217, 112, 143, .12);
-  --seal: #ef8f9e;
-  --seal-ink: #fffaf8;
-  --radius: 26px;
-  --radius-sm: 16px;
-  --shadow: 0 22px 48px rgba(203, 154, 176, .22), 0 2px 6px rgba(203, 154, 176, .12);
-  --font-display: 'Apple SD Gothic Neo', 'Pretendard', system-ui, sans-serif;
+    radial-gradient(70% 45% at 8% 0%, rgba(255, 250, 236, .95), transparent 62%),
+    radial-gradient(46% 38% at 96% 4%, rgba(206, 222, 208, .5), transparent 66%),
+    radial-gradient(85% 60% at 50% 106%, rgba(226, 198, 164, .38), transparent 72%),
+    repeating-linear-gradient(0deg, rgba(120, 90, 55, .035) 0 1px, transparent 1px 5px),
+    linear-gradient(168deg, #fbf3e4 0%, #f7ead6 52%, #f1e1c8 100%);
+  --surface: #fffaf0;
+  --surface-2: #f8eeda;
+  --ink: #33291f;
+  --ink-soft: #7d6a53;
+  --line: #ead8bd;
+  --line-strong: #d9c09c;
+  --accent: #b23a33;
+  --accent-soft: rgba(178, 58, 51, .1);
+  --seal: #b23a33;
+  --seal-ink: #fdf6ea;
+  --radius: 22px;
+  --radius-sm: 14px;
+  --shadow: 0 18px 40px rgba(150, 108, 66, .18), 0 2px 5px rgba(150, 108, 66, .08);
+  --font-display: 'Nanum Myeongjo', 'Noto Serif KR', 'AppleMyungjo', serif;
   --font-body: 'Apple SD Gothic Neo', 'Pretendard', system-ui, sans-serif;
-  --label-track: .04em;
-  --el-wood: #79bfa1;
-  --el-fire: #ef9a95;
-  --el-earth: #e3c295;
-  --el-metal: #b3aed6;
-  --el-water: #96c3e6;
+  --label-track: .05em;
+  --el-wood: #4a6b4f;
+  --el-fire: #b23a33;
+  --el-earth: #c08a5e;
+  --el-metal: #6f7d7a;
+  --el-water: #3f5560;
 }
-html[data-theme="pastel"] body { font-weight: 500; }
-html[data-theme="pastel"] .hero-title { font-weight: 800; letter-spacing: -.02em; }
+html[data-theme="pastel"] .hero-title { font-weight: 700; letter-spacing: -.015em; }
 html[data-theme="pastel"] .panel,
-html[data-theme="pastel"] .result { border: 1px solid rgba(255, 255, 255, .8); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(6px); }
+html[data-theme="pastel"] .result { border: 1px solid #f2e3cb; border-radius: var(--radius); box-shadow: var(--shadow); }
 html[data-theme="pastel"] .pillars { gap: 10px; border: 0; }
-html[data-theme="pastel"] .pillar { background: #fff; border-radius: var(--radius-sm); box-shadow: 0 8px 20px rgba(206, 164, 184, .16); border: 1px solid #fbebf1; }
-html[data-theme="pastel"] .pillar:nth-child(1) { background: linear-gradient(160deg, #fff8fb, #fff); }
-html[data-theme="pastel"] .pillar:nth-child(2) { background: linear-gradient(160deg, #f7fbfa, #fff); }
-html[data-theme="pastel"] .pillar:nth-child(3) { background: linear-gradient(160deg, #fffdf6, #fff); }
-html[data-theme="pastel"] .pillar:nth-child(4) { background: linear-gradient(160deg, #f8f7ff, #fff); }
-html[data-theme="pastel"] .daymaster { background: linear-gradient(155deg, #fff2f6, #fdf6ff 60%, #f2f8ff); border: 1px solid #fbe3ea; }
-html[data-theme="pastel"] .btn-primary { background: linear-gradient(135deg, #ef9aa9, #cf7fa9); box-shadow: 0 12px 24px rgba(207, 127, 169, .3); }
-html[data-theme="pastel"] .seal { border-radius: 12px; transform: rotate(-4deg); font-weight: 800; }
+html[data-theme="pastel"] .pillar { background: #fffaf0; border-radius: 16px; box-shadow: 0 8px 18px rgba(160, 118, 74, .1); border: 1px solid #f4e5cd; }
+html[data-theme="pastel"] .pillar:nth-child(1) { background: linear-gradient(160deg, #fffaf0, #fdf2e0); }
+html[data-theme="pastel"] .pillar:nth-child(2) { background: linear-gradient(160deg, #f6f3e6, #fffaf0); }
+html[data-theme="pastel"] .pillar:nth-child(3) { background: linear-gradient(160deg, #fdf3e6, #fffaf0); }
+html[data-theme="pastel"] .pillar:nth-child(4) { background: linear-gradient(160deg, #eef1ec, #fffaf0); }
+html[data-theme="pastel"] .daymaster { background: linear-gradient(150deg, #fbeee0, #fdf6ea 58%, #f3eee2); border: 1px solid #f2ddc1; border-left: 3px solid var(--accent); }
+html[data-theme="pastel"] .btn-primary { background: linear-gradient(135deg, #bd453c, #a73029); box-shadow: 0 12px 24px rgba(167, 48, 41, .24); }
+html[data-theme="pastel"] .seal { border-radius: 14px; transform: rotate(-4deg); font-weight: 700; }
+html[data-theme="pastel"] .premium { background: #fbf1df; border-color: #eedcbf; }
+
+/* 민화 띠 — 시안 2에서만 보인다 */
+.folk-band { display: none; margin: 14px 0 2px; }
+html[data-theme="pastel"] .folk-band { display: block; }
+.folk-band svg { display: block; width: 100%; height: auto; }
+.folk-band-sm { margin: 2px 0 12px; opacity: .92; }
+.f-ochre { fill: #c98a55; }
+.f-cream { fill: #f8ecd8; }
+.f-stroke { stroke: #6b4a32; stroke-width: 1.4; }
+.f-eye { fill: #f2ce5c; stroke: #6b4a32; stroke-width: 1; }
+.f-ink { fill: #2e241c; }
+.f-red { fill: #b23a33; }
+.f-ink-line { fill: none; stroke: #2e241c; stroke-width: 1.6; stroke-linecap: round; }
+.f-ink-line2 { fill: none; stroke: #2e241c; stroke-width: 2.2; stroke-linecap: round; }
+.f-whisker { fill: none; stroke: #6b4a32; stroke-width: .9; stroke-linecap: round; opacity: .75; }
+.f-branch { fill: none; stroke: #6b4a32; stroke-width: 2.4; stroke-linecap: round; }
+.f-pine { fill: #4a6b4f; }
+.f-seed { fill: #e9d3a0; }
+.f-moon { fill: #efe2c6; stroke: #cdb691; stroke-width: 1; }
+.f-cloud { fill: #e2d0b0; opacity: .85; }
+.f-cloud2 { fill: #efe2c6; opacity: .9; }
 
 /* ── 시안 3 · 모던 K-부티크 ───────────────────────────────── */
 html[data-theme="boutique"] {
