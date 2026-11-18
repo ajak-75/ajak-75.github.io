@@ -1,0 +1,17 @@
+{
+  "name": "KOMI & MOMO POP",
+  "short_name": "KOMI POP",
+  "description": "코미와 모모를 합쳐 대왕 골드 코미를 만드는 캐주얼 합치기 퍼즐.",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFF4F9",
+  "theme_color": "#FF5D9B",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
