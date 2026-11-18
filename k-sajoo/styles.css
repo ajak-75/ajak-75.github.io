@@ -350,3 +350,12 @@ body.is-preview .masthead { padding-bottom: 10px; }
   .result { animation: none; }
   .el-bar i { transition: none; }
 }
+
+/* 좁은 화면의 기둥 격자 — 2×2 에서 세로 괘선이 어색하지 않게 */
+@media (max-width: 559px) {
+  html[data-theme="classic"] .pillar + .pillar { border-left: 0; }
+  html[data-theme="classic"] .pillar:nth-child(2n) { border-left: 1px solid var(--line); }
+  html[data-theme="classic"] .pillar:nth-child(n+3) { border-top: 1px solid var(--line); }
+  html[data-theme="boutique"] .pillar { border-right: 0; padding: 16px 8px; }
+  html[data-theme="boutique"] .pillar:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
