@@ -125,8 +125,8 @@ html[data-theme="pastel"] body::after {
 /* 1) 민화 원화 — 모란 위·호랑이 아래, 원색이 비치도록 보통 합성. 넓은 화면은 확대 배율이 커서 농도를 낮춘다 */
 html[data-theme="pastel"] body::before {
   background: url("./bg-minhwa.jpg") center top / cover no-repeat;
-  opacity: .62;
-  filter: contrast(1.06) saturate(1.04);
+  opacity: .64;
+  filter: contrast(1.08) saturate(1.05);
 }
 /* 2) 위아래에 한지 빛을 덜어 그림이 글을 방해하지 않게 */
 html[data-theme="pastel"] body::after {
@@ -138,7 +138,7 @@ html[data-theme="pastel"] .hero-title { text-shadow: 0 0 18px rgba(253, 247, 236
 html[data-theme="pastel"] .hero-lead { text-shadow: 0 0 14px rgba(252, 246, 234, .92); }
 /* 넓은 화면은 그림이 크게 확대되므로 더 연하게 */
 @media (min-width: 900px) {
-  html[data-theme="pastel"] body::before { opacity: .3; filter: blur(1px) saturate(.98); }
+  html[data-theme="pastel"] body::before { opacity: .32; filter: blur(1px) saturate(.98); }
   html[data-theme="pastel"] body::after {
     background:
       radial-gradient(62% 70% at 50% 40%, rgba(251, 244, 232, .55), rgba(251, 244, 232, 0) 72%),
@@ -151,13 +151,13 @@ html[data-theme="pastel"] body.is-preview::after { display: none; }
 /* 반투명 한지 카드 — 배경 민화가 카드 앞에서도 숨소리처럼 비친다 */
 html[data-theme="pastel"] .panel,
 html[data-theme="pastel"] .result {
-  background: rgba(255, 250, 240, .72);
-  -webkit-backdrop-filter: blur(9px) saturate(1.04);
-  backdrop-filter: blur(9px) saturate(1.04);
+  background: rgba(255, 250, 241, .68);
+  -webkit-backdrop-filter: blur(7px) saturate(1.04);
+  backdrop-filter: blur(7px) saturate(1.04);
 }
-html[data-theme="pastel"] .daymaster { background: rgba(248, 238, 218, .72); }
-html[data-theme="pastel"] .premium { background: rgba(251, 241, 223, .8); }
-html[data-theme="pastel"] .pillar { background: rgba(255, 250, 240, .82); }
+html[data-theme="pastel"] .daymaster { background: rgba(248, 238, 218, .64); }
+html[data-theme="pastel"] .premium { background: rgba(251, 241, 223, .72); }
+html[data-theme="pastel"] .pillar { background: rgba(255, 250, 240, .74); }
 html[data-theme="pastel"] .pillar:nth-child(1) { background: linear-gradient(160deg, rgba(255, 250, 240, .9), rgba(253, 242, 224, .84)); }
 html[data-theme="pastel"] .pillar:nth-child(2) { background: linear-gradient(160deg, rgba(246, 243, 230, .88), rgba(255, 250, 240, .84)); }
 html[data-theme="pastel"] .pillar:nth-child(3) { background: linear-gradient(160deg, rgba(253, 243, 230, .88), rgba(255, 250, 240, .84)); }
