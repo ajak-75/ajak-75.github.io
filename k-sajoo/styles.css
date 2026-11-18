@@ -115,7 +115,7 @@ html[data-theme="pastel"] .premium { background: #fbf1df; border-color: #eedcbf;
 /* 민화 띠 — 시안 2에서만 보인다 */
 .folk-band { display: none; margin: 14px 0 2px; }
 html[data-theme="pastel"] .folk-band { display: block; }
-.folk-band svg { display: block; width: 100%; height: auto; }
+.folk-band svg { display: block; width: 100%; max-width: 430px; height: auto; margin: 0 auto; }
 .folk-band-sm { margin: 2px 0 12px; opacity: .92; }
 .f-ochre { fill: #c98a55; }
 .f-cream { fill: #f8ecd8; }
@@ -407,7 +407,7 @@ html[data-theme="pastel"] .daymaster > *:not(.peony) { position: relative; z-ind
 /* ── 시안 3 · 일월오봉도 띠와 달항아리 ──────────────────────── */
 .ilwol-band { display: none; margin: 16px 0 4px; }
 html[data-theme="boutique"] .ilwol-band { display: block; }
-.ilwol-band svg { display: block; width: 100%; height: auto; }
+.ilwol-band svg { display: block; width: 100%; max-width: 430px; height: auto; margin: 0 auto; }
 .i-moon { fill: #f7f1e2; stroke: #171512; stroke-width: .8; }
 .i-sun { fill: #b4472c; }
 .i-p1 { fill: #2f4453; opacity: .92; }
