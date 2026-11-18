@@ -652,8 +652,8 @@
 
   window.KOMI_POP_SPRITES = {
     count: 9,
-    /** 스프라이트는 몸통 지름의 2.5배 크기로 그린다(여백에 귀·왕관) */
-    ratio: 2.5,
+    /** 스프라이트 정사각형은 몸통 반지름의 2.5배(=지름의 1.25배). 여백에 귀·왕관이 들어간다 */
+    ratio: 1.25,
     drawStage: drawStage,
     make: makeSprite,
     drawInto: drawInto,

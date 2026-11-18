@@ -354,7 +354,7 @@
         if (b.vy > 0) {
           b.vy = Math.abs(b.vy) > 140 ? -b.vy * 0.16 : 0;
         }
-        b.vx *= 0.90;
+        b.vx *= 0.86;
         b.spin *= 0.86;
       }
     }
@@ -385,10 +385,10 @@
         var ma = a.r * a.r, mb = b.r * b.r;
         var overlap = (rsum - d) + 0.05;
         var wa = mb / (ma + mb), wb = ma / (ma + mb);
-        a.x -= nx * overlap * wa * 0.85;
-        a.y -= ny * overlap * wa * 0.85;
-        b.x += nx * overlap * wb * 0.85;
-        b.y += ny * overlap * wb * 0.85;
+        a.x -= nx * overlap * wa * 0.62;
+        a.y -= ny * overlap * wa * 0.62;
+        b.x += nx * overlap * wb * 0.62;
+        b.y += ny * overlap * wb * 0.62;
 
         // 반발
         var rvn = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
