@@ -423,6 +423,16 @@
     return lines.length;
   }
 
+  function fitFont(ctx, text, maxW, weight, family, start, min) {
+    var size = start;
+    while (size > min) {
+      ctx.font = weight + ' ' + size + 'px ' + family;
+      if (ctx.measureText(text).width <= maxW) break;
+      size -= 2;
+    }
+    return size;
+  }
+
   function drawCard(canvas, result) {
     var d = dict(), L = d.ui;
     var W = 1080, H = 1350;
@@ -459,8 +469,9 @@
     roundRect(ctx, 96, 96, 92, 92, 10); ctx.fill();
     ctx.fillStyle = sealInk;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.font = '700 34px ' + display;
-    ctx.fillText(state.lang === 'ko' ? '사주' : 'SAJOO', 142, 144);
+    var sealText = state.lang === 'ko' ? '사주' : 'SAJOO';
+    ctx.font = '700 ' + fitFont(ctx, sealText, 68, '700', display, 34, 12) + 'px ' + display;
+    ctx.fillText(sealText, 142, 143);
     ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
 
     ctx.fillStyle = ink; ctx.font = '700 40px ' + display;
@@ -489,13 +500,18 @@
       ctx.fillText(labels[k], cx, baseY + 36);
 
       if (p) {
+        var innerW = colW - 22;
         var col = cssVar('--el-' + p.stemElement, ink);
-        ctx.fillStyle = col; ctx.font = '700 46px ' + display;
+        var stemSize = fitFont(ctx, d.stems[p.stem], innerW, '700', display, 46, 18);
+        ctx.fillStyle = col; ctx.font = '700 ' + stemSize + 'px ' + display;
         ctx.fillText(d.stems[p.stem], cx, baseY + 108);
-        ctx.fillStyle = ink; ctx.font = '400 26px ' + body;
+        var animalSize = fitFont(ctx, d.animals[p.branch], innerW, '400', body, 26, 15);
+        ctx.fillStyle = ink; ctx.font = '400 ' + animalSize + 'px ' + body;
         ctx.fillText(d.animals[p.branch], cx, baseY + 152);
-        ctx.fillStyle = soft; ctx.font = '400 20px ' + body;
-        ctx.fillText(i === 2 ? L.selfGod : d.tenGods[GOD_INDEX[p.tenGod]], cx, baseY + 190);
+        var godText = i === 2 ? L.selfGod : d.tenGods[GOD_INDEX[p.tenGod]];
+        var godSize = fitFont(ctx, godText, innerW, '400', body, 20, 13);
+        ctx.fillStyle = soft; ctx.font = '400 ' + godSize + 'px ' + body;
+        ctx.fillText(godText, cx, baseY + 190);
       } else {
         ctx.fillStyle = soft; ctx.font = '400 34px ' + body;
         ctx.fillText(L.hourUnknown, cx, baseY + 108);
@@ -540,6 +556,19 @@
       ctx.fillText(String(result.fiveElements.counts[name]), W - 96, rowY + 20);
       ctx.textAlign = 'left';
     });
+
+    /* 십성 한 줄 */
+    var godsY = ey + 14 + 5 * 46 + 30;
+    var parts = [];
+    K.TEN_GODS.forEach(function (key, i) {
+      var n = result.tenGods.counts[key] || 0;
+      if (n) parts.push(d.tenGods[i] + ' ' + n);
+    });
+    if (parts.length && godsY < H - 190) {
+      ctx.fillStyle = soft; ctx.font = '400 20px ' + body;
+      ctx.textAlign = 'left';
+      ctx.fillText(L.tenGodsTitle + ' · ' + parts.join('   '), 96, godsY);
+    }
 
     /* 꼬리 */
     ctx.strokeStyle = line; ctx.lineWidth = 1;
