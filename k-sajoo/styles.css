@@ -126,7 +126,7 @@ html[data-theme="pastel"] body::after {
 html[data-theme="pastel"] body::before {
   background: url("./bg-minhwa.jpg") center top / cover no-repeat;
   opacity: .46;
-  filter: contrast(1.05) saturate(1.04);
+  filter: contrast(1.12) saturate(1.08);
 }
 /* 2) 위아래에 한지 빛을 덜어 그림이 글을 방해하지 않게 */
 html[data-theme="pastel"] body::after {
