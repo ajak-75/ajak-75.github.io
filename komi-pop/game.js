@@ -191,6 +191,7 @@
     nextStage: 0,
     pendingStage: 0,
     score: 0,
+    newRecord: false,
     combo: 0,
     lastMerge: -99,
     cooldown: 0,
@@ -271,6 +272,7 @@
     G.particles = [];
     G.floats = [];
     G.score = 0;
+    G.newRecord = false;
     G.combo = 0;
     G.lastMerge = -99;
     G.cooldown = 0;
@@ -306,8 +308,8 @@
   function finishGame() {
     G.state = 'over';
     sfxOver();
-    var isNew = G.score > best && G.score > 0;
-    if (isNew) { best = G.score; store(BEST_KEY, String(best)); }
+    var isNew = G.newRecord && G.score > 0;
+    if (G.score > best) { best = G.score; store(BEST_KEY, String(best)); }
     paintBest();
     if (finalScoreEl) finalScoreEl.textContent = G.score;
     if (recordLine) recordLine.hidden = !isNew;
@@ -326,6 +328,16 @@
     }
   }
   function paintBest() { if (bestEl) bestEl.textContent = best; }
+
+  /* 최고 점수는 게임 중에도 바로 갱신해 HUD가 0에 머물지 않게 한다 */
+  function bumpBest() {
+    if (G.score > best) {
+      best = G.score;
+      G.newRecord = true;
+      paintBest();
+      store(BEST_KEY, String(best));
+    }
+  }
 
   /* =========================================================
      5. 물리
@@ -447,6 +459,7 @@
       var gain = Math.round(base * mult);
       G.score += gain;
       paintScore(true);
+      bumpBest();
       popBurst(mx, my, ns, 10 + ns * 2);
       addFloat(mx, my - radiusOf(ns) * 0.5, '+' + gain, G.combo > 1 ? 'combo' : '');
       if (G.combo > 1) addFloat(mx, my - radiusOf(ns) * 1.15, 'x' + G.combo.toFixed(2).replace(/\.00$/, ''), 'combo');
@@ -458,6 +471,7 @@
       var bonus = Math.round(160 * mult);
       G.score += bonus;
       paintScore(true);
+      bumpBest();
       popBurst(mx, my, 8, 46);
       addFloat(mx, my - radiusOf(8) * 0.7, '+' + bonus, 'combo');
       G.flash = 1;
