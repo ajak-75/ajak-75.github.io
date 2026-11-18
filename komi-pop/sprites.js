@@ -589,8 +589,9 @@
     if (gold) {
       // 광채
       ctx.save();
-      var gg = ctx.createRadialGradient(CX, CY, RB * 0.86, CX, CY, RB * 1.22);
-      gg.addColorStop(0, 'rgba(255,215,110,.55)');
+      var gg = ctx.createRadialGradient(CX, CY, RB * 0.88, CX, CY, RB * 1.22);
+      gg.addColorStop(0, 'rgba(255,215,110,0)');
+      gg.addColorStop(0.55, 'rgba(255,215,110,.30)');
       gg.addColorStop(1, 'rgba(255,215,110,0)');
       ctx.beginPath();
       ctx.arc(CX, CY, RB * 1.22, 0, TAU);
