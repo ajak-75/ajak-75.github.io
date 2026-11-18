@@ -439,13 +439,13 @@
     gloss(ctx, gold ? 0.30 : 0.55);
 
     // 눈
-    var irisSet = gold ? ['#6E4A28', '#2A1907', '#170C02'] : ['#7A4E3C', '#3A2521', '#221310'];
+    var irisSet = gold ? ['#6B4433', '#33201A', '#1E110C'] : ['#7A4E3C', '#3A2521', '#221310'];
     var pupilSet = gold ? '#120802' : '#170D0A';
     eye(ctx, CX - 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, irisSet, {
-      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(80,44,8,.72)' : 'rgba(60,30,40,.3)'
+      sclera: '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(70,40,20,.55)' : 'rgba(60,30,40,.3)'
     });
     eye(ctx, CX + 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, irisSet, {
-      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(80,44,8,.72)' : 'rgba(60,30,40,.3)'
+      sclera: '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(70,40,20,.55)' : 'rgba(60,30,40,.3)'
     });
     // 속눈썹
     ctx.strokeStyle = gold ? 'rgba(120,70,10,.6)' : 'rgba(70,40,32,.55)';
