@@ -462,7 +462,7 @@
       var scale = Math.max(W / iw, H / ih);
       var dw = iw * scale, dh = ih * scale;
       ctx.save();
-      ctx.globalAlpha = 0.2;
+      ctx.globalAlpha = 0.11;
       ctx.globalCompositeOperation = 'multiply';
       ctx.drawImage(minhwa, (W - dw) / 2, (H - dh) / 2, dw, dh);
       ctx.restore();
