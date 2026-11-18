@@ -150,8 +150,14 @@
   function buildPlaceSelect() {
     var sel = $('place');
     var current = sel.value || state.city.id;
+    var priority = ['seoul', 'tokyo', 'newyork', 'london', 'beijing', 'shanghai', 'taipei', 'hongkong',
+      'singapore', 'bangkok', 'hanoi', 'jakarta', 'manila', 'sydney', 'paris', 'berlin', 'losangeles',
+      'toronto', 'dubai', 'istanbul'];
+    function rank(c) { var i = priority.indexOf(c.id); return i < 0 ? 99 : i; }
     sel.innerHTML = '';
     CITIES.slice().sort(function (a, b) {
+      var ra = rank(a), rb = rank(b);
+      if (ra !== rb) return ra - rb;
       return cityLabel(a).localeCompare(cityLabel(b), localeTag());
     }).forEach(function (c) {
       var o = document.createElement('option');
