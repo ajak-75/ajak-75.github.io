@@ -895,4 +895,16 @@
   layout();
   drawIntroArt();
   requestAnimationFrame(loop);
+
+  /* 확인용 읽기 전용 상태(게임에는 영향 없음) */
+  window.KMP_STATE = function () {
+    return {
+      state: G.state, score: G.score, best: best, combo: G.combo,
+      heldStage: G.held ? G.held.stage : null, nextStage: G.nextStage,
+      balls: G.balls.map(function (b) {
+        return { stage: b.stage, x: Math.round(b.x), y: Math.round(b.y), r: Math.round(b.r), danger: +b.danger.toFixed(2) };
+      }),
+      lineY: lineY, box: { w: box.w, h: box.h }, lang: LANG, muted: muted
+    };
+  };
 })();
