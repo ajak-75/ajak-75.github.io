@@ -330,8 +330,8 @@
 
     // 주둥이
     ctx.beginPath();
-    ctx.ellipse(CX, CY + 0.56 * RB, 0.54 * RB, 0.40 * RB, 0, 0, TAU);
-    ctx.fillStyle = rg(ctx, CX, CY + 0.40 * RB, 0.05 * RB, CX, CY + 0.56 * RB, 0.70 * RB, [
+    ctx.ellipse(CX, CY + 0.60 * RB, 0.46 * RB, 0.34 * RB, 0, 0, TAU);
+    ctx.fillStyle = rg(ctx, CX, CY + 0.46 * RB, 0.05 * RB, CX, CY + 0.60 * RB, 0.62 * RB, [
       [0, '#FFFEFB'], [0.65, '#FBF1E3'], [1, '#E8D5C0']
     ]);
     ctx.fill();
@@ -339,11 +339,11 @@
     // 이마의 흰 줄
     ctx.beginPath();
     ctx.moveTo(CX, CY - 0.99 * RB);
-    ctx.bezierCurveTo(CX + 0.035 * RB, CY - 0.68 * RB, CX + 0.10 * RB, CY - 0.40 * RB, CX + 0.11 * RB, CY - 0.05 * RB);
-    ctx.bezierCurveTo(CX + 0.12 * RB, CY + 0.10 * RB, CX + 0.22 * RB, CY + 0.12 * RB, CX + 0.24 * RB, CY + 0.24 * RB);
-    ctx.lineTo(CX - 0.24 * RB, CY + 0.24 * RB);
-    ctx.bezierCurveTo(CX - 0.22 * RB, CY + 0.12 * RB, CX - 0.12 * RB, CY + 0.10 * RB, CX - 0.11 * RB, CY - 0.05 * RB);
-    ctx.bezierCurveTo(CX - 0.10 * RB, CY - 0.40 * RB, CX - 0.035 * RB, CY - 0.68 * RB, CX, CY - 0.99 * RB);
+    ctx.bezierCurveTo(CX + 0.03 * RB, CY - 0.70 * RB, CX + 0.07 * RB, CY - 0.42 * RB, CX + 0.075 * RB, CY - 0.08 * RB);
+    ctx.bezierCurveTo(CX + 0.08 * RB, CY + 0.12 * RB, CX + 0.15 * RB, CY + 0.20 * RB, CX + 0.17 * RB, CY + 0.34 * RB);
+    ctx.lineTo(CX - 0.17 * RB, CY + 0.34 * RB);
+    ctx.bezierCurveTo(CX - 0.15 * RB, CY + 0.20 * RB, CX - 0.08 * RB, CY + 0.12 * RB, CX - 0.075 * RB, CY - 0.08 * RB);
+    ctx.bezierCurveTo(CX - 0.07 * RB, CY - 0.42 * RB, CX - 0.03 * RB, CY - 0.70 * RB, CX, CY - 0.99 * RB);
     ctx.closePath();
     ctx.fillStyle = rg(ctx, CX, CY - 0.9 * RB, 0.05 * RB, CX, CY - 0.2 * RB, 0.8 * RB, [
       [0, '#FFFDF8'], [1, '#F6E9DA']
@@ -351,19 +351,19 @@
     ctx.fill();
 
     // 볼 쪽 살구색 털
-    ellipse(ctx, CX - 0.68 * RB, CY + 0.20 * RB, 0.19 * RB, 0.13 * RB, 0.25, 'rgba(226,169,108,.5)');
-    ellipse(ctx, CX + 0.68 * RB, CY + 0.20 * RB, 0.19 * RB, 0.13 * RB, -0.25, 'rgba(226,169,108,.5)');
-    // 눈썹 자리 밝은 털
-    ellipse(ctx, CX - 0.36 * RB, CY - 0.37 * RB, 0.14 * RB, 0.055 * RB, 0.16, 'rgba(243,222,197,.75)');
-    ellipse(ctx, CX + 0.36 * RB, CY - 0.37 * RB, 0.14 * RB, 0.055 * RB, -0.16, 'rgba(243,222,197,.75)');
+    ellipse(ctx, CX - 0.72 * RB, CY + 0.28 * RB, 0.16 * RB, 0.11 * RB, 0.25, 'rgba(226,169,108,.5)');
+    ellipse(ctx, CX + 0.72 * RB, CY + 0.28 * RB, 0.16 * RB, 0.11 * RB, -0.25, 'rgba(226,169,108,.5)');
+    // 눈썹 자리 살구색 털
+    ellipse(ctx, CX - 0.36 * RB, CY - 0.33 * RB, 0.13 * RB, 0.05 * RB, 0.22, 'rgba(226,169,108,.8)');
+    ellipse(ctx, CX + 0.36 * RB, CY - 0.33 * RB, 0.13 * RB, 0.05 * RB, -0.22, 'rgba(226,169,108,.8)');
     ctx.restore();
 
     // 눈
-    eye(ctx, CX - 0.35 * RB, CY + 0.02 * RB, 0.215 * RB, 0.235 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
-      socket: 'rgba(255,250,244,.20)', pupil: '#150C12'
+    eye(ctx, CX - 0.36 * RB, CY + 0.04 * RB, 0.20 * RB, 0.22 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
+      socket: 'rgba(255,250,244,.18)', pupil: '#150C12'
     });
-    eye(ctx, CX + 0.35 * RB, CY + 0.02 * RB, 0.215 * RB, 0.235 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
-      socket: 'rgba(255,250,244,.20)', pupil: '#150C12'
+    eye(ctx, CX + 0.36 * RB, CY + 0.04 * RB, 0.20 * RB, 0.22 * RB, ['#5B3A48', '#2C1B24', '#1A1018'], {
+      socket: 'rgba(255,250,244,.18)', pupil: '#150C12'
     });
 
     // 살짝 찡그린 눈썹
@@ -414,12 +414,12 @@
 
     if (opt.flower) {
       // 머리 위 꽃 화관
-      var spots = [[-0.50, -0.86, 0.16], [-0.16, -0.96, 0.19], [0.20, -0.94, 0.17], [0.52, -0.82, 0.15]];
+      var spots = [[-0.58, -0.80, 0.20], [-0.22, -0.94, 0.23], [0.18, -0.93, 0.21], [0.54, -0.78, 0.19]];
       for (var f = 0; f < spots.length; f++) {
         var p = spots[f];
         flower(ctx, CX + p[0] * RB, CY + p[1] * RB, p[2] * RB, f % 2 ? '#FFC7DE' : '#FFFDF8', '#FFC44D', f * 0.6);
       }
-      flower(ctx, CX + 0.03 * RB, CY - 0.62 * RB, 0.10 * RB, '#FFD9E7', '#FFB020', 0.9);
+      flower(ctx, CX + 0.02 * RB, CY - 0.60 * RB, 0.12 * RB, '#FFD9E7', '#FFB020', 0.9);
     }
   }
 
