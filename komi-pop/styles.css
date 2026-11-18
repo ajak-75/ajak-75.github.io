@@ -271,7 +271,7 @@ body::after {
   padding: 4px 6px;
   text-align: center;
 }
-.intro-art { width: 150px; height: 112px; display: block; margin-bottom: -8px; }
+.intro-art { width: 194px; height: 146px; display: block; margin-bottom: -8px; }
 
 .panel-eyebrow {
   margin: 0;
@@ -407,7 +407,7 @@ body::after {
 
 @media (max-height: 660px) {
   .brand { font-size: 15px; }
-  .intro-art { width: 104px; height: 78px; }
+  .intro-art { width: 128px; height: 96px; }
   .panel { gap: 5px; }
   .final-score { font-size: 32px; }
   .play-btn { height: 42px; }
