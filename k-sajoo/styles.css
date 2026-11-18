@@ -124,7 +124,7 @@ html[data-theme="pastel"] body::after {
 }
 /* 1) 민화 원화 — 모란 위·호랑이 아래, 원색이 비치도록 보통 합성. 넓은 화면은 확대 배율이 커서 농도를 낮춘다 */
 html[data-theme="pastel"] body::before {
-  background: url("./bg-minhwa.jpg?v=22") center top / cover no-repeat;
+  background: url("./bg-minhwa.jpg?v=24") center top / cover no-repeat;
   opacity: .56;
   filter: contrast(1.05) saturate(1.02);
 }
