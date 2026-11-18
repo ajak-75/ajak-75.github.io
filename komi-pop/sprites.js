@@ -432,34 +432,23 @@
     var furLow = gold ? '#C98A24' : '#E7C79C';
     var furEar = gold ? 'rgba(255,240,196,.98)' : '#F7E3C4';
 
-    ear(ctx, -1, 0.95, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.20)' : 'rgba(140,100,60,.12)');
-    ear(ctx, 1, 0.95, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.20)' : 'rgba(140,100,60,.12)');
+    ear(ctx, -1, 1.0, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.28)' : 'rgba(190,150,100,.35)');
+    ear(ctx, 1, 1.0, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.28)' : 'rgba(190,150,100,.35)');
 
     ball(ctx, furHi, furMid, furLow, gold ? 'rgba(150,90,10,.24)' : 'rgba(160,110,70,.14)');
     gloss(ctx, gold ? 0.30 : 0.55);
 
-    // 머리 위 잔머리
-    ctx.strokeStyle = gold ? 'rgba(180,120,30,.55)' : 'rgba(206,164,112,.55)';
-    ctx.lineWidth = 0.035 * RB;
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(CX - 0.10 * RB, CY - 0.95 * RB);
-    ctx.quadraticCurveTo(CX - 0.16 * RB, CY - 1.06 * RB, CX - 0.05 * RB, CY - 1.12 * RB);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(CX + 0.06 * RB, CY - 0.97 * RB);
-    ctx.quadraticCurveTo(CX + 0.16 * RB, CY - 1.05 * RB, CX + 0.13 * RB, CY - 1.12 * RB);
-    ctx.stroke();
-
     // 눈
-    eye(ctx, CX - 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, ['#7A4E3C', '#3A2521', '#221310'], {
-      sclera: '#FFFAF2', pupil: '#170D0A'
+    var irisSet = gold ? ['#A8701C', '#5A3408', '#2E1804'] : ['#7A4E3C', '#3A2521', '#221310'];
+    var pupilSet = gold ? '#1C0E02' : '#170D0A';
+    eye(ctx, CX - 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, irisSet, {
+      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(90,50,10,.5)' : 'rgba(60,30,40,.3)'
     });
-    eye(ctx, CX + 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, ['#7A4E3C', '#3A2521', '#221310'], {
-      sclera: '#FFFAF2', pupil: '#170D0A'
+    eye(ctx, CX + 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, irisSet, {
+      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(90,50,10,.5)' : 'rgba(60,30,40,.3)'
     });
     // 속눈썹
-    ctx.strokeStyle = 'rgba(70,40,32,.55)';
+    ctx.strokeStyle = gold ? 'rgba(120,70,10,.6)' : 'rgba(70,40,32,.55)';
     ctx.lineWidth = 0.026 * RB;
     ctx.lineCap = 'round';
     for (var e = -1; e <= 1; e += 2) {
@@ -478,18 +467,18 @@
     blush(ctx, CX + 0.60 * RB, CY + 0.26 * RB, 0.21 * RB, 0.14 * RB, gold ? 'rgba(255,170,110,.45)' : 'rgba(255,140,175,.45)');
 
     // 코
-    ctx.beginPath();
-    ctx.moveTo(CX - 0.065 * RB, CY + 0.27 * RB);
-    ctx.quadraticCurveTo(CX, CY + 0.23 * RB, CX + 0.065 * RB, CY + 0.27 * RB);
-    ctx.quadraticCurveTo(CX + 0.04 * RB, CY + 0.35 * RB, CX, CY + 0.355 * RB);
-    ctx.quadraticCurveTo(CX - 0.04 * RB, CY + 0.35 * RB, CX - 0.065 * RB, CY + 0.27 * RB);
-    ctx.closePath();
-    ctx.fillStyle = gold ? '#8A4E16' : '#4A302A';
-    ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(CX - 0.065 * RB, CY + 0.27 * RB);
+      ctx.quadraticCurveTo(CX, CY + 0.23 * RB, CX + 0.065 * RB, CY + 0.27 * RB);
+      ctx.quadraticCurveTo(CX + 0.04 * RB, CY + 0.35 * RB, CX, CY + 0.355 * RB);
+      ctx.quadraticCurveTo(CX - 0.04 * RB, CY + 0.35 * RB, CX - 0.065 * RB, CY + 0.27 * RB);
+      ctx.closePath();
+      ctx.fillStyle = gold ? '#7A4208' : '#4A302A';
+      ctx.fill();
     ellipse(ctx, CX - 0.02 * RB, CY + 0.275 * RB, 0.018 * RB, 0.010 * RB, -0.3, 'rgba(255,255,255,.7)');
 
     // 웃는 입 + 혀
-    ctx.strokeStyle = gold ? '#8A4E16' : '#5A3A32';
+    ctx.strokeStyle = gold ? '#7A4208' : '#5A3A32';
     ctx.lineWidth = 0.03 * RB;
     ctx.lineCap = 'round';
     ctx.beginPath();
@@ -524,7 +513,7 @@
     }
 
     if (opt.crown) {
-      crown(ctx, CX, CY - 0.92 * RB, opt.gold ? 1.02 * RB : 0.84 * RB, {
+      crown(ctx, CX, CY - 0.95 * RB, opt.gold ? 1.04 * RB : 0.86 * RB, {
         gems: opt.gold ? ['#FF4F92', '#59B6FF', '#FFD34E'] : ['#FF5D9B', '#4FA8E8', '#FF5D9B']
       });
     }
@@ -553,46 +542,48 @@
       });
       ctx.restore();
       // 단청 꽃 문양
-      flower(ctx, CX + 0.02 * RB, CY + 0.86 * RB, 0.10 * RB, 'rgba(255,255,255,.95)', '#D8452F', 0.2);
-      flower(ctx, CX - 0.40 * RB, CY - 0.60 * RB, 0.085 * RB, 'rgba(255,255,255,.9)', '#F5C034', 0.7);
+      flower(ctx, CX + 0.02 * RB, CY + 0.88 * RB, 0.15 * RB, '#FFFDF6', '#D8452F', 0.2);
+      flower(ctx, CX - 0.46 * RB, CY + 0.72 * RB, 0.10 * RB, '#FFFDF6', '#F5C034', 0.7);
+      flower(ctx, CX + 0.48 * RB, CY + 0.72 * RB, 0.10 * RB, '#FFFDF6', '#1F5FA8', 1.2);
+      flower(ctx, CX + 0.34 * RB, CY - 0.56 * RB, 0.07 * RB, '#FFFDF6', '#D8452F', 0.4);
     }
 
     if (opt.hanbok) {
       // 저고리 깃 (분홍) + 동정 (흰색)
-      var R1 = 0.90 * RB;
+      var R1 = 0.88 * RB;
       ctx.save();
       ctx.lineCap = 'butt';
       ctx.beginPath();
-      ctx.arc(CX, CY, R1, Math.PI * 0.17, Math.PI * 0.83);
-      ctx.lineWidth = 0.22 * RB;
+      ctx.arc(CX, CY, R1, Math.PI * 0.15, Math.PI * 0.85);
+      ctx.lineWidth = 0.26 * RB;
       ctx.strokeStyle = '#E8548A';
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(CX, CY, R1 - 0.115 * RB, Math.PI * 0.19, Math.PI * 0.81);
-      ctx.lineWidth = 0.055 * RB;
+      ctx.arc(CX, CY, R1 - 0.135 * RB, Math.PI * 0.17, Math.PI * 0.83);
+      ctx.lineWidth = 0.07 * RB;
       ctx.strokeStyle = '#FFFDF8';
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(CX, CY, R1 + 0.11 * RB, Math.PI * 0.16, Math.PI * 0.84);
-      ctx.lineWidth = 0.022 * RB;
-      ctx.strokeStyle = 'rgba(140,30,70,.45)';
+      ctx.arc(CX, CY, R1 + 0.13 * RB, Math.PI * 0.14, Math.PI * 0.86);
+      ctx.lineWidth = 0.02 * RB;
+      ctx.strokeStyle = 'rgba(140,30,70,.4)';
       ctx.stroke();
       ctx.restore();
       // 고름 (옷고름)
       ctx.save();
-      ctx.translate(CX + 0.06 * RB, CY + 0.92 * RB);
+      ctx.translate(CX + 0.04 * RB, CY + 0.86 * RB);
       ctx.fillStyle = '#C9265F';
-      roundRect(ctx, -0.075 * RB, 0.05 * RB, 0.085 * RB, 0.26 * RB, 0.035 * RB);
+      roundRect(ctx, -0.10 * RB, 0.10 * RB, 0.10 * RB, 0.34 * RB, 0.04 * RB);
       ctx.fill();
-      roundRect(ctx, 0.02 * RB, 0.05 * RB, 0.085 * RB, 0.20 * RB, 0.035 * RB);
+      roundRect(ctx, 0.02 * RB, 0.10 * RB, 0.10 * RB, 0.26 * RB, 0.04 * RB);
       ctx.fill();
-      ellipse(ctx, -0.03 * RB, 0.03 * RB, 0.075 * RB, 0.06 * RB, 0, '#E8548A');
-      ellipse(ctx, 0.06 * RB, 0.03 * RB, 0.075 * RB, 0.06 * RB, 0, '#E8548A');
-      ellipse(ctx, 0.015 * RB, 0.03 * RB, 0.045 * RB, 0.05 * RB, 0, '#A81B4D');
+      ellipse(ctx, -0.05 * RB, 0.05 * RB, 0.09 * RB, 0.075 * RB, -0.2, '#E8548A');
+      ellipse(ctx, 0.08 * RB, 0.05 * RB, 0.09 * RB, 0.075 * RB, 0.2, '#E8548A');
+      ellipse(ctx, 0.015 * RB, 0.04 * RB, 0.055 * RB, 0.06 * RB, 0, '#A81B4D');
       ctx.restore();
       // 비녀 꽃
-      flower(ctx, CX - 0.56 * RB, CY - 0.62 * RB, 0.11 * RB, '#FFD9E7', '#FFB020', 0.4);
-      ellipse(ctx, CX - 0.56 * RB, CY - 0.62 * RB, 0.03 * RB, 0.03 * RB, 0, '#FF5D9B');
+      flower(ctx, CX - 0.58 * RB, CY - 0.58 * RB, 0.12 * RB, '#FFD9E7', '#FFB020', 0.4);
+      ellipse(ctx, CX - 0.58 * RB, CY - 0.58 * RB, 0.032 * RB, 0.032 * RB, 0, '#FF5D9B');
     }
 
     if (gold) {
@@ -621,7 +612,7 @@
       case 2: momo(ctx, {}); break;
       case 3: momo(ctx, { flower: true }); break;
       case 4: komi(ctx, { headband: true }); break;
-      case 5: komi(ctx, { headband: true, crown: true }); break;
+      case 5: komi(ctx, { crown: true }); break;
       case 6: komi(ctx, { dancheong: true }); break;
       case 7: komi(ctx, { hanbok: true }); break;
       default: komi(ctx, { crown: true, gold: true }); break;
