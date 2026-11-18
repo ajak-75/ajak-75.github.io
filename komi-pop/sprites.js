@@ -66,19 +66,23 @@
   }
 
   /* ---------- 개 귀 ---------- */
+  function earPath(ctx) {
+    ctx.beginPath();
+    ctx.moveTo(-0.70 * RB, -0.58 * RB);
+    ctx.quadraticCurveTo(-0.88 * RB, -0.84 * RB, -0.64 * RB, -1.06 * RB);
+    ctx.quadraticCurveTo(-0.57 * RB, -1.14 * RB, -0.47 * RB, -1.02 * RB);
+    ctx.quadraticCurveTo(-0.40 * RB, -0.94 * RB, -0.28 * RB, -0.88 * RB);
+    ctx.quadraticCurveTo(-0.46 * RB, -0.70 * RB, -0.70 * RB, -0.58 * RB);
+    ctx.closePath();
+  }
+
   function ear(ctx, dir, k, fur, inner, outline) {
     ctx.save();
     ctx.translate(CX, CY);
     ctx.scale(dir < 0 ? -1 : 1, 1);
     ctx.scale(k, k);
 
-    ctx.beginPath();
-    ctx.moveTo(-0.74 * RB, -0.12 * RB);
-    ctx.bezierCurveTo(-1.04 * RB, -0.42 * RB, -1.10 * RB, -0.94 * RB, -0.96 * RB, -1.06 * RB);
-    ctx.quadraticCurveTo(-0.86 * RB, -1.13 * RB, -0.74 * RB, -0.99 * RB);
-    ctx.bezierCurveTo(-0.62 * RB, -0.86 * RB, -0.46 * RB, -0.68 * RB, -0.30 * RB, -0.56 * RB);
-    ctx.bezierCurveTo(-0.42 * RB, -0.36 * RB, -0.60 * RB, -0.22 * RB, -0.74 * RB, -0.12 * RB);
-    ctx.closePath();
+    earPath(ctx);
     ctx.fillStyle = fur;
     ctx.fill();
     ctx.lineJoin = 'round';
@@ -86,17 +90,17 @@
     ctx.strokeStyle = outline || 'rgba(60,30,45,.10)';
     ctx.stroke();
 
-    ctx.beginPath();
-    ctx.moveTo(-0.72 * RB, -0.24 * RB);
-    ctx.bezierCurveTo(-0.94 * RB, -0.48 * RB, -0.99 * RB, -0.88 * RB, -0.90 * RB, -0.96 * RB);
-    ctx.quadraticCurveTo(-0.84 * RB, -1.00 * RB, -0.77 * RB, -0.90 * RB);
-    ctx.bezierCurveTo(-0.68 * RB, -0.78 * RB, -0.55 * RB, -0.64 * RB, -0.44 * RB, -0.56 * RB);
-    ctx.bezierCurveTo(-0.53 * RB, -0.42 * RB, -0.65 * RB, -0.31 * RB, -0.72 * RB, -0.24 * RB);
-    ctx.closePath();
-    ctx.fillStyle = rg(ctx, -0.80 * RB, -0.80 * RB, 0.04 * RB, -0.70 * RB, -0.60 * RB, 0.42 * RB, [
+    // 안쪽 귀 — 바깥 귀를 살짝 줄여 그린다
+    ctx.save();
+    ctx.translate(-0.50 * RB, -0.74 * RB);
+    ctx.scale(0.66, 0.66);
+    ctx.translate(0.50 * RB, 0.74 * RB);
+    earPath(ctx);
+    ctx.fillStyle = rg(ctx, -0.80 * RB, -0.92 * RB, 0.04 * RB, -0.62 * RB, -0.78 * RB, 0.32 * RB, [
       [0, '#FFD3DF'], [1, inner]
     ]);
     ctx.fill();
+    ctx.restore();
     ctx.restore();
   }
 
@@ -314,8 +318,8 @@
   function momo(ctx, opt) {
     opt = opt || {};
     var furDark = '#2A2029', furMid = '#453542';
-    ear(ctx, -1, 1.05, furMid, '#FFB3C7', 'rgba(20,10,18,.25)');
-    ear(ctx, 1, 1.05, furMid, '#FFB3C7', 'rgba(20,10,18,.25)');
+    ear(ctx, -1, 1.02, furMid, '#FFB3C7', 'rgba(20,10,18,.25)');
+    ear(ctx, 1, 1.02, furMid, '#FFB3C7', 'rgba(20,10,18,.25)');
 
     ball(ctx, '#544351', furDark, '#160F17', 'rgba(10,4,12,.25)');
 
@@ -428,11 +432,11 @@
     var furLow = gold ? '#C98A24' : '#E7C79C';
     var furEar = gold ? 'rgba(255,240,196,.98)' : '#F7E3C4';
 
-    ear(ctx, -1, 0.86, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.20)' : 'rgba(140,100,60,.12)');
-    ear(ctx, 1, 0.86, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.20)' : 'rgba(140,100,60,.12)');
+    ear(ctx, -1, 0.95, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.20)' : 'rgba(140,100,60,.12)');
+    ear(ctx, 1, 0.95, furEar, '#FFB6CB', gold ? 'rgba(150,90,10,.20)' : 'rgba(140,100,60,.12)');
 
     ball(ctx, furHi, furMid, furLow, gold ? 'rgba(150,90,10,.24)' : 'rgba(160,110,70,.14)');
-    gloss(ctx, 0.55);
+    gloss(ctx, gold ? 0.30 : 0.55);
 
     // 머리 위 잔머리
     ctx.strokeStyle = gold ? 'rgba(180,120,30,.55)' : 'rgba(206,164,112,.55)';
@@ -516,7 +520,7 @@
       ctx.strokeStyle = 'rgba(255,255,255,.5)';
       ctx.stroke();
       ctx.restore();
-      bow(ctx, CX - 0.74 * RB, CY - 0.70 * RB, 0.62, '#FF8FBB', '#E3226F', -0.30);
+      bow(ctx, CX - 0.78 * RB, CY - 0.50 * RB, 0.60, '#FF8FBB', '#E3226F', -0.55);
     }
 
     if (opt.crown) {
@@ -555,39 +559,40 @@
 
     if (opt.hanbok) {
       // 저고리 깃 (분홍) + 동정 (흰색)
-      var R1 = 0.92 * RB;
+      var R1 = 0.90 * RB;
       ctx.save();
       ctx.lineCap = 'butt';
       ctx.beginPath();
-      ctx.arc(CX, CY, R1, Math.PI * 0.18, Math.PI * 0.82);
-      ctx.lineWidth = 0.20 * RB;
+      ctx.arc(CX, CY, R1, Math.PI * 0.17, Math.PI * 0.83);
+      ctx.lineWidth = 0.22 * RB;
       ctx.strokeStyle = '#E8548A';
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(CX, CY, R1 - 0.10 * RB, Math.PI * 0.20, Math.PI * 0.80);
-      ctx.lineWidth = 0.035 * RB;
+      ctx.arc(CX, CY, R1 - 0.115 * RB, Math.PI * 0.19, Math.PI * 0.81);
+      ctx.lineWidth = 0.055 * RB;
       ctx.strokeStyle = '#FFFDF8';
       ctx.stroke();
       ctx.beginPath();
-      ctx.arc(CX, CY, R1 + 0.10 * RB, Math.PI * 0.17, Math.PI * 0.83);
-      ctx.lineWidth = 0.026 * RB;
-      ctx.strokeStyle = 'rgba(140,30,70,.5)';
+      ctx.arc(CX, CY, R1 + 0.11 * RB, Math.PI * 0.16, Math.PI * 0.84);
+      ctx.lineWidth = 0.022 * RB;
+      ctx.strokeStyle = 'rgba(140,30,70,.45)';
       ctx.stroke();
       ctx.restore();
       // 고름 (옷고름)
       ctx.save();
-      ctx.translate(CX + 0.28 * RB, CY + 0.80 * RB);
-      ctx.rotate(0.35);
+      ctx.translate(CX + 0.06 * RB, CY + 0.92 * RB);
       ctx.fillStyle = '#C9265F';
-      roundRect(ctx, -0.05 * RB, 0, 0.10 * RB, 0.34 * RB, 0.05 * RB);
+      roundRect(ctx, -0.075 * RB, 0.05 * RB, 0.085 * RB, 0.26 * RB, 0.035 * RB);
       ctx.fill();
-      roundRect(ctx, 0.07 * RB, 0, 0.10 * RB, 0.26 * RB, 0.05 * RB);
+      roundRect(ctx, 0.02 * RB, 0.05 * RB, 0.085 * RB, 0.20 * RB, 0.035 * RB);
       ctx.fill();
-      ellipse(ctx, 0.06 * RB, 0.02 * RB, 0.10 * RB, 0.08 * RB, 0, '#E8548A');
+      ellipse(ctx, -0.03 * RB, 0.03 * RB, 0.075 * RB, 0.06 * RB, 0, '#E8548A');
+      ellipse(ctx, 0.06 * RB, 0.03 * RB, 0.075 * RB, 0.06 * RB, 0, '#E8548A');
+      ellipse(ctx, 0.015 * RB, 0.03 * RB, 0.045 * RB, 0.05 * RB, 0, '#A81B4D');
       ctx.restore();
       // 비녀 꽃
-      flower(ctx, CX - 0.56 * RB, CY - 0.66 * RB, 0.11 * RB, '#FFD9E7', '#FFB020', 0.4);
-      ellipse(ctx, CX - 0.56 * RB, CY - 0.66 * RB, 0.035 * RB, 0.035 * RB, 0, '#FF5D9B');
+      flower(ctx, CX - 0.56 * RB, CY - 0.62 * RB, 0.11 * RB, '#FFD9E7', '#FFB020', 0.4);
+      ellipse(ctx, CX - 0.56 * RB, CY - 0.62 * RB, 0.03 * RB, 0.03 * RB, 0, '#FF5D9B');
     }
 
     if (gold) {
@@ -603,19 +608,8 @@
       ctx.restore();
       var spots = [[-0.98, -0.46, 0.10], [0.95, -0.52, 0.085], [-0.86, 0.62, 0.075], [0.92, 0.52, 0.10], [0.06, -1.14, 0.07]];
       for (var s2 = 0; s2 < spots.length; s2++) {
-        sparkle(ctx, CX + spots[s2][0] * RB, CY + spots[s2][1] * RB, spots[s2][2] * RB, '#FFF6C9', 0.95);
+        sparkle(ctx, CX + spots[s2][0] * RB, CY + spots[s2][1] * RB, spots[s2][2] * RB, '#FFFBE4', 0.95);
       }
-      // 반짝 밴드
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(CX, CY, RB, 0, TAU);
-      ctx.clip();
-      ctx.globalAlpha = 0.22;
-      ctx.fillStyle = 'rgba(255,255,255,.6)';
-      ctx.beginPath();
-      ctx.ellipse(CX + 0.34 * RB, CY - 0.34 * RB, 0.07 * RB, 0.55 * RB, 0.7, 0, TAU);
-      ctx.fill();
-      ctx.restore();
     }
   }
 
