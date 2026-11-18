@@ -646,7 +646,7 @@
       var labels = {
         classic: '시안 1 · 조선 서책 클래식',
         pastel: '시안 2 · 모던 민화 (동백·호랑이·달)',
-        boutique: '시안 3 · 모던 K-부티크'
+        boutique: '시안 3 · 모던 K-부티크 (일월오봉도)'
       };
       var lab = $('previewLabel');
       lab.textContent = labels[document.documentElement.getAttribute('data-theme')] || '';

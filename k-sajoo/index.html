@@ -30,7 +30,7 @@
 <link rel="icon" href="./icon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="./styles.css?v=10">
+<link rel="stylesheet" href="./styles.css?v=11">
 </head>
 <body>
 
@@ -58,6 +58,21 @@
       <h1 class="hero-title" data-i18n="heroTitle">태어난 순간의 하늘을
 네 기둥으로</h1>
       <p class="hero-lead" data-i18n="heroLead">태양이 어느 절기에 닿았는지, 출생지의 시계가 몇 시를 가리켰는지까지 계산해 당신의 년·월·일·시 기둥과 오행의 균형을 한 장에 담습니다.</p>
+
+      <div class="ilwol-band" aria-hidden="true">
+        <svg viewBox="0 0 360 84" role="presentation" focusable="false">
+          <circle cx="62" cy="24" r="12" class="i-moon"/>
+          <circle cx="298" cy="22" r="10" class="i-sun"/>
+          <path d="M180 12 L208 62 L152 62 Z" class="i-p1"/>
+          <path d="M120 30 L150 64 L90 64 Z" class="i-p2"/>
+          <path d="M240 30 L270 64 L210 64 Z" class="i-p2"/>
+          <path d="M64 46 L92 68 L36 68 Z" class="i-p3"/>
+          <path d="M296 46 L324 68 L268 68 Z" class="i-p3"/>
+          <path d="M180 12 L193 55 M180 12 L167 55" class="i-gold"/>
+          <path d="M24 74 q14 -5 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" class="i-wave"/>
+          <path d="M24 80 q14 -5 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" class="i-wave2"/>
+        </svg>
+      </div>
       <div class="folk-band" aria-hidden="true">
         <svg viewBox="0 0 360 80" role="presentation" focusable="false">
           <g class="folk-tiger">
@@ -209,6 +224,18 @@
       <div class="pillars" id="pillars"></div>
 
       <article class="daymaster" id="dayMaster">
+        <span class="peony" aria-hidden="true">
+          <svg viewBox="0 0 120 120" focusable="false">
+            <ellipse cx="46" cy="54" rx="24" ry="19" class="p-petal"/>
+            <ellipse cx="74" cy="54" rx="24" ry="19" class="p-petal"/>
+            <ellipse cx="60" cy="38" rx="26" ry="21" class="p-petal2"/>
+            <ellipse cx="60" cy="66" rx="27" ry="18" class="p-petal"/>
+            <circle cx="60" cy="54" r="11" class="p-core"/>
+            <path d="M60 76 q-4 20 -18 30" class="p-stem"/>
+            <ellipse cx="34" cy="96" rx="18" ry="7" transform="rotate(-24 34 96)" class="p-leaf"/>
+            <ellipse cx="88" cy="94" rx="17" ry="6" transform="rotate(20 88 94)" class="p-leaf"/>
+          </svg>
+        </span>
         <p class="block-label" data-i18n="dayMasterLabel">일간 · 나의 중심</p>
         <p class="dm-name" id="dmName"></p>
         <p class="dm-story" id="dmStory"></p>
@@ -298,6 +325,6 @@
 
 <script src="./engine.js?v=1"></script>
 <script src="./i18n.js?v=1"></script>
-<script src="./app.js?v=6"></script>
+<script src="./app.js?v=7"></script>
 </body>
 </html>
