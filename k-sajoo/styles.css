@@ -172,6 +172,10 @@ html[data-theme="boutique"] .pillar-stem { font-family: var(--font-display); fon
 html[data-theme="boutique"] .daymaster { border-left: 2px solid var(--accent); padding-left: 16px; }
 html[data-theme="boutique"] .btn-primary { background: var(--ink); color: #fff; border-radius: 0; letter-spacing: .04em; }
 html[data-theme="boutique"] .seal { border-radius: 0; background: var(--ink); color: var(--seal-ink); }
+html[data-theme="boutique"] .pillar-god,
+html[data-theme="boutique"] .chip { border-radius: 0; background: transparent; border: 1px solid var(--line); color: var(--ink-soft); }
+html[data-theme="boutique"] .premium { background: transparent; border-color: var(--line); }
+html[data-theme="boutique"] .badge { background: var(--ink); color: var(--seal-ink); border-radius: 0; }
 
 /* ── 머리 ─────────────────────────────────────────────────── */
 .masthead { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0 18px; }
@@ -346,7 +350,7 @@ input:disabled { opacity: .45; }
 .modal-card p { margin: 0 0 18px; font-size: 13px; line-height: 1.75; color: var(--ink-soft); }
 
 /* ── 넓은 화면 ─────────────────────────────────────────────── */
-@media (min-width: 560px) {
+@container (min-width: 560px) {
   .app { padding: 26px 26px 48px; }
   .pillars { grid-template-columns: repeat(4, 1fr); }
   .pillar { padding: 18px 12px 16px; }
@@ -380,7 +384,7 @@ body.is-preview.show-form .preview-label { display: block; }
 }
 
 /* 좁은 화면의 기둥 격자 — 2×2 에서 세로 괘선이 어색하지 않게 */
-@media (max-width: 559px) {
+@container (max-width: 559px) {
   html[data-theme="classic"] .pillar + .pillar { border-left: 0; }
   html[data-theme="classic"] .pillar:nth-child(2n) { border-left: 1px solid var(--line); }
   html[data-theme="classic"] .pillar:nth-child(n+3) { border-top: 1px solid var(--line); }
