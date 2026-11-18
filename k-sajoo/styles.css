@@ -276,7 +276,7 @@ input:disabled { opacity: .45; }
 .result-head { margin-bottom: 16px; }
 .result-title { margin: 0 0 8px; font-family: var(--font-display); font-size: 26px; font-size: clamp(24px, 7cqw, 32px); line-height: 1.2; }
 .result-sub { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
-.result-note { margin: 8px 0 0; font-size: 12px; color: var(--accent); }
+.result-note { margin: 8px 0 0; font-size: 12px; color: var(--ink-soft); }
 
 .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin: 4px 0 22px; }
 .pillar { padding: 14px 10px 12px; text-align: center; }
@@ -427,3 +427,9 @@ html[data-theme="boutique"] .hero > * { position: relative; z-index: 1; }
 
 .ilwol-sm { margin: -4px 0 10px; opacity: .95; }
 html[data-theme="boutique"] .ilwol-sm { display: block; }
+
+/* 다듬기 */
+html[data-theme="classic"] .folk-band, html[data-theme="pastel"] .folk-band { border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+html[data-theme="boutique"] .ilwol-band { border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+html[data-theme="boutique"] .lang select { border-radius: 0; background: transparent; }
+html[data-theme="boutique"] .el-bar { border-radius: 0; height: 6px; }
