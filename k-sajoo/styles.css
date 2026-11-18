@@ -124,21 +124,21 @@ html[data-theme="pastel"] body::after {
 }
 /* 1) 민화 원화 — 모란 위·호랑이 아래, 원색이 비치도록 보통 합성. 넓은 화면은 확대 배율이 커서 농도를 낮춘다 */
 html[data-theme="pastel"] body::before {
-  background: url("./bg-minhwa.jpg") center top / cover no-repeat;
-  opacity: .64;
-  filter: contrast(1.08) saturate(1.05);
+  background: url("./bg-minhwa.jpg?v=22") center top / cover no-repeat;
+  opacity: .56;
+  filter: contrast(1.05) saturate(1.02);
 }
 /* 2) 위아래에 한지 빛을 덜어 그림이 글을 방해하지 않게 */
 html[data-theme="pastel"] body::after {
   background:
-    linear-gradient(180deg, rgba(252, 246, 234, .26) 0%, rgba(250, 241, 226, .08) 18%, rgba(247, 234, 214, 0) 34%, rgba(247, 234, 214, 0) 82%, rgba(238, 220, 194, .14) 100%);
+    linear-gradient(180deg, rgba(252, 246, 234, .5) 0%, rgba(250, 241, 226, .3) 22%, rgba(247, 234, 214, .05) 40%, rgba(247, 234, 214, 0) 56%, rgba(238, 220, 194, .16) 100%);
 }
 /* 글자 밑에만 한지 빛을 한 겹 — 민화가 글자에 닿지 않게 */
 html[data-theme="pastel"] .hero-title { text-shadow: 0 0 18px rgba(253, 247, 236, .95), 0 0 7px rgba(253, 247, 236, .9); }
 html[data-theme="pastel"] .hero-lead { text-shadow: 0 0 14px rgba(252, 246, 234, .92); }
 /* 넓은 화면은 그림이 크게 확대되므로 더 연하게 */
 @media (min-width: 900px) {
-  html[data-theme="pastel"] body::before { opacity: .32; filter: blur(1px) saturate(.98); }
+  html[data-theme="pastel"] body::before { opacity: .26; filter: blur(1px) saturate(.98); }
   html[data-theme="pastel"] body::after {
     background:
       radial-gradient(62% 70% at 50% 40%, rgba(251, 244, 232, .55), rgba(251, 244, 232, 0) 72%),
