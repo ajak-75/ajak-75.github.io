@@ -301,6 +301,7 @@
         var nm = el('span', 'da-name', d.stems[it.stem]);
         nm.classList.add('el-' + K.ELEMENTS[K.STEM_ELEMENT[it.stem]]);
         li.appendChild(nm);
+        li.appendChild(el('span', 'da-branch', d.animals[it.branch]));
         li.appendChild(el('span', 'da-god', d.tenGods[GOD_INDEX[it.tenGod]] || ''));
         listEx.appendChild(li);
       });
