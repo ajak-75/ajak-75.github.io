@@ -14,8 +14,8 @@ window.AJAK_STUDIO_APPS = [
     status: 'live',
     category: 'Thread · Global',
     url: 'https://ajak-75.github.io/diary/',
-    icon: './apps/ajak.png',
-    icon2x: './apps/ajak-512.png',
+    icon: './apps/ajak.png?v=3',
+    icon2x: './apps/ajak-512.png?v=3',
     iconBg: 'transparent',
     desc: {
       ko: '코미·모모 캐릭터 없이 남녀노소 누구나 가볍게 일상과 생각을 나누는 한국판 스레드형 미니 SNS. 접속한 기기의 언어를 자동으로 감지해 각자의 언어로 열립니다.',
@@ -41,8 +41,8 @@ window.AJAK_STUDIO_APPS = [
     status: 'live',
     category: 'K-Culture · Community',
     url: 'https://ajak-75.github.io/KOMI-Diary/',
-    icon: './apps/komi-diary.png',
-    icon2x: './apps/komi-diary-512.png',
+    icon: './apps/komi-diary.png?v=2',
+    icon2x: './apps/komi-diary-512.png?v=2',
     iconBg: 'transparent',
     desc: {
       ko: '전 세계 케미(Kemi)들이 모이는 K-컬처 팬덤 다이어리 · 모모 샵 · K-스타 케미 궁합 · 16개국어와 전 세계 언어를 자동 번역합니다.',
