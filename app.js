@@ -147,6 +147,12 @@
     });
   };
 
+  /* 카드 주소는 진짜 웹 주소일 때만 링크가 된다(javascript:·data: 등은 링크를 만들지 않는다) */
+  function safeHref(s) {
+    var v = String(s == null ? '' : s).trim();
+    return /^https?:\/\//i.test(v) ? v : '';
+  }
+
   function applyStrings() {
     var html = document.documentElement;
     html.lang = LOCALE_OF(LANG);
@@ -198,10 +204,11 @@
     var html = '';
 
     APPS.forEach(function (app) {
-      var live = app.status !== 'soon';
+      var href = safeHref(app.url);
+      var live = app.status !== 'soon' && !!href;
       var tag = live ? 'a' : 'div';
       var attrs = live
-        ? ' href="' + esc(app.url) + '" target="_blank" rel="noopener"'
+        ? ' href="' + esc(href) + '" target="_blank" rel="noopener noreferrer"'
         : '';
       var badge = live
         ? '<span class="badge"><span class="dot"></span>' + esc(t('live')) + '</span>'
