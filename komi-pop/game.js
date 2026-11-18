@@ -232,7 +232,7 @@
       rect = wrap.getBoundingClientRect();
     }
     var w = Math.max(220, Math.round(rect.width));
-    var h = Math.max(260, Math.round(rect.height));
+    var h = Math.max(180, Math.round(rect.height));
     var oldW = box.w, oldH = box.h;
     DPR = Math.min(3, window.devicePixelRatio || 1);
     box.w = w; box.h = h;
