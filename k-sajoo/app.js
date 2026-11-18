@@ -74,6 +74,10 @@
 
   var state = { lang: 'ko', result: null, city: CITIES[0], resultCity: CITIES[0], preview: false };
 
+  /* 결과 카드 배경에 은은하게 깔 민화 원화 — 미리 받아 두고, 없으면 그냥 건너뛴다 */
+  var minhwa = new Image();
+  minhwa.src = './bg-minhwa.jpg';
+
   /* ── 작은 도구 ────────────────────────────────────────────── */
   function $(id) { return document.getElementById(id); }
   function dict() { return I[state.lang] || I.en; }
@@ -452,6 +456,18 @@
 
     ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
+    /* 민화 원화 — 종이 위에 스민 듯 아주 흐리게 (곱하기 합성, 로드 전이면 건너뜀) */
+    if (minhwa.complete && minhwa.naturalWidth > 0) {
+      var iw = minhwa.naturalWidth, ih = minhwa.naturalHeight;
+      var scale = Math.max(W / iw, H / ih);
+      var dw = iw * scale, dh = ih * scale;
+      ctx.save();
+      ctx.globalAlpha = 0.2;
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.drawImage(minhwa, (W - dw) / 2, (H - dh) / 2, dw, dh);
+      ctx.restore();
+    }
+
     /* 한지 결 */
     ctx.save();
     ctx.globalAlpha = 0.18;
@@ -676,8 +692,8 @@
       document.body.classList.add('is-preview');
       var labels = {
         classic: '시안 1 · 조선 서책 클래식',
-        pastel: '시안 2 · 모던 민화 (동백·호랑이·달)',
-        boutique: '시안 3 · 모던 K-부티크 (일월오봉도)'
+        pastel: '시안 2 · 모던 민화 (화첩 배경)',
+        boutique: '시안 3 · 모던 K-부티크 (달항아리)'
       };
       var lab = $('previewLabel');
       if (params.get('compare') === '1') {

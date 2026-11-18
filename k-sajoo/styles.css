@@ -112,26 +112,48 @@ html[data-theme="pastel"] .btn-primary { background: linear-gradient(135deg, #bd
 html[data-theme="pastel"] .seal { border-radius: 14px; transform: rotate(-4deg); font-weight: 700; }
 html[data-theme="pastel"] .premium { background: #fbf1df; border-color: #eedcbf; }
 
-/* 민화 띠 — 시안 2에서만 보인다 */
-.folk-band { display: none; margin: 14px 0 2px; }
-html[data-theme="pastel"] .folk-band { display: block; }
-.folk-band svg { display: block; width: 100%; max-width: 430px; height: auto; margin: 0 auto; }
-.folk-band-sm { margin: 2px 0 12px; opacity: .92; }
-.f-ochre { fill: #c98a55; }
-.f-cream { fill: #f8ecd8; }
-.f-stroke { stroke: #6b4a32; stroke-width: 1.4; }
-.f-eye { fill: #f2ce5c; stroke: #6b4a32; stroke-width: 1; }
-.f-ink { fill: #2e241c; }
-.f-red { fill: #b23a33; }
-.f-ink-line { fill: none; stroke: #2e241c; stroke-width: 1.6; stroke-linecap: round; }
-.f-ink-line2 { fill: none; stroke: #2e241c; stroke-width: 2.2; stroke-linecap: round; }
-.f-whisker { fill: none; stroke: #6b4a32; stroke-width: .9; stroke-linecap: round; opacity: .75; }
-.f-branch { fill: none; stroke: #6b4a32; stroke-width: 2.4; stroke-linecap: round; }
-.f-pine { fill: #4a6b4f; }
-.f-seed { fill: #e9d3a0; }
-.f-moon { fill: #efe2c6; stroke: #cdb691; stroke-width: 1; }
-.f-cloud { fill: #e2d0b0; opacity: .85; }
-.f-cloud2 { fill: #efe2c6; opacity: .9; }
+/* ── 민화 배경 — 화첩 한 장을 은은하게 깔고 그 위에 글자를 둔다 ── */
+html[data-theme="pastel"] body { background-color: #f7ead6; }
+html[data-theme="pastel"] body::before,
+html[data-theme="pastel"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+/* 1) 민화 원화 — 종이 바탕에 가깝게 곰빼기(multiply)로 얹어 흐리게 */
+html[data-theme="pastel"] body::before {
+  background: url("./bg-minhwa.jpg") center top / cover no-repeat;
+  opacity: .24;
+  filter: blur(2px) saturate(.92) contrast(.98);
+  mix-blend-mode: multiply;
+}
+/* 2) 위아래로 한지 빛을 덜어 그림이 글을 방해하지 않게 */
+html[data-theme="pastel"] body::after {
+  background:
+    radial-gradient(86% 46% at 50% 34%, rgba(252, 245, 232, .5), rgba(252, 245, 232, 0) 76%),
+    linear-gradient(180deg, rgba(251, 243, 228, .86) 0%, rgba(247, 234, 214, 0) 26%, rgba(247, 234, 214, 0) 58%, rgba(238, 220, 194, .5) 100%);
+}
+html[data-theme="pastel"] .app { position: relative; z-index: 1; }
+html[data-theme="pastel"] body.is-preview::before,
+html[data-theme="pastel"] body.is-preview::after { display: none; }
+/* 반투명 한지 카드 — 배경 민화가 카드 앞에서도 숨소리처럼 비친다 */
+html[data-theme="pastel"] .panel,
+html[data-theme="pastel"] .result {
+  background: rgba(255, 250, 240, .88);
+  -webkit-backdrop-filter: blur(6px) saturate(1.03);
+  backdrop-filter: blur(6px) saturate(1.03);
+}
+html[data-theme="pastel"] .daymaster { background: rgba(248, 238, 218, .72); }
+html[data-theme="pastel"] .premium { background: rgba(251, 241, 223, .8); }
+html[data-theme="pastel"] .pillar { background: rgba(255, 250, 240, .82); }
+html[data-theme="pastel"] .pillar:nth-child(1) { background: linear-gradient(160deg, rgba(255, 250, 240, .9), rgba(253, 242, 224, .84)); }
+html[data-theme="pastel"] .pillar:nth-child(2) { background: linear-gradient(160deg, rgba(246, 243, 230, .88), rgba(255, 250, 240, .84)); }
+html[data-theme="pastel"] .pillar:nth-child(3) { background: linear-gradient(160deg, rgba(253, 243, 230, .88), rgba(255, 250, 240, .84)); }
+html[data-theme="pastel"] .pillar:nth-child(4) { background: linear-gradient(160deg, rgba(238, 241, 236, .86), rgba(255, 250, 240, .84)); }
+
+/* 민화 배경은 이미지 한 장으로만 쓴다 — 클립아트 띠·아이콘은 두지 않는다 */
 
 /* ── 시안 3 · 모던 K-부티크 ───────────────────────────────── */
 html[data-theme="boutique"] {
@@ -392,30 +414,9 @@ body.is-preview.show-form .preview-label { display: block; }
   html[data-theme="boutique"] .pillar:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
 }
 
-/* ── 시안 2 · 모란 수채 워터마크 ─────────────────────────── */
-.peony { display: none; }
-html[data-theme="pastel"] .peony { display: block; position: absolute; right: -14px; top: -18px; width: 108px; opacity: .16; pointer-events: none; }
-html[data-theme="pastel"] .peony svg { display: block; width: 100%; height: auto; }
-.p-petal { fill: #d9808f; }
-.p-petal2 { fill: #e8a6b0; }
-.p-core { fill: #b23a33; opacity: .55; }
-.p-stem { fill: none; stroke: #4a6b4f; stroke-width: 3; stroke-linecap: round; }
-.p-leaf { fill: #4a6b4f; }
-html[data-theme="pastel"] .daymaster { position: relative; overflow: hidden; }
-html[data-theme="pastel"] .daymaster > *:not(.peony) { position: relative; z-index: 1; }
+/* ── 시안 2 · 모란 수채 워터마크 — 배경 이미지로 대체되어 지움 ── */
 
-/* ── 시안 3 · 일월오봉도 띠와 달항아리 ──────────────────────── */
-.ilwol-band { display: none; margin: 16px 0 4px; }
-html[data-theme="boutique"] .ilwol-band { display: block; }
-.ilwol-band svg { display: block; width: 100%; max-width: 430px; height: auto; margin: 0 auto; }
-.i-moon { fill: #f7f1e2; stroke: #171512; stroke-width: .8; }
-.i-sun { fill: #b4472c; }
-.i-p1 { fill: #2f4453; opacity: .92; }
-.i-p2 { fill: #3d5560; opacity: .82; }
-.i-p3 { fill: #4a6470; opacity: .68; }
-.i-gold { fill: none; stroke: #c8a45c; stroke-width: 1.1; opacity: .9; }
-.i-wave { fill: none; stroke: #4a6470; stroke-width: 1; opacity: .45; }
-.i-wave2 { fill: none; stroke: #4a6470; stroke-width: .8; opacity: .3; }
+/* ── 시안 3 · 달항아리 ───────────────────────────────────── */
 html[data-theme="boutique"] .hero { position: relative; }
 html[data-theme="boutique"] .hero::after {
   content: ""; position: absolute; right: -6px; top: 4px; width: 148px; height: 148px; border-radius: 50%;
@@ -425,12 +426,9 @@ html[data-theme="boutique"] .hero::after {
 }
 html[data-theme="boutique"] .hero > * { position: relative; z-index: 1; }
 
-.ilwol-sm { margin: -4px 0 10px; opacity: .95; }
-html[data-theme="boutique"] .ilwol-sm { display: block; }
+.ilwol-sm { display: none; }
 
 /* 다듬기 */
-html[data-theme="classic"] .folk-band, html[data-theme="pastel"] .folk-band { border-bottom: 1px solid var(--line); padding-bottom: 6px; }
-html[data-theme="boutique"] .ilwol-band { border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 html[data-theme="boutique"] .lang select { border-radius: 0; background: transparent; }
 html[data-theme="boutique"] .el-bar { border-radius: 0; height: 6px; }
 
