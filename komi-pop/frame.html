@@ -14,7 +14,7 @@
 (function () {
   var q = new URLSearchParams(location.search);
   var lang = q.get('lang') || 'ko';
-  document.getElementById('f').src = './index.html?lang=' + encodeURIComponent(lang);
+  document.getElementById('f').src = './index.html?lang=' + encodeURIComponent(lang) + '&cb=' + Date.now();
 })();
 </script>
 </body>
