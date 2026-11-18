@@ -587,8 +587,10 @@
   function downloadCard() {
     if (!state.result) return;
     var canvas = document.createElement('canvas');
-    try { drawCard(canvas, state.result); } catch (e) { return; }
-    var name = 'k-sajoo-' + state.result.meta.birthDate + '.png';
+    try { drawCard(canvas, state.result); } catch (e) { window.__CARD_ERR = String(e && e.message || e); return; }
+    var t = new Date();
+    var stamp = ('0' + t.getHours()).slice(-2) + ('0' + t.getMinutes()).slice(-2);
+    var name = 'k-sajoo-' + state.result.meta.birthDate + '-' + stamp + '.png';
     function save(blob) {
       if (navigator.msSaveBlob) { navigator.msSaveBlob(blob, name); return; }
       var url = URL.createObjectURL(blob);
