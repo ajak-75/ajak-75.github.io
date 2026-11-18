@@ -125,7 +125,7 @@ html[data-theme="pastel"] body::after {
 /* 1) 민화 원화 — 원색이 살짝 비치도록 보통 합성으로 은은하게, 넓은 화면은 줌이 커져 농도를 낮춘다 */
 html[data-theme="pastel"] body::before {
   background: url("./bg-minhwa.jpg") center top / cover no-repeat;
-  opacity: .38;
+  opacity: .46;
   filter: contrast(1.05) saturate(1.04);
 }
 /* 2) 위아래에 한지 빛을 덜어 그림이 글을 방해하지 않게 */
