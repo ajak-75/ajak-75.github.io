@@ -2,37 +2,48 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<title>KOMI &amp; MOMO POP — icon test</title>
+<title>KOMI &amp; MOMO POP — icon</title>
 <style>
-  html,body { margin:0; background:#FFFFFF; display:grid; place-items:center; min-height:100vh; }
-  #tile { width:512px; height:512px; display:block; }
-  #tile2 { width:512px; height:512px; display:block; }
+  html, body { margin: 0; padding: 0; background: #FFEFF7; display: block; }
+  #tile { width: 512px; height: 512px; display: block; }
 </style>
 </head>
 <body>
 <canvas id="tile" width="1024" height="1024"></canvas>
-<script src="./sprites.js?v=2"></script>
+<script src="./sprites.js?v=6"></script>
 <script>
-(function(){
+(function () {
   var c = document.getElementById('tile');
   var g = c.getContext('2d');
   var S = 1024;
-  // 배경: 둥근 사각형 핑크 그라데이션
-  function rr(x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
-  var bg = g.createLinearGradient(0,0,S,S);
-  bg.addColorStop(0,'#FFE1EF'); bg.addColorStop(.55,'#FFB9D6'); bg.addColorStop(1,'#FF86B8');
-  rr(0,0,S,S,232); g.fillStyle=bg; g.fill();
-  // 반짝 배경 점
-  g.globalAlpha=.5; g.fillStyle='#FFFFFF';
-  [[190,180,26],[840,220,18],[210,840,20],[820,800,30],[512,120,12]].forEach(function(p){
-    g.beginPath(); g.arc(p[0],p[1],p[2],0,Math.PI*2); g.fill();
+
+  // 바탕: 꽉 찬 핑크 그라데이션 (앱 아이콘은 모서리까지 채운다)
+  var bg = g.createLinearGradient(0, 0, S, S);
+  bg.addColorStop(0, '#FFE7F2');
+  bg.addColorStop(0.45, '#FFB9D6');
+  bg.addColorStop(1, '#FF7EB3');
+  g.fillStyle = bg;
+  g.fillRect(0, 0, S, S);
+
+  // 부드러운 빛무리
+  var gl = g.createRadialGradient(S * 0.28, S * 0.18, 0, S * 0.28, S * 0.18, S * 0.75);
+  gl.addColorStop(0, 'rgba(255,255,255,.85)');
+  gl.addColorStop(0.55, 'rgba(255,255,255,.18)');
+  gl.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = gl;
+  g.fillRect(0, 0, S, S);
+
+  // 반짝이 점
+  g.fillStyle = 'rgba(255,255,255,.75)';
+  [[196, 200, 20], [830, 190, 14], [812, 800, 22], [190, 810, 12]].forEach(function (p) {
+    g.beginPath(); g.arc(p[0], p[1], p[2], 0, Math.PI * 2); g.fill();
   });
-  g.globalAlpha=1;
-  // 골드 코미 + 모모
-  var momo = window.KOMI_POP_SPRITES.make(2, 420);
-  var gold = window.KOMI_POP_SPRITES.make(8, 620);
-  g.drawImage(momo, 96, 480, 420, 420);
-  g.drawImage(gold, 330, 130, 620, 620);
+
+  // 모모 + 대왕 골드 코미
+  var momo = window.KOMI_POP_SPRITES.make(2, 460);
+  var gold = window.KOMI_POP_SPRITES.make(8, 700);
+  g.drawImage(momo, 60, 470, 460, 460);
+  g.drawImage(gold, 300, 120, 700, 700);
 })();
 </script>
 </body>

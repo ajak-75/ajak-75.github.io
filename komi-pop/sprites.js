@@ -439,13 +439,13 @@
     gloss(ctx, gold ? 0.30 : 0.55);
 
     // 눈
-    var irisSet = gold ? ['#A8701C', '#5A3408', '#2E1804'] : ['#7A4E3C', '#3A2521', '#221310'];
+    var irisSet = gold ? ['#8A5A14', '#402308', '#221002'] : ['#7A4E3C', '#3A2521', '#221310'];
     var pupilSet = gold ? '#1C0E02' : '#170D0A';
     eye(ctx, CX - 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, irisSet, {
-      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(90,50,10,.5)' : 'rgba(60,30,40,.3)'
+      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(80,44,8,.72)' : 'rgba(60,30,40,.3)'
     });
     eye(ctx, CX + 0.355 * RB, CY + 0.01 * RB, 0.205 * RB, 0.225 * RB, irisSet, {
-      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(90,50,10,.5)' : 'rgba(60,30,40,.3)'
+      sclera: gold ? '#FFF6DC' : '#FFFAF2', pupil: pupilSet, lid: gold ? 'rgba(80,44,8,.72)' : 'rgba(60,30,40,.3)'
     });
     // 속눈썹
     ctx.strokeStyle = gold ? 'rgba(120,70,10,.6)' : 'rgba(70,40,32,.55)';
@@ -473,12 +473,12 @@
       ctx.quadraticCurveTo(CX + 0.04 * RB, CY + 0.35 * RB, CX, CY + 0.355 * RB);
       ctx.quadraticCurveTo(CX - 0.04 * RB, CY + 0.35 * RB, CX - 0.065 * RB, CY + 0.27 * RB);
       ctx.closePath();
-      ctx.fillStyle = gold ? '#7A4208' : '#4A302A';
+      ctx.fillStyle = gold ? '#5A3006' : '#4A302A';
       ctx.fill();
     ellipse(ctx, CX - 0.02 * RB, CY + 0.275 * RB, 0.018 * RB, 0.010 * RB, -0.3, 'rgba(255,255,255,.7)');
 
     // 웃는 입 + 혀
-    ctx.strokeStyle = gold ? '#7A4208' : '#5A3A32';
+    ctx.strokeStyle = gold ? '#5A3006' : '#5A3A32';
     ctx.lineWidth = 0.03 * RB;
     ctx.lineCap = 'round';
     ctx.beginPath();
