@@ -42,8 +42,9 @@
 
 - 접속 기기 언어(`navigator.languages[0] || navigator.language`)를 먼저 읽고, `?lang=fr` 쿼리와
   상단 언어 선택이 그보다 우선한다(선택값은 기기에 저장됨).
-- 내장 15개 언어는 즉시 표시. 그 밖의 언어는 Google Translate 공개 API로 한 번 번역해
-  `localStorage`에 캐시하고, 번역이 실패하면 영어로 받쳐 둔다.
+- 내장 15개 언어(문구 + 앱 소개 모두)는 즉시 표시. 그 밖의 언어는 Google Translate 공개 API로
+  한 번 번역해 `localStorage`에 캐시하고, 번역이 실패하면 영어로 받쳐 둔다.
+- 앱 소개(`apps.js`의 `desc`)에 해당 언어가 비어 있으면 그 소개만 자동 번역된다.
 
 ## 로컬 확인
 

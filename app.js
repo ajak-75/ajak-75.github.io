@@ -282,47 +282,50 @@
     loadRuntimeStrings();
   }
 
-  /* 내장 사전이 없는 언어: 문구 + 앱 소개를 한 번 번역해 캐시 */
+  /* 내장 사전에 없는 문구·앱 소개는 한 번 번역해 캐시한다.
+     (내장 언어라도 그 언어의 앱 소개가 비어 있으면 그 소개만 번역한다) */
   function loadRuntimeStrings() {
-    if (IS_BUILTIN) return;
     var cached = readCache(LANG);
-    if (cached) {
-      if (cached.ui) {
-        Object.keys(cached.ui).forEach(function (k) { dict[k] = cached.ui[k]; });
-        applyStrings();
-      }
-      if (cached.apps) {
-        Object.keys(cached.apps).forEach(function (k) { appDescs[k] = cached.apps[k]; });
-        renderApps();
-        observeReveals();
-      }
-      return;
+    if (cached && cached.ui) {
+      Object.keys(cached.ui).forEach(function (k) { dict[k] = cached.ui[k]; });
+      applyStrings();
     }
-    var target = LANG;
-    var uiKeys = Object.keys(BUILTIN.en || {});
-    var uiOut = {}, appsOut = {};
-    var jobs = uiKeys.map(function (k) {
-      return translate(BUILTIN.en[k], target).then(function (v) {
-        uiOut[k] = v;
-        dict[k] = v;
-      }).catch(function () { });
+    if (cached && cached.apps) {
+      Object.keys(cached.apps).forEach(function (k) { appDescs[k] = cached.apps[k]; });
+      renderApps();
+      observeReveals();
+    }
+
+    var needUi = !IS_BUILTIN && !(cached && cached.ui);
+    var missing = APPS.filter(function (app) {
+      return !appDescs[app.id] && !(app.desc && app.desc[LANG]);
     });
-    APPS.forEach(function (app) {
+    if (!needUi && !missing.length) return;
+
+    var target = LANG, uiOut = {}, appsOut = {}, jobs = [];
+    if (needUi) {
+      Object.keys(BUILTIN.en || {}).forEach(function (k) {
+        jobs.push(translate(BUILTIN.en[k], target).then(function (v) {
+          uiOut[k] = v; dict[k] = v;
+        }).catch(function () { }));
+      });
+    }
+    missing.forEach(function (app) {
       var src = (app.desc && (app.desc.en || app.desc.ko)) || '';
       if (!src) return;
       jobs.push(translate(src, target).then(function (v) {
-        appsOut[app.id] = v;
-        appDescs[app.id] = v;
+        appsOut[app.id] = v; appDescs[app.id] = v;
       }).catch(function () { }));
     });
+    if (!jobs.length) return;
+
     Promise.all(jobs).then(function () {
       if (LANG !== target) return;
-      applyStrings();
-      renderApps();
-      observeReveals();
+      if (needUi) applyStrings();
+      if (missing.length) { renderApps(); observeReveals(); }
       var cache = readCache(target) || {};
-      cache.ui = Object.assign(cache.ui || {}, uiOut);
-      cache.apps = Object.assign(cache.apps || {}, appsOut);
+      if (Object.keys(uiOut).length) cache.ui = Object.assign(cache.ui || {}, uiOut);
+      if (Object.keys(appsOut).length) cache.apps = Object.assign(cache.apps || {}, appsOut);
       writeCache(target, cache);
     });
   }

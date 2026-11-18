@@ -23,7 +23,16 @@ window.AJAK_STUDIO_APPS = [
       ja: 'キャラクターなしで、誰でも気軽に日常や考えを共有できる韓国版Threads風ミニSNS。端末の言語を自動で検出し、それぞれの言葉で開きます。',
       zh: '没有角色设定，谁都能轻松分享日常与想法的韩版Threads风迷你社交网络。自动识别设备语言，以各自的母语打开。',
       'zh-tw': '沒有角色設定，誰都能輕鬆分享日常與想法的韓版Threads風迷你社群。自動偵測裝置語言，以各自的語言開啟。',
-      es: 'Una mini red social estilo Threads para el día a día, sin mascotas: solo personas. Detecta el idioma del dispositivo y se abre en el idioma de cada visitante.'
+      es: 'Una mini red social estilo Threads para el día a día, sin mascotas: solo personas. Detecta el idioma del dispositivo y se abre en el idioma de cada visitante.',
+      fr: 'Un mini réseau social à la Threads, sans mascottes : chacun partage son quotidien en toute simplicité. Il détecte la langue de l’appareil et s’ouvre dans la langue de chaque visiteur.',
+      de: 'Ein leichtes Mini-Netzwerk im Threads-Stil – ohne Maskottchen, für alle, die ihren Alltag teilen möchten. Es erkennt die Gerätesprache und öffnet sich in der Sprache jedes Besuchers.',
+      pt: 'Uma mini rede social no estilo Threads, sem mascotes: qualquer pessoa compartilha o dia a dia com leveza. Detecta o idioma do dispositivo e abre no idioma de cada visitante.',
+      it: 'Un mini social network in stile Threads, senza mascotte: chiunque condivide la quotidianità con leggerezza. Rileva la lingua del dispositivo e si apre in quella di ogni visitatore.',
+      ru: 'Мини-соцсеть в духе Threads — без маскотов: каждый легко делится повседневным. Определяет язык устройства и открывается на языке посетителя.',
+      id: 'Jejaring sosial mini bergaya Threads tanpa maskot: siapa pun bisa berbagi keseharian dengan ringan. Mendeteksi bahasa perangkat dan terbuka dalam bahasa tiap pengunjung.',
+      vi: 'Mạng xã hội mini kiểu Threads, không có linh vật: ai cũng chia sẻ được chuyện thường ngày một cách nhẹ nhàng. Tự nhận ngôn ngữ thiết bị và mở bằng ngôn ngữ của từng người.',
+      th: 'โซเชียลมีนิแบบ Threads ที่ไม่มีมาสคอต ใครก็แชร์เรื่องราวในชีวิตประจำวันได้อย่างสบาย ๆ ตรวจจับภาษาของอุปกรณ์และเปิดในภาษาของผู้เข้าชมแต่ละคน',
+      ar: 'شبكة تواصل صغيرة على طراز Threads بلا شخصيات كرتونية: يشارك فيها الجميع يومهم ببساطة. تكتشف لغة الجهاز وتفتح بلغة كل زائر.'
     }
   },
   {
@@ -41,7 +50,16 @@ window.AJAK_STUDIO_APPS = [
       ja: '世界中のケミ（Kemi）が集まるK-カルチャーファンダムダイアリー。モモショップ、Kスター相性診断、16言語＋世界の言語を自動翻訳。',
       zh: '全球Kemi汇聚的K-Culture粉丝日记。莫莫商店、K明星缘分测试，16种语言及全球语言自动翻译。',
       'zh-tw': '全球Kemi齊聚的K-Culture粉絲日記。莫莫商店、K明星緣分測驗，16種語言及全球語言自動翻譯。',
-      es: 'El diario de fandom K-culture donde se encuentran Kemis de todo el mundo: Momo Shop, afinidad con estrellas K y traducción automática a 16 idiomas y más.'
+      es: 'El diario de fandom K-culture donde se encuentran Kemis de todo el mundo: Momo Shop, afinidad con estrellas K y traducción automática a 16 idiomas y más.',
+      fr: 'Le journal de fandom K-culture où se retrouvent les Kemis du monde entier : Momo Shop, affinités avec les stars K et traduction automatique en 16 langues et plus.',
+      de: 'Das K-Culture-Fandom-Tagebuch, in dem Kemis aus aller Welt zusammenkommen: Momo Shop, K-Star-Kompatibilität und automatische Übersetzung in 16 Sprachen und mehr.',
+      pt: 'O diário de fandom K-culture onde Kemis do mundo todo se encontram: Momo Shop, afinidade com estrelas K e tradução automática para 16 idiomas e mais.',
+      it: 'Il diario fandom K-culture dove si incontrano i Kemi di tutto il mondo: Momo Shop, affinità con le star K e traduzione automatica in 16 lingue e oltre.',
+      ru: 'Дневник K-культурного фандома, где встречаются Kemi со всего мира: Momo Shop, совместимость со звёздами K и автоперевод на 16 языков и более.',
+      id: 'Diari fandom K-culture tempat Kemi dari seluruh dunia berkumpul: Momo Shop, kecocokan dengan bintang K, dan terjemahan otomatis ke 16 bahasa dan lainnya.',
+      vi: 'Nhật ký fandom K-culture nơi các Kemi khắp thế giới gặp nhau: Momo Shop, độ hợp với các ngôi sao K và dịch tự động sang 16 ngôn ngữ trở lên.',
+      th: 'ไดอารี่แฟนดอม K-culture ที่เหล่า Kemi ทั่วโลกมาพบกัน: Momo Shop การเช็กดวงกับศิลปิน K และแปลอัตโนมัติกว่า 16 ภาษา',
+      ar: 'مفكرة فاندوم K-culture حيث يلتقي الكيمي من كل العالم: متجر مومو، وتوافق نجوم K، وترجمة تلقائية إلى 16 لغة وأكثر.'
     }
   }
 ];
