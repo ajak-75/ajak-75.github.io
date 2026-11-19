@@ -115,5 +115,31 @@ window.AJAK_STUDIO_APPS = [
       "th": "การอ่านสี่เสาสำหรับคนทั้งโลก จาก 24 สุริยคติและเวลาของสถานที่เกิด ดูเสาปี เดือน วัน ชั่วโมง พร้อมธาตุทั้งห้าใน 11 ภาษา และบันทึกการ์ดผลลัพธ์ได้",
       "ar": "قراءة عالمية للأعمدة الأربعة من الفصول الشمسية الأربعة والعشرين وساعة مكان الميلاد. أعمدة السنة والشهر واليوم والساعة مع توازن العناصر الخمسة بإحدى عشرة لغة، وبطاقة نتيجة قابلة للحفظ."
     }
+  },
+  {
+    id: 'abi',
+    name: 'ABI',
+    status: 'live',
+    category: 'Android APK · Phase 1',
+    url: 'https://github.com/ajak-75/ABI-ai-agent',
+    icon: './apps/abi.png?v=1',
+    icon2x: './apps/abi-512.png?v=1',
+    desc: {
+      ko: '폰 안에서 바로 답하는 독립형 Android AI 비서. 대화·기억·작업 기록을 기기 속 SQLite에 두고 필요할 때만 클라우드로 넘기는 하이브리드 1단계입니다.',
+      en: 'A standalone Android AI assistant that answers from the phone itself. Conversations, memories and task logs stay in the device’s own SQLite, and the cloud is called only when needed — Phase 1 of a hybrid design.',
+      ja: 'スマホの中ですぐに答える独立型のAndroid AIアシスタント。会話・記憶・作業ログは端末のSQLiteに置き、必要なときだけクラウドへ渡すハイブリッド構成の第1段階です。',
+      zh: '在手机里直接作答的独立型 Android AI 助手。对话、记忆与任务记录都存在设备的 SQLite 中，只在需要时交给云端——混合架构的第一阶段。',
+      'zh-tw': '在手機裡直接作答的獨立型 Android AI 助手。對話、記憶與任務紀錄都存在裝置的 SQLite 中，只在需要時才交給雲端——混合架構的第一階段。',
+      es: 'Un asistente de IA para Android independiente que responde desde el propio teléfono. Conversaciones, recuerdos y registros de tareas viven en el SQLite del dispositivo y la nube se usa solo cuando hace falta: la primera fase de un diseño híbrido.',
+      fr: 'Un assistant IA Android autonome qui répond depuis le téléphone lui-même. Conversations, souvenirs et journaux de tâches restent dans le SQLite de l’appareil, et le cloud n’est appelé qu’au besoin : première étape d’une conception hybride.',
+      de: 'Ein eigenständiger Android-KI-Assistent, der direkt auf dem Telefon antwortet. Gespräche, Erinnerungen und Aufgabenprotokolle liegen in der SQLite-Datenbank des Geräts, die Cloud wird nur bei Bedarf genutzt – Phase 1 eines hybriden Aufbaus.',
+      pt: 'Um assistente de IA Android independente que responde no próprio celular. Conversas, memórias e registros de tarefas ficam no SQLite do aparelho, e a nuvem só entra quando precisa: a primeira fase de um desenho híbrido.',
+      it: 'Un assistente IA Android autonomo che risponde dal telefono stesso. Conversazioni, ricordi e registri delle attività restano nel SQLite del dispositivo e il cloud entra solo quando serve: la prima fase di un’impostazione ibrida.',
+      ru: 'Самостоятельный ИИ-ассистент для Android, который отвечает прямо с телефона. Разговоры, воспоминания и журнал задач хранятся в SQLite на устройстве, а облако подключается только при необходимости — первая фаза гибридной схемы.',
+      id: 'Asisten AI Android mandiri yang menjawab langsung dari ponsel. Percakapan, memori, dan catatan tugas tersimpan di SQLite perangkat, dan cloud hanya dipanggil saat perlu — fase pertama rancangan hibrida.',
+      vi: 'Trợ lý AI Android độc lập, trả lời ngay trên điện thoại. Hội thoại, ký ức và nhật ký công việc nằm trong SQLite của máy, chỉ gọi đám mây khi cần — giai đoạn đầu của thiết kế lai.',
+      th: 'ผู้ช่วย AI บน Android ที่ทำงานในเครื่องและตอบได้ทันที บทสนทนา ความจำ และบันทึกงานเก็บไว้ใน SQLite ของเครื่อง เรียกคลาวด์เฉพาะเมื่อจำเป็น — เฟสแรกของโครงสร้างแบบไฮบริด',
+      ar: 'مساعد ذكاء اصطناعي مستقل على أندرويد يجيب من الهاتف نفسه. تبقى المحادثات والذكريات وسجلات المهام في قاعدة SQLite على الجهاز، ولا تُستدعى السحابة إلا عند الحاجة — المرحلة الأولى من تصميم هجين.'
+    }
   }
 ];
