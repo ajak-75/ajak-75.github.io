@@ -22,6 +22,9 @@
       var fit = function () {
         var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight);
         f.style.height = h + 'px';
+        /* 캡처용: 스크롤 없이 긴 화면을 찍기 위해 등장 애니메이션만 미리 켜 둔다 */
+        var cards = d.querySelectorAll('.reveal');
+        for (var i = 0; i < cards.length; i++) cards[i].classList.add('is-in');
       };
       fit();
       setTimeout(fit, 1500);
