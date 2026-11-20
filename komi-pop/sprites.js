@@ -643,14 +643,16 @@
   var cache = {};
 
   /* =========================================================
-     이미지 스프라이트 — chars/stage-0.png ~ stage-8.png
-     원본 사진에서 만든 원형 배지(정사각형에 내접하는 원, 모서리 투명).
-     모두 로드되기 전에는 위의 벡터 그림으로 그린다(fallback).
+     이미지 스프라이트 — chars/stage-0.webp ~ stage-8.webp
+     공식 유리 버블 시트에서 원형으로 잘라낸 배지(정사각형에 내접하는 원, 바깥 투명).
+     유리 테두리·광택이 그림 안에 이미 있어서, 이미지로 그릴 때는 아래 drawBall 이
+     색 링을 덧그리지 않고 광택·그늘만 살짝 얹는다(9단계가 같은 유리 버블로 보이게).
+     WebP(합 420KB)라 폰에서 빠르게 뜨고, 못 읽는 브라우저는 위의 벡터 그림으로 그린다.
      ========================================================= */
   var FILES = [
-    'chars/stage-0.png?v=3', 'chars/stage-1.png?v=3', 'chars/stage-2.png?v=3',
-    'chars/stage-3.png?v=3', 'chars/stage-4.png?v=3', 'chars/stage-5.png?v=3',
-    'chars/stage-6.png?v=3', 'chars/stage-7.png?v=3', 'chars/stage-8.png?v=3'
+    'chars/stage-0.webp?v=4', 'chars/stage-1.webp?v=4', 'chars/stage-2.webp?v=4',
+    'chars/stage-3.webp?v=4', 'chars/stage-4.webp?v=4', 'chars/stage-5.webp?v=4',
+    'chars/stage-6.webp?v=4', 'chars/stage-7.webp?v=4', 'chars/stage-8.webp?v=4'
   ];
   var IMG = [];
   var settled = 0, allReady = false, readyCbs = [];
@@ -747,24 +749,6 @@
     ctx.fillStyle = g2;
     ctx.fillRect(-r, 0, d, r);
     ctx.restore();
-
-    // 테두리 링 — 단계별 옷·배경색에 맞춘 포인트 색
-    var RING = [
-      'rgba(255,255,255,.72)',  /* 1 젤리 발바닥 — 진보라 배지 위 흰 링 */
-      'rgba(255,214,84,.55)',   /* 2 단청 꽃 */
-      'rgba(150,200,255,.50)',  /* 3 기본 모모 — 파란 후드 */
-      'rgba(255,206,72,.55)',   /* 4 변신 모모 — 노랑 자켓 */
-      'rgba(255,152,196,.50)',  /* 5 기본 코미 — 핑크 후드 */
-      'rgba(201,166,255,.60)',  /* 6 아이돌 코미 — 라벤더 */
-      'rgba(64,214,184,.55)',   /* 7 단청 코미 — 비취 */
-      'rgba(255,170,120,.55)',  /* 8 한복 왕비 — 다홍 */
-      'rgba(255,216,110,.72)'   /* 9 대왕 골드 */
-    ];
-    ctx.beginPath();
-    ctx.arc(0, 0, r - Math.max(0.7, r * 0.03), 0, TAU);
-    ctx.lineWidth = Math.max(1, r * 0.045);
-    ctx.strokeStyle = RING[stage] || 'rgba(255,255,255,.34)';
-    ctx.stroke();
 
     ctx.restore();
   }
