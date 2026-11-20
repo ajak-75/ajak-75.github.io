@@ -442,6 +442,7 @@
   var chain = [], chainType = -1, dragging = false;
   var dragLast = { x: 0, y: 0 };
   var shakeT = 0, shakeMag = 0, flash = 0;
+  var qaEv = { down: 0, move: 0, up: 0, hits: 0, links: 0 };
   var acc = 0, lastFrame = 0;
 
   function resize() {
@@ -615,6 +616,7 @@
       var dd = Math.hypot(cand.x - last.x, cand.y - last.y);
       if (dd > (cand.r + last.r) * 1.8) continue;
       chain.push(cand);
+      qaEv.links++;
       cand.flash = 0.3;
       sfxChain(chain.length - 1);
       return;
@@ -640,6 +642,8 @@
     ev.preventDefault();
     var p = localPoint(ev);
     var b = beadAt(p.x, p.y, 1.06);
+    qaEv.down++;
+    if (b) qaEv.hits++;
     if (!b) return;
     try { cv.setPointerCapture(ev.pointerId); } catch (e) {}
     if (b.bomb) {
@@ -658,6 +662,7 @@
   cv.addEventListener('pointermove', function (ev) {
     if (!dragging) return;
     ev.preventDefault();
+    qaEv.move++;
     var list = ev.getCoalescedEvents ? ev.getCoalescedEvents() : null;
     if (list && list.length) {
       for (var i = 0; i < list.length; i++) {
@@ -677,7 +682,7 @@
     dragging = false;
     commitChain();
   }
-  cv.addEventListener('pointerup', function (ev) { ev.preventDefault(); releasePointer(); });
+  cv.addEventListener('pointerup', function (ev) { ev.preventDefault(); qaEv.up++; releasePointer(); });
   cv.addEventListener('pointercancel', function () {
     dragging = false;
     chain = [];
@@ -1351,7 +1356,7 @@
         return {
           state: state, score: score, combo: combo, maxCombo: maxCombo, maxChain: maxChain,
           popped: poppedTotal, time: timeLeft, fever: feverLeft, gauge: feverGauge,
-          beads: beads.length, pending: pending, R: R, W: W, H: H, chain: chain.length
+          beads: beads.length, pending: pending, R: R, W: W, H: H, chain: chain.length, ev: qaEv
         };
       },
       beads: function () {
