@@ -385,9 +385,9 @@
 
     roundRect(g, 0, 0, W, H, rad);
     var grd = g.createLinearGradient(0, 0, W * 0.4, H);
-    grd.addColorStop(0, '#FFFBFD');
-    grd.addColorStop(0.55, '#FFF3F8');
-    grd.addColorStop(1, '#FFE9F2');
+    grd.addColorStop(0, '#FFF7FB');
+    grd.addColorStop(0.52, '#FFF0F7');
+    grd.addColorStop(1, '#FFE4EF');
     g.fillStyle = grd;
     g.fill();
 
@@ -456,7 +456,7 @@
     left = PAD;
     right = W - PAD;
     floorY = H - PAD;
-    R = clamp(W * 0.084, 18, 31);
+    R = clamp(W * 0.088, 18, 32);
 
     buildBoard();
     if (ready) buildSprites();
