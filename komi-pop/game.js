@@ -1125,7 +1125,7 @@
       if (b.y < -b.r * 2.4) continue;
       var s = b.scale;
       var ci = inChain[b.id];
-      if (ci) s *= 1.06;
+      if (ci) s *= 1.1;
       drawBeadSprite(b.bomb ? beadCache.bomb : beadCache[b.type], b.x, b.y, s);
       if (b.flash > 0) {
         ctx.save();
@@ -1176,6 +1176,7 @@
     if (chain.length) {
       var ct = TYPES[chainType] || TYPES[0];
       if (chain.length > 1) {
+        var pulse = 0.5 + 0.18 * Math.sin(now / 140);
         ctx.save();
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
@@ -1183,26 +1184,53 @@
         ctx.moveTo(chain[0].x, chain[0].y);
         for (i = 1; i < chain.length; i++) ctx.lineTo(chain[i].x, chain[i].y);
         ctx.shadowColor = ct.color;
-        ctx.shadowBlur = 16;
-        ctx.strokeStyle = 'rgba(255,255,255,.92)';
-        ctx.lineWidth = R * 0.42;
+        ctx.shadowBlur = 22;
+        ctx.strokeStyle = hexA(ct.color, pulse);
+        ctx.lineWidth = R * 0.52;
+        ctx.stroke();
+        ctx.shadowBlur = 10;
+        ctx.strokeStyle = 'rgba(255,255,255,.96)';
+        ctx.lineWidth = R * 0.3;
         ctx.stroke();
         ctx.shadowBlur = 0;
         ctx.strokeStyle = ct.color;
-        ctx.lineWidth = R * 0.15;
+        ctx.lineWidth = R * 0.1;
         ctx.stroke();
         ctx.restore();
       }
       for (i = 0; i < chain.length; i++) {
         var cb = chain[i];
         ctx.save();
-        ctx.strokeStyle = 'rgba(255,255,255,.96)';
-        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'rgba(255,255,255,.98)';
+        ctx.lineWidth = 3.5;
         ctx.shadowColor = ct.color;
-        ctx.shadowBlur = 12;
+        ctx.shadowBlur = 14;
         ctx.beginPath();
         ctx.arc(cb.x, cb.y, cb.r * 0.99, 0, TAU);
         ctx.stroke();
+        ctx.restore();
+      }
+
+      // 몇 개 이었는지 — 손가락 위에 작은 배지
+      if (chain.length >= 2) {
+        var lastB = chain[chain.length - 1];
+        var bx = lastB.x, by = lastB.y - lastB.r * 1.35;
+        ctx.save();
+        ctx.fillStyle = ct.color;
+        ctx.shadowColor = 'rgba(255,255,255,.9)';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(bx, by, 12, 0, TAU);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#fff';
+        ctx.font = '900 14px ' + FONT;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(chain.length), bx, by + 0.5);
         ctx.restore();
       }
     }
