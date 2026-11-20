@@ -1410,6 +1410,26 @@
     }
     if (starGauge) paintStars(starGauge, 3, false);
     paintBoosters();
+    if (MODE === 'stage') {
+      /* 시작 화면에서도 제한시간·목표를 실제값으로 보여 준다 */
+      var tl = def.time + (boostTime ? 10 : 0);
+      if (timeLimit !== tl || timeLeft !== tl) {
+        timeLimit = tl; timeLeft = tl; lastSec = -1;
+      }
+      updateTimerUI();
+      buildGoalChips(goalList, tmpGoals(def));
+      for (var j = 0; j < goals.length; j++) {
+        goals[j].el.classList.add('readonly');
+        goals[j].valEl.textContent = '0/' + (goals[j].kind === 'score' ? fmt(goals[j].need) : goals[j].need);
+      }
+    }
+  }
+
+  function tmpGoals(def) {
+    goals = def.goals.map(function (g) {
+      return { kind: g.kind, type: (g.type == null ? -1 : g.type), need: g.need, got: 0 };
+    });
+    return goals;
   }
 
   function paintAlbum() {
@@ -1734,6 +1754,7 @@
     saveCoins();
     updateCoinUI();
     sfxClick();
+    if (state === 'intro' && MODE === 'stage') paintIntroStage();
   }
   if (boostBombBtn) boostBombBtn.addEventListener('click', function () { toggleBoost('bomb'); });
   if (boostTimeBtn) boostTimeBtn.addEventListener('click', function () { toggleBoost('time'); });
