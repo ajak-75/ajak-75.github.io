@@ -22,6 +22,8 @@
     <button id="bFever">④ 게이지 채우기 → 피버</button>
     <button id="bShuffle">⑤ 섞기</button>
     <button id="bEnd">⑥ 60초 종료 → 결과</button>
+    <button id="bHold">⑦ 체인 이어두기(놓지 않기)</button>
+    <button id="bRelease">⑧ 손 떼기</button>
     <button id="bInfo">상태 새로고침</button>
     <pre id="out">ready</pre>
   </div>
@@ -78,6 +80,14 @@
   document.getElementById('bShuffle').onclick = function () { qa().shuffle(); show('shuffle'); };
   document.getElementById('bEnd').onclick = function () { qa().tick(0.05); show('end'); };
   document.getElementById('bInfo').onclick = function () { show('info'); };
+  document.getElementById('bHold').onclick = function () {
+    var idx = findChain(4);
+    if (!idx) { out.textContent = '4개 연결을 찾지 못했어요'; return; }
+    var bs = qa().beads();
+    var pts = idx.map(function (i) { return [bs[i].x, bs[i].y]; });
+    out.textContent = 'hold len=' + qa().hold(pts);
+  };
+  document.getElementById('bRelease').onclick = function () { show('release len=' + qa().release()); };
   setInterval(function () { if (qa()) show('auto'); }, 1500);
 </script>
 </body></html>

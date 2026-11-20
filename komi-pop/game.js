@@ -1340,6 +1340,19 @@
         commitChain();
         return { len: len };
       },
+      hold: function (pts) {
+        if (!pts || !pts.length) return null;
+        var b = beadAt(pts[0][0], pts[0][1], 1.06);
+        if (!b || b.bomb) return null;
+        chain = [b]; chainType = b.type; dragging = true;
+        dragLast = { x: pts[0][0], y: pts[0][1] };
+        for (var i = 1; i < pts.length; i++) {
+          extendPath(dragLast.x, dragLast.y, pts[i][0], pts[i][1]);
+          dragLast = { x: pts[i][0], y: pts[i][1] };
+        }
+        return chain.length;
+      },
+      release: function () { var n = chain.length; dragging = false; commitChain(); return n; },
       start: startGame,
       shuffle: shuffle,
       tapBomb: function () {
