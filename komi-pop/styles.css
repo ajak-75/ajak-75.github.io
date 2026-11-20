@@ -363,6 +363,7 @@ body::after {
   position: relative;
   flex: 1 1 auto;
   min-height: 0;
+  max-height: 640px;   /* 큰 화면에서 판이 지나치게 길어지지 않게 — 위아래 여백으로 가운데 */
   width: 100%;
   margin-block: auto;
 }
