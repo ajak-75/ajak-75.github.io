@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>KOMI &amp; MOMO POP — 375×812 QA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin: 0; height: 100%; background: #2a2a2e; display: flex; align-items: center; justify-content: center; }
+  .phone { width: 375px; height: 812px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px #555, 0 20px 60px rgba(0,0,0,.5); }
+  iframe { width: 375px; height: 812px; border: 0; display: block; }
+</style>
+</head>
+<body>
+<div class="phone"><iframe id="f" src="./komi-pop/?qa=1" title="komi-pop 375"></iframe></div>
+<script>
+  window.qa = function () { return document.getElementById('f').contentWindow.__KOMI_QA; };
+</script>
+</body>
+</html>

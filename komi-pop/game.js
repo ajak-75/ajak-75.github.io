@@ -2197,6 +2197,7 @@
   paintModeTabs();
   paintIntroStage();
   updateCoinUI();
+  loadImages();
   requestAnimationFrame(frame);
 
   /* =========================================================
