@@ -14,7 +14,7 @@
 | `app.js` | 카드 렌더 · 기기 언어 자동 감지 · 자동 번역 폴백 · PWA 등록 |
 | `manifest.webmanifest` · `sw.js` | PWA(설치 가능) + 오프라인 셸 캐시 |
 | `icons/` | 파비콘·앱 아이콘·OG 커버 (`tools/make-icons.py`로 생성) |
-| `apps/` | 카드에 쓰는 앱 아이콘 (Ajak · KOMI-Diary · KOMI & MOMO POP · K-Sajoo · ABI) |
+| `apps/` | 카드에 쓰는 앱 아이콘 (Ajak · KOMI-Diary · KOMI & MOMO POP · K-Sajoo · ABI · KOMI & MOMO BUBBLE MERGE) |
 | `komi-pop/` | KOMI & MOMO POP — 합치기 퍼즐 게임 (자체 2D 물리 · 캔버스 벡터 스프라이트 · 12개 언어) |
 
 ## 새 앱 추가하기

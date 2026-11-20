@@ -141,5 +141,31 @@ window.AJAK_STUDIO_APPS = [
       th: 'ผู้ช่วย AI บน Android ที่ทำงานในเครื่องและตอบได้ทันที บทสนทนา ความจำ และบันทึกงานเก็บไว้ใน SQLite ของเครื่อง เรียกคลาวด์เฉพาะเมื่อจำเป็น — เฟสแรกของโครงสร้างแบบไฮบริด',
       ar: 'مساعد ذكاء اصطناعي مستقل على أندرويد يجيب من الهاتف نفسه. تبقى المحادثات والذكريات وسجلات المهام في قاعدة SQLite على الجهاز، ولا تُستدعى السحابة إلا عند الحاجة — المرحلة الأولى من تصميم هجين.'
     }
+  },
+  {
+    id: 'bubble-merge',
+    name: 'KOMI & MOMO BUBBLE MERGE',
+    status: 'live',
+    category: 'Casual Puzzle · Web Game',
+    url: 'https://ajak-75.github.io/komi-momo-bubble-merge/',
+    icon: './apps/bubble-merge.png?v=1',
+    icon2x: './apps/bubble-merge-512.png?v=1',
+    desc: {
+      ko: '코미와 모모, 두 계열의 버블을 떨어뜨려 같은 것끼리 키우고 왕관 버블끼리 합쳐 레전더리를 만드는 무료 웹 퍼즐. 설치 없이 브라우저에서 바로 즐기고, 도감과 최고 점수는 기기에 남습니다.',
+      en: 'A free web puzzle: drop Komi and Momo bubbles, grow each line by merging twins, then bring the two royals together into the Legendary. Play right in the browser, no install — your collection and best score stay on your device.',
+      ja: 'コミとモモ、2つの系統のバブルを落として同じもの同士を育て、王冠どうしを合体させてレジェンダリーを生み出す無料のウェブパズル。インストール不要で、図鑑とベストスコアは端末に残ります。',
+      zh: '把科米与莫莫两条系列的泡泡放下来，相同的两颗合成成长，最后让两顶王冠合体成传奇。免安装的免费网页拼图，图鉴与最高分保存在设备上。',
+      'zh-tw': '把科米與莫莫兩條系列的泡泡放下來，相同的兩顆合成成長，最後讓兩頂王冠合體成傳奇。免安裝的免費網頁拼圖，圖鑑與最高分保存在裝置上。',
+      es: 'Un puzle web gratuito: deja caer burbujas de Komi y Momo, une las iguales de cada línea y corona a la Leyenda al juntar a los dos royals. Sin instalar, y tu colección y récord se quedan en tu dispositivo.',
+      fr: 'Un puzzle web gratuit : lâchez les bulles Komi et Momo, fusionnez les identiques de chaque lignée et couronnez la Légende en réunissant les deux royaux. Sans installation, collection et record restent sur votre appareil.',
+      de: 'Ein kostenloses Web-Puzzle: Lass Komi- und Momo-Blasen fallen, verbinde die Gleichen jeder Reihe und kröne die Legende, indem du beide Royals verschmilzt. Ohne Installation – Sammlung und Bestwert bleiben auf deinem Gerät.',
+      pt: 'Um quebra-cabeça web gratuito: solte bolhas de Komi e Momo, junte as iguais de cada linhagem e coroe a Lenda ao fundir os dois royals. Sem instalar, e sua coleção e recorde ficam no aparelho.',
+      it: 'Un puzzle web gratuito: lascia cadere le bolle di Komi e Momo, unisci le uguali di ogni stirpe e incorona la Leggenda fondendo i due royal. Senza installare, collezione e record restano sul dispositivo.',
+      ru: 'Бесплатная веб-головоломка: бросайте пузыри Коми и Момо, соединяйте одинаковых в каждой линии и соберите Легенду, слив двух роялов. Без установки — коллекция и рекорд остаются на устройстве.',
+      id: 'Puzzle web gratis: jatuhkan gelembung Komi dan Momo, satukan yang sama di tiap garis, lalu satukan dua bangsawan menjadi Legenda. Tanpa instal, koleksi dan rekor tersimpan di perangkatmu.',
+      vi: 'Trò chơi ghép miễn phí trên web: thả bong bóng Komi và Momo, ghép những quả giống nhau trong từng dòng và hợp nhất hai quả hoàng gia thành Huyền Thoại. Không cần cài, bộ sưu tập và kỷ lục lưu trên thiết bị.',
+      th: 'เกมจับคู่ฟรีบนเว็บ ปล่อยบับเบิลโคมิและโมโม่ รวมคู่ที่เหมือนกันในแต่ละสาย แล้วรวมบับเบิลมงกุฎสององค์เป็นตำนาน ไม่ต้องติดตั้ง สมุดสะสมและสถิติเก็บไว้ในเครื่อง',
+      ar: 'لعبة ويب مجانية: أسقط فقاعات كۆمي ومومو، وادمج المتشابهين في كل سلالة، ثم اجمع التاجين لتصل إلى الأسطورة. بلا تثبيت، وتبقى المجموعة وأفضل نتيجة على جهازك.'
+    }
   }
 ];
