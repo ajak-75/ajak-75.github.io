@@ -1728,6 +1728,13 @@
     if (MODE === 'stage') refundBoosters();
     MODE = m === 'sandbox' ? 'sandbox' : 'stage';
     sfxClick();
+    if (state === 'intro') {
+      /* 모드를 바꾸면 시작 화면 시계도 그 모드 기준으로 */
+      timeLimit = MODE === 'stage' ? stageDef(stageNo).time : 60;
+      timeLeft = timeLimit;
+      lastSec = -1;
+      updateTimerUI();
+    }
     paintModeTabs();
     if (MODE === 'stage') paintIntroStage();
   });
