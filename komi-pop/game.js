@@ -394,6 +394,8 @@
   var nextBtn = $('nextBtn');
   var retryClearBtn = $('retryClearBtn');
   var retryBtn = $('retryBtn');
+  var menuClearBtn = $('menuClearBtn');
+  var menuFailBtn = $('menuFailBtn');
   var failStageEl = $('failStage');
   var failGoals = $('failGoals');
   var failScoreEl = $('failScore');
@@ -645,7 +647,7 @@
   var state = 'intro';       // intro | play | clear | fail
   var MODE = 'stage';        // stage | sandbox
   var paused = false;
-  var score = 0, combo = 0, comboT = 0, maxCombo = 1, maxChain = 0, poppedTotal = 0;
+  var score = 0, combo = 0, comboT = 0, maxCombo = 1, comboPeak = 0, maxChain = 0, poppedTotal = 0;
   var timeLeft = 0, timeLimit = 60, feverGauge = 0, feverLeft = 0, lastSec = -1;
   var pending = 0, spawnTimer = 0;
   var chain = [], chainType = -1, dragging = false;
@@ -937,6 +939,7 @@
       combo += 1;
       comboT = 3.2;
       if (combo > maxCombo) maxCombo = combo;
+      if (combo > comboPeak) comboPeak = combo;
       if (n > maxChain) maxChain = n;
       addFever(5 + np * 1.4);
       pending = Math.min(14, pending + np);
@@ -1239,7 +1242,7 @@
     switch (g.kind) {
       case 'bead': return poppedByType[g.type] || 0;
       case 'score': return score;
-      case 'combo': return maxCombo;
+      case 'combo': return comboPeak;
       case 'bomb': return bombsPopped;
       case 'ice': return iceBroken;
     }
@@ -1474,7 +1477,7 @@
      15. 게임 흐름
      ========================================================= */
   function resetRound() {
-    score = 0; combo = 0; comboT = 0; maxCombo = 1; maxChain = 0; poppedTotal = 0;
+    score = 0; combo = 0; comboT = 0; maxCombo = 1; comboPeak = 0; maxChain = 0; poppedTotal = 0;
     feverGauge = 0; feverLeft = 0; lastSec = -1;
     pending = 0; spawnTimer = 0;
     iceBroken = 0; bombsPopped = 0;
@@ -1568,7 +1571,7 @@
 
     var frac = timeLimit > 0 ? timeLeft / timeLimit : 0;
     starsWon = frac >= 0.45 ? 3 : frac >= 0.22 ? 2 : 1;
-    bonusWon = Math.round(timeLeft * 12);
+    bonusWon = Math.round(timeLeft * 8);
     score += bonusWon;
 
     var prev = starsOf[stageNo] || 0;
@@ -1647,7 +1650,7 @@
     switch (g.kind) {
       case 'bead': return poppedByType[g.type] || 0;
       case 'score': return score;
-      case 'combo': return maxCombo;
+      case 'combo': return comboPeak;
       case 'bomb': return bombsPopped;
       case 'ice': return iceBroken;
     }
@@ -1693,6 +1696,8 @@
   });
   if (retryClearBtn) retryClearBtn.addEventListener('click', function () { startStage(stageNo); });
   if (retryBtn) retryBtn.addEventListener('click', function () { startStage(stageNo); });
+  if (menuClearBtn) menuClearBtn.addEventListener('click', function () { sfxClick(); showIntro(); });
+  if (menuFailBtn) menuFailBtn.addEventListener('click', function () { sfxClick(); showIntro(); });
 
   if (modeTabs) modeTabs.addEventListener('click', function (ev) {
     var el = ev.target;
@@ -1886,43 +1891,48 @@
 
   /* 얼음 결계 — 반투명 서리 + 두꺼운 테두리 + 금 간 선 */
   function drawIce(b, now) {
-    var r = b.r * 1.03;
+    var r = b.r * 1.04;
     var gl = ctx.createRadialGradient(b.x - r * 0.35, b.y - r * 0.4, r * 0.1, b.x, b.y, r);
-    gl.addColorStop(0, 'rgba(255,255,255,.60)');
-    gl.addColorStop(0.55, 'rgba(206,240,255,.34)');
-    gl.addColorStop(0.9, 'rgba(140,210,255,.42)');
-    gl.addColorStop(1, 'rgba(108,192,246,.58)');
+    gl.addColorStop(0, 'rgba(255,255,255,.42)');
+    gl.addColorStop(0.5, 'rgba(206,240,255,.26)');
+    gl.addColorStop(0.88, 'rgba(140,210,255,.36)');
+    gl.addColorStop(1, 'rgba(96,186,246,.62)');
     ctx.save();
     ctx.beginPath();
     ctx.arc(b.x, b.y, r, 0, TAU);
     ctx.fillStyle = gl;
     ctx.fill();
 
-    ctx.lineWidth = 2.6;
-    ctx.strokeStyle = 'rgba(255,255,255,.92)';
+    ctx.shadowColor = 'rgba(96,186,246,.55)';
+    ctx.shadowBlur = 7;
+    ctx.lineWidth = 3.2;
+    ctx.strokeStyle = 'rgba(255,255,255,.95)';
     ctx.stroke();
-    ctx.lineWidth = 1.2;
-    ctx.strokeStyle = 'rgba(90,178,238,.95)';
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = 1.6;
+    ctx.strokeStyle = 'rgba(74,168,232,.95)';
     ctx.beginPath();
-    ctx.arc(b.x, b.y, r * 0.99, 0, TAU);
+    ctx.arc(b.x, b.y, r * 0.965, 0, TAU);
     ctx.stroke();
 
-    ctx.globalAlpha = 0.75;
+    ctx.globalAlpha = 0.8;
     ctx.strokeStyle = 'rgba(255,255,255,.95)';
-    ctx.lineWidth = 1.35;
+    ctx.lineWidth = 1.4;
     ctx.beginPath();
     ctx.moveTo(b.x - r * 0.55, b.y - r * 0.18);
     ctx.lineTo(b.x - r * 0.1, b.y - r * 0.05);
     ctx.lineTo(b.x + r * 0.16, b.y + r * 0.3);
     ctx.moveTo(b.x + r * 0.1, b.y - r * 0.62);
     ctx.lineTo(b.x + r * 0.24, b.y - r * 0.12);
+    ctx.moveTo(b.x - r * 0.4, b.y + r * 0.45);
+    ctx.lineTo(b.x - r * 0.16, b.y + r * 0.14);
     ctx.stroke();
 
     var tw = 0.55 + 0.45 * Math.sin(now / 260 + b.id);
-    ctx.globalAlpha = 0.55 * tw;
+    ctx.globalAlpha = 0.7 * tw;
     ctx.fillStyle = '#FFFFFF';
     ctx.beginPath();
-    ctx.arc(b.x + r * 0.42, b.y - r * 0.5, 2.1, 0, TAU);
+    ctx.arc(b.x + r * 0.44, b.y - r * 0.52, 2.4, 0, TAU);
     ctx.fill();
     ctx.restore();
   }
@@ -2221,7 +2231,6 @@
       if (window.__KOMI_QA) window.__KOMI_QA.errors.push(String(ev.message || ev.error));
     });
     window.__KOMI_QA = {
-      errors: [],
       errors: window.__KOMI_ERR || [], step: window.__KOMI_STEP || '',
       info: function () {
         return {
