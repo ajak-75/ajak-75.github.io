@@ -1074,15 +1074,15 @@
   function drawBombRing(b, now) {
     var ph = now / 220;
     ctx.save();
-    ctx.globalAlpha = 0.5 + 0.35 * Math.sin(ph);
-    ctx.strokeStyle = '#FFD75E';
-    ctx.lineWidth = 3;
+    ctx.globalAlpha = 0.72 + 0.28 * Math.sin(ph);
+    ctx.strokeStyle = '#FFD033';
+    ctx.lineWidth = 3.5;
     ctx.beginPath();
     ctx.arc(b.x, b.y, b.r * 1.02, 0, TAU);
     ctx.stroke();
-    ctx.globalAlpha = 0.28;
+    ctx.globalAlpha = 0.42;
     ctx.strokeStyle = '#FFF3C4';
-    ctx.lineWidth = 1.6;
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(b.x, b.y, b.r * (1.16 + 0.05 * Math.sin(ph * 1.3)), 0, TAU);
     ctx.stroke();
@@ -1342,7 +1342,11 @@
 
   /* QA(검수용) — ?qa=1 일 때만 열린다 */
   if (/[?&]qa=1/.test(location.search)) {
+    window.addEventListener('error', function (ev) {
+      if (window.__KOMI_QA) window.__KOMI_QA.errors.push(String(ev.message || ev.error));
+    });
     window.__KOMI_QA = {
+      errors: [],
       info: function () {
         return {
           state: state, score: score, combo: combo, maxCombo: maxCombo, maxChain: maxChain,
