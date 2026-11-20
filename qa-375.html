@@ -11,9 +11,12 @@
 </style>
 </head>
 <body>
-<div class="phone"><iframe id="f" src="./komi-pop/?qa=1" title="komi-pop 375"></iframe></div>
+<div class="phone"><iframe id="f" title="komi-pop 375"></iframe></div>
 <script>
+  var cb = String(Date.now());
+  document.getElementById('f').src = './komi-pop/?qa=1&cb=' + cb;
   window.qa = function () { return document.getElementById('f').contentWindow.__KOMI_QA; };
+  window.qaw = function () { return document.getElementById('f').contentWindow; };
 </script>
 </body>
 </html>
