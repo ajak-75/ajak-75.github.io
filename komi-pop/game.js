@@ -8,6 +8,14 @@
 
   var DICT = window.KOMI_POP_I18N || {};
   var TAU = Math.PI * 2;
+  var QA_ON = /[?&]qa=1/.test(location.search);
+  if (QA_ON) {
+    window.__KOMI_ERR = window.__KOMI_ERR || [];
+    window.__KOMI_STEP = '';
+    window.addEventListener('error', function (e) {
+      window.__KOMI_ERR.push(String(e.message) + ' @' + (e.filename || '') + ':' + e.lineno + ':' + e.colno + ' step=' + window.__KOMI_STEP);
+    });
+  }
   var FONT = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
 
   function $(id) { return document.getElementById(id); }
@@ -2139,9 +2147,12 @@
      17. 시작
      ========================================================= */
   function onImagesReady() {
+    if (QA_ON) window.__KOMI_STEP = 'onImagesReady';
     ready = true;
     buildSprites();
+    if (QA_ON) window.__KOMI_STEP = 'fillBoard';
     fillBoard();
+    if (QA_ON) window.__KOMI_STEP = 'introPaint';
     if (bestIntroEl) bestIntroEl.textContent = fmt(best);
     paintIntroStage();
     paintStarGauge();
@@ -2189,6 +2200,7 @@
   applyLang(LANG);
   paintSound();
   resize();
+  if (QA_ON) window.__KOMI_STEP = 'init-a';
   timeLimit = 60;
   timeLeft = 60;
   updateTimerUI();
@@ -2197,6 +2209,7 @@
   paintModeTabs();
   paintIntroStage();
   updateCoinUI();
+  if (QA_ON) window.__KOMI_STEP = 'init-loadImages';
   loadImages();
   requestAnimationFrame(frame);
 
@@ -2209,6 +2222,7 @@
     });
     window.__KOMI_QA = {
       errors: [],
+      errors: window.__KOMI_ERR || [], step: window.__KOMI_STEP || '',
       info: function () {
         return {
           state: state, mode: MODE, stage: stageNo, maxStage: maxStage,
