@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KOMI &amp; MOMO POP — 한붓그리기 팡!</title>
-<meta name="description" content="코미와 모모 구슬을 한붓으로 이어 터뜨리는 60초 라인 링크 퍼즐. KOMI &amp; MOMO POP — a one-line link puzzle by Ajak Studio.">
+<meta name="description" content="코미와 모모 구슬을 한붓으로 이어 터뜨리는 라인 링크 퍼즐. 1탄부터 목표를 깨는 스테이지 모드와 무한 60초 — KOMI &amp; MOMO POP by Ajak Studio.">
 <meta name="theme-color" content="#FFF4F9">
 <meta name="color-scheme" content="light">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -14,7 +14,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ajak Studio">
 <meta property="og:title" content="KOMI &amp; MOMO POP — 한붓그리기 팡!">
-<meta property="og:description" content="같은 구슬을 3개 이상 한붓으로 이어 터뜨리는 60초 라인 링크 퍼즐.">
+<meta property="og:description" content="같은 구슬을 3개 이상 한붓으로 이어 터뜨리는 라인 링크 퍼즐. 스테이지 1탄부터 끝없이 도전!">
 <meta property="og:url" content="https://ajak-75.github.io/komi-pop/">
 <meta property="og:image" content="https://ajak-75.github.io/komi-pop/og-cover-v3.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -23,7 +23,7 @@
 <meta property="og:image:alt" content="모모·코미·대왕 골드 코미가 나란히 웃는 KOMI &amp; MOMO POP 커버">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="KOMI &amp; MOMO POP — 한붓그리기 팡!">
-<meta name="twitter:description" content="같은 구슬을 3개 이상 한붓으로 이어 터뜨리는 60초 라인 링크 퍼즐.">
+<meta name="twitter:description" content="같은 구슬을 3개 이상 한붓으로 이어 터뜨리는 라인 링크 퍼즐. 스테이지 1탄부터 끝없이 도전!">
 <meta name="twitter:image" content="https://ajak-75.github.io/komi-pop/og-cover-v3.jpg">
 <meta name="twitter:image:alt" content="모모·코미·대왕 골드 코미가 나란히 웃는 KOMI &amp; MOMO POP 커버">
 
@@ -31,7 +31,7 @@
 <link rel="icon" href="./icon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<link rel="stylesheet" href="./styles.css?v=11">
+<link rel="stylesheet" href="./styles.css?v=12">
 </head>
 <body>
 <div class="app">
@@ -46,6 +46,9 @@
     </h1>
 
     <div class="tools">
+      <button class="icon-btn" id="albumBtn" type="button" aria-label="Album" data-i18n-aria="album">
+        <svg class="ico ico-album" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h9.2c.5 0 .8.3.8.8v13.4c0 .5-.3.8-.8.8H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M8.6 8.4h5.4M8.6 11.8h5.4M8.6 15.2h3.2"/></svg>
+      </button>
       <button class="icon-btn" id="soundBtn" type="button" aria-pressed="true">
         <svg class="ico ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path class="wave" d="M15.4 8.6a4.6 4.6 0 0 1 0 6.8"/><path class="wave" d="M17.9 6.2a8 8 0 0 1 0 11.6"/></svg>
         <svg class="ico ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
@@ -66,9 +69,12 @@
         <span class="stat-k" data-i18n="score">점수</span>
         <span class="stat-v" id="score">0</span>
       </div>
-      <div class="stat stat-best">
+      <div class="stat stat-best" id="bestStat">
         <span class="stat-k" data-i18n="best">최고</span>
         <span class="stat-v" id="best">0</span>
+      </div>
+      <div class="coin-chip" id="coinChip" title="coin">
+        <i class="coin-dot" aria-hidden="true"></i><b id="coinVal">100</b>
       </div>
       <div class="combo-chip" id="comboChip" hidden>
         <span class="combo-x">×</span><span id="comboVal">2</span>
@@ -80,6 +86,12 @@
     </div>
   </section>
 
+  <div class="goalbar" id="goalBar">
+    <span class="stage-chip"><em data-i18n="stageWord">STAGE</em> <b id="stageNum">1</b></span>
+    <div class="goal-list" id="goalList"></div>
+    <div class="star-gauge" id="starGauge" aria-hidden="true"><i>★</i><i>★</i><i>★</i></div>
+  </div>
+
   <div class="fever-bar" id="feverBar">
     <span class="fever-k" data-i18n="fever">피버</span>
     <span class="fever-track"><span class="fever-fill" id="feverFill"></span></span>
@@ -89,22 +101,79 @@
     <canvas id="game" aria-label="한붓그리기 팡 게임판"></canvas>
     <div class="overlay" id="overlay">
       <div class="panel" id="introPanel">
-        <div class="bead-strip" aria-hidden="true">
-          <img src="./chars/bead-0.webp" alt="" width="38" height="38">
-          <img src="./chars/bead-1.webp" alt="" width="38" height="38">
-          <img src="./chars/bead-2.webp" alt="" width="38" height="38">
-          <img src="./chars/bead-3.webp" alt="" width="38" height="38">
-          <img src="./chars/bead-4.webp" alt="" width="38" height="38">
+        <div class="mode-tabs" id="modeTabs" role="tablist">
+          <button class="mode-tab on" type="button" role="tab" aria-selected="true" data-mode="stage" data-i18n="modeStage">스테이지</button>
+          <button class="mode-tab" type="button" role="tab" aria-selected="false" data-mode="sandbox" data-i18n="modeInfinite">무한 60초</button>
         </div>
-        <h2 class="panel-title" data-i18n="startTitle">한붓그리기 팡!</h2>
-        <p class="panel-desc" data-i18n="startDesc">같은 구슬을 3개 이상 한붓으로 이어 터뜨리는 60초 퍼즐이에요.</p>
-        <ol class="how">
-          <li><b>1</b><span data-i18n="how1">같은 구슬 3개 이상을 손가락으로 죽 이어요</span></li>
-          <li><b>2</b><span data-i18n="how2">손을 떼면 팡! 점수와 콤보가 함께 올라요</span></li>
-          <li><b>3</b><span data-i18n="how3">7개 이상 이으면 황금 폭탄이 생겨요</span></li>
-        </ol>
+
+        <div class="mode-card" id="stageCard">
+          <div class="stage-line">
+            <span class="stage-badge"><em data-i18n="stageWord">STAGE</em> <b id="introStageNum">1</b></span>
+            <span class="intro-stars" id="introStars" hidden><i>★</i><i>★</i><i>★</i></span>
+          </div>
+          <div class="goal-list intro" id="introGoals"></div>
+          <div class="boosters" id="boosters">
+            <button class="booster" id="boostBombBtn" type="button" aria-pressed="false">
+              <img src="./chars/bomb.webp" alt="" width="20" height="20">
+              <span class="booster-name" data-i18n="boostBomb">시작 폭탄</span>
+              <span class="booster-cost"><i class="coin-dot" aria-hidden="true"></i>50</span>
+            </button>
+            <button class="booster" id="boostTimeBtn" type="button" aria-pressed="false">
+              <svg class="booster-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="7.2"/><path d="M12 9.6V13l2.4 1.6M9.4 3.2h5.2"/></svg>
+              <span class="booster-name" data-i18n="boostTime">+10초</span>
+              <span class="booster-cost"><i class="coin-dot" aria-hidden="true"></i>40</span>
+            </button>
+          </div>
+          <p class="coin-line"><i class="coin-dot" aria-hidden="true"></i><b id="introCoin">100</b></p>
+        </div>
+
+        <div class="mode-card" id="sandboxCard" hidden>
+          <div class="bead-strip" aria-hidden="true">
+            <img src="./chars/bead-0.webp" alt="" width="34" height="34">
+            <img src="./chars/bead-1.webp" alt="" width="34" height="34">
+            <img src="./chars/bead-2.webp" alt="" width="34" height="34">
+            <img src="./chars/bead-3.webp" alt="" width="34" height="34">
+            <img src="./chars/bead-4.webp" alt="" width="34" height="34">
+          </div>
+          <h2 class="panel-title" data-i18n="startTitle">한붓그리기 팡!</h2>
+          <p class="panel-desc" data-i18n="startDesc">같은 구슬을 3개 이상 한붓으로 이어 터뜨리는 60초 퍼즐이에요.</p>
+          <ol class="how">
+            <li><b>1</b><span data-i18n="how1">같은 구슬 3개 이상을 손가락으로 죽 이어요</span></li>
+            <li><b>2</b><span data-i18n="how2">손을 떼면 팡! 점수와 콤보가 함께 올라요</span></li>
+            <li><b>3</b><span data-i18n="how3">7개 이상 이으면 황금 폭탄이 생겨요</span></li>
+          </ol>
+          <p class="best-line"><span data-i18n="best">최고</span> <b id="bestIntro">0</b></p>
+        </div>
+
         <button class="play-btn" id="startBtn" type="button" data-i18n="startBtn">시작하기</button>
-        <p class="best-line"><span data-i18n="best">최고</span> <b id="bestIntro">0</b></p>
+        <a class="studio-link" href="https://ajak-75.github.io/" target="_blank" rel="noopener">Ajak Studio</a>
+      </div>
+
+      <div class="panel" id="clearPanel" hidden>
+        <p class="panel-eyebrow" id="clearStage">STAGE 1</p>
+        <h2 class="clear-title" data-i18n="clearTitle">STAGE CLEAR!</h2>
+        <div class="star-row" id="clearStars"><i>★</i><i>★</i><i>★</i></div>
+        <p class="final-score" id="clearScore">0</p>
+        <div class="reward-row">
+          <span class="reward coin"><i class="coin-dot" aria-hidden="true"></i><b id="clearCoins">+60</b></span>
+          <span class="reward"><span class="reward-k" data-i18n="timeBonus">시간 보너스</span><b id="clearBonus">+0</b></span>
+        </div>
+        <div class="badge-toast" id="clearBadge" hidden>
+          <img id="clearBadgeImg" src="./chars/bead-4.webp" alt="" width="38" height="38">
+          <span class="badge-toast-txt"><b data-i18n="newBadge">새 배지!</b><em id="clearBadgeName"></em></span>
+        </div>
+        <button class="play-btn" id="nextBtn" type="button" data-i18n="nextStage">다음 스테이지</button>
+        <button class="ghost-btn" id="retryClearBtn" type="button" data-i18n="retry">다시 도전</button>
+        <a class="studio-link" href="https://ajak-75.github.io/" target="_blank" rel="noopener">Ajak Studio</a>
+      </div>
+
+      <div class="panel" id="failPanel" hidden>
+        <p class="panel-eyebrow" id="failStage">STAGE 1</p>
+        <h2 class="panel-title" data-i18n="failTitle">시간 종료!</h2>
+        <p class="final-score small" id="failScore">0</p>
+        <div class="goal-list intro" id="failGoals"></div>
+        <p class="panel-desc" data-i18n="failDesc">목표를 채우지 못했어요. 다시 도전해요!</p>
+        <button class="play-btn" id="retryBtn" type="button" data-i18n="retry">다시 도전</button>
         <a class="studio-link" href="https://ajak-75.github.io/" target="_blank" rel="noopener">Ajak Studio</a>
       </div>
 
@@ -132,9 +201,29 @@
     <p class="dock-hint" data-i18n="hint">구슬을 눌러 한붓으로 이어 보세요</p>
   </div>
 
+  <div class="album-modal" id="albumModal" hidden>
+    <div class="album-panel" role="dialog" aria-modal="true" aria-labelledby="albumTitle">
+      <div class="album-head">
+        <h2 id="albumTitle" data-i18n="albumTitle">코미·모모 도감</h2>
+        <button class="icon-btn album-x" id="albumClose" type="button" aria-label="close" data-i18n-aria="close">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="album-totals">
+        <div><span data-i18n="totalCoins">보유 코인</span><b id="albumCoins">100</b></div>
+        <div><span data-i18n="totalStars">모은 별</span><b id="albumStars">0</b></div>
+        <div><span data-i18n="albumCleared">클리어</span><b id="albumCleared">0</b></div>
+      </div>
+      <h3 class="album-sub" data-i18n="badges">배지</h3>
+      <div class="badge-grid" id="badgeGrid"></div>
+      <h3 class="album-sub" data-i18n="stagesLabel">스테이지</h3>
+      <div class="stage-grid" id="stageGrid"></div>
+    </div>
+  </div>
+
 </div>
 
-<script src="./i18n.js?v=5"></script>
-<script src="./game.js?v=19"></script>
+<script src="./i18n.js?v=6"></script>
+<script src="./game.js?v=20"></script>
 </body>
 </html>

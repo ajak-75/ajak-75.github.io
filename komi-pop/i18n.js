@@ -315,3 +315,186 @@ window.KOMI_POP_I18N = {
     soundOff: 'Tắt âm thanh'
   }
 };
+
+/* ------------------------------------------------------------------
+   스테이지 · 목표 · 코인 · 부스터 · 도감 · 팝업 문구 (12개 언어 공통 추가분)
+   ------------------------------------------------------------------ */
+window.KOMI_POP_I18N_EXTRA = {
+  ko: {
+    modeStage: '스테이지', modeInfinite: '무한 60초', stageWord: 'STAGE', coin: '코인',
+    boostTitle: '부스터', boostBomb: '시작 폭탄', boostTime: '+10초', notEnough: '코인 부족',
+    clearTitle: 'STAGE CLEAR!', timeBonus: '시간 보너스', firstClear: '첫 클리어 보너스',
+    nextStage: '다음 스테이지', retry: '다시 도전', failTitle: '시간 종료!',
+    failDesc: '목표를 채우지 못했어요. 다시 도전해요!',
+    album: '도감', albumTitle: '코미·모모 도감', totalCoins: '보유 코인', totalStars: '모은 별',
+    albumCleared: '클리어', badges: '배지', stagesLabel: '스테이지', locked: '잠김', close: '닫기',
+    newBadge: '새 배지!',
+    badge1: '코미 첫인사', badge2: '단청꽃 친구', badge3: '얼음 깨는 모모', badge4: '폭탄 장인',
+    badge5: '별 셋 수집가', badge6: '콤보 달인', badge7: '팝 마스터',
+    popGood: '좋아!', popGreat: '멋져!', popAmazing: '대박!', popBoom: '펑!',
+    popFever: '피버 타임!', popClear: '스테이지 클리어!', iceCrack: '쨍!'
+  },
+  en: {
+    modeStage: 'Stage', modeInfinite: 'Endless 60s', stageWord: 'STAGE', coin: 'Coin',
+    boostTitle: 'Boosters', boostBomb: 'Start bomb', boostTime: '+10 sec', notEnough: 'Not enough coins',
+    clearTitle: 'STAGE CLEAR!', timeBonus: 'Time bonus', firstClear: 'First-clear bonus',
+    nextStage: 'Next stage', retry: 'Try again', failTitle: 'Time’s up!',
+    failDesc: 'Not all goals were met. Give it another go!',
+    album: 'Album', albumTitle: 'Komi & Momo Album', totalCoins: 'Coins', totalStars: 'Stars',
+    albumCleared: 'Cleared', badges: 'Badges', stagesLabel: 'Stages', locked: 'Locked', close: 'Close',
+    newBadge: 'New badge!',
+    badge1: 'Hello Komi', badge2: 'Dancheong Friends', badge3: 'Ice Breaker', badge4: 'Bomb Master',
+    badge5: 'Star Collector', badge6: 'Combo Master', badge7: 'Pop Master',
+    popGood: 'GOOD!', popGreat: 'GREAT!', popAmazing: 'AMAZING!', popBoom: 'BOOM!',
+    popFever: 'FEVER TIME!', popClear: 'STAGE CLEAR!', iceCrack: 'CRACK!'
+  },
+  ja: {
+    modeStage: 'ステージ', modeInfinite: 'エンドレス60秒', stageWord: 'STAGE', coin: 'コイン',
+    boostTitle: 'ブースター', boostBomb: '開始ボム', boostTime: '+10秒', notEnough: 'コイン不足',
+    clearTitle: 'ステージクリア！', timeBonus: 'タイムボーナス', firstClear: '初クリアボーナス',
+    nextStage: '次のステージ', retry: 'もう一度', failTitle: 'タイムアップ！',
+    failDesc: '目標をクリアできませんでした。もう一度挑戦！',
+    album: '図鑑', albumTitle: 'コミ＆モモ図鑑', totalCoins: 'コイン', totalStars: '集めた星',
+    albumCleared: 'クリア', badges: 'バッジ', stagesLabel: 'ステージ', locked: 'ロック', close: '閉じる',
+    newBadge: '新しいバッジ！',
+    badge1: 'コミとはじめまして', badge2: '丹青の花の友', badge3: '氷割りのモモ', badge4: 'ボムの達人',
+    badge5: '星三つコレクター', badge6: 'コンボ名人', badge7: 'ポップマスター',
+    popGood: 'GOOD!', popGreat: 'GREAT!', popAmazing: 'AMAZING!', popBoom: 'BOOM!',
+    popFever: 'FEVER TIME!', popClear: 'STAGE CLEAR!', iceCrack: 'パリン！'
+  },
+  zh: {
+    modeStage: '关卡', modeInfinite: '无尽60秒', stageWord: 'STAGE', coin: '金币',
+    boostTitle: '道具', boostBomb: '开局炸弹', boostTime: '+10秒', notEnough: '金币不足',
+    clearTitle: '闯关成功！', timeBonus: '时间奖励', firstClear: '首次通关奖励',
+    nextStage: '下一关', retry: '再来一次', failTitle: '时间到！',
+    failDesc: '没有完成全部目标，再来一次！',
+    album: '图鉴', albumTitle: '科米·莫莫图鉴', totalCoins: '金币', totalStars: '收集的星星',
+    albumCleared: '通关', badges: '徽章', stagesLabel: '关卡', locked: '未解锁', close: '关闭',
+    newBadge: '新徽章！',
+    badge1: '初遇科米', badge2: '丹青花之友', badge3: '破冰莫莫', badge4: '炸弹大师',
+    badge5: '三星收藏家', badge6: '连击达人', badge7: '爆爆大师',
+    popGood: 'GOOD!', popGreat: 'GREAT!', popAmazing: 'AMAZING!', popBoom: 'BOOM!',
+    popFever: 'FEVER TIME!', popClear: 'STAGE CLEAR!', iceCrack: '咔嚓！'
+  },
+  'zh-tw': {
+    modeStage: '關卡', modeInfinite: '無盡60秒', stageWord: 'STAGE', coin: '金幣',
+    boostTitle: '道具', boostBomb: '開局炸彈', boostTime: '+10秒', notEnough: '金幣不足',
+    clearTitle: '闖關成功！', timeBonus: '時間獎勵', firstClear: '首次通關獎勵',
+    nextStage: '下一關', retry: '再來一次', failTitle: '時間到！',
+    failDesc: '沒有完成全部目標，再來一次！',
+    album: '圖鑑', albumTitle: '科米·莫莫圖鑑', totalCoins: '金幣', totalStars: '收集的星星',
+    albumCleared: '通關', badges: '徽章', stagesLabel: '關卡', locked: '未解鎖', close: '關閉',
+    newBadge: '新徽章！',
+    badge1: '初遇科米', badge2: '丹青花之友', badge3: '破冰莫莫', badge4: '炸彈大師',
+    badge5: '三星收藏家', badge6: '連擊達人', badge7: '爆爆大師',
+    popGood: 'GOOD!', popGreat: 'GREAT!', popAmazing: 'AMAZING!', popBoom: 'BOOM!',
+    popFever: 'FEVER TIME!', popClear: 'STAGE CLEAR!', iceCrack: '咔嚓！'
+  },
+  es: {
+    modeStage: 'Etapas', modeInfinite: '60 s sin fin', stageWord: 'ETAPA', coin: 'Monedas',
+    boostTitle: 'Mejoras', boostBomb: 'Bomba inicial', boostTime: '+10 s', notEnough: 'Faltan monedas',
+    clearTitle: '¡ETAPA SUPERADA!', timeBonus: 'Bonus de tiempo', firstClear: 'Bonus de primera vez',
+    nextStage: 'Siguiente etapa', retry: 'Reintentar', failTitle: '¡Se acabó el tiempo!',
+    failDesc: 'No completaste todos los objetivos. ¡Inténtalo otra vez!',
+    album: 'Álbum', albumTitle: 'Álbum Komi y Momo', totalCoins: 'Monedas', totalStars: 'Estrellas',
+    albumCleared: 'Superadas', badges: 'Insignias', stagesLabel: 'Etapas', locked: 'Bloqueado', close: 'Cerrar',
+    newBadge: '¡Nueva insignia!',
+    badge1: 'Hola, Komi', badge2: 'Amigos del Dancheong', badge3: 'Rompehielos', badge4: 'Maestro bomba',
+    badge5: 'Coleccionista de estrellas', badge6: 'Maestro del combo', badge7: 'Maestro del pop',
+    popGood: '¡BIEN!', popGreat: '¡GENIAL!', popAmazing: '¡INCREÍBLE!', popBoom: '¡BOOM!',
+    popFever: '¡HORA DE FIEBRE!', popClear: '¡ETAPA SUPERADA!', iceCrack: '¡CRAC!'
+  },
+  fr: {
+    modeStage: 'Niveaux', modeInfinite: '60 s sans fin', stageWord: 'NIVEAU', coin: 'Pièces',
+    boostTitle: 'Bonus', boostBomb: 'Bombe de départ', boostTime: '+10 s', notEnough: 'Pièces insuffisantes',
+    clearTitle: 'NIVEAU RÉUSSI !', timeBonus: 'Bonus de temps', firstClear: 'Bonus de première fois',
+    nextStage: 'Niveau suivant', retry: 'Réessayer', failTitle: 'Temps écoulé !',
+    failDesc: 'Tous les objectifs n’ont pas été atteints. Réessayez !',
+    album: 'Album', albumTitle: 'Album Komi & Momo', totalCoins: 'Pièces', totalStars: 'Étoiles',
+    albumCleared: 'Réussis', badges: 'Badges', stagesLabel: 'Niveaux', locked: 'Verrouillé', close: 'Fermer',
+    newBadge: 'Nouveau badge !',
+    badge1: 'Bonjour Komi', badge2: 'Ami du Dancheong', badge3: 'Brise-glace', badge4: 'Maître des bombes',
+    badge5: 'Collectionneur d’étoiles', badge6: 'Maître du combo', badge7: 'Maître du pop',
+    popGood: 'BIEN !', popGreat: 'GÉNIAL !', popAmazing: 'INCROYABLE !', popBoom: 'BOUM !',
+    popFever: 'MODE FIÈVRE !', popClear: 'NIVEAU RÉUSSI !', iceCrack: 'CRAC !'
+  },
+  de: {
+    modeStage: 'Level', modeInfinite: 'Endlos 60 s', stageWord: 'LEVEL', coin: 'Münzen',
+    boostTitle: 'Booster', boostBomb: 'Startbombe', boostTime: '+10 s', notEnough: 'Zu wenig Münzen',
+    clearTitle: 'LEVEL GESCHAFFT!', timeBonus: 'Zeitbonus', firstClear: 'Erstschaffungs-Bonus',
+    nextStage: 'Nächstes Level', retry: 'Nochmal', failTitle: 'Zeit vorbei!',
+    failDesc: 'Nicht alle Ziele geschafft. Versuch es nochmal!',
+    album: 'Album', albumTitle: 'Komi-&-Momo-Album', totalCoins: 'Münzen', totalStars: 'Sterne',
+    albumCleared: 'Geschafft', badges: 'Abzeichen', stagesLabel: 'Level', locked: 'Gesperrt', close: 'Schließen',
+    newBadge: 'Neues Abzeichen!',
+    badge1: 'Hallo Komi', badge2: 'Dancheong-Freund', badge3: 'Eisbrecher', badge4: 'Bombenmeister',
+    badge5: 'Sternensammler', badge6: 'Combo-Meister', badge7: 'Pop-Meister',
+    popGood: 'GUT!', popGreat: 'KLASSE!', popAmazing: 'WOW!', popBoom: 'BUMM!',
+    popFever: 'FIEBERZEIT!', popClear: 'LEVEL GESCHAFFT!', iceCrack: 'KRACH!'
+  },
+  pt: {
+    modeStage: 'Fases', modeInfinite: '60 s infinito', stageWord: 'FASE', coin: 'Moedas',
+    boostTitle: 'Bônus', boostBomb: 'Bomba inicial', boostTime: '+10 s', notEnough: 'Moedas insuficientes',
+    clearTitle: 'FASE CONCLUÍDA!', timeBonus: 'Bônus de tempo', firstClear: 'Bônus da primeira vez',
+    nextStage: 'Próxima fase', retry: 'Tentar de novo', failTitle: 'Tempo esgotado!',
+    failDesc: 'Nem todos os objetivos foram cumpridos. Tente outra vez!',
+    album: 'Álbum', albumTitle: 'Álbum Komi e Momo', totalCoins: 'Moedas', totalStars: 'Estrelas',
+    albumCleared: 'Concluídas', badges: 'Emblemas', stagesLabel: 'Fases', locked: 'Bloqueado', close: 'Fechar',
+    newBadge: 'Novo emblema!',
+    badge1: 'Olá, Komi', badge2: 'Amigo do Dancheong', badge3: 'Quebra-gelo', badge4: 'Mestre das bombas',
+    badge5: 'Colecionador de estrelas', badge6: 'Mestre do combo', badge7: 'Mestre do pop',
+    popGood: 'BOM!', popGreat: 'ÓTIMO!', popAmazing: 'INCRÍVEL!', popBoom: 'BOOM!',
+    popFever: 'HORA DO FEBRE!', popClear: 'FASE CONCLUÍDA!', iceCrack: 'CRAC!'
+  },
+  ru: {
+    modeStage: 'Уровни', modeInfinite: 'Бесконечные 60 с', stageWord: 'УРОВЕНЬ', coin: 'Монеты',
+    boostTitle: 'Бонусы', boostBomb: 'Бомба на старте', boostTime: '+10 с', notEnough: 'Не хватает монет',
+    clearTitle: 'УРОВЕНЬ ПРОЙДЕН!', timeBonus: 'Бонус времени', firstClear: 'Бонус за первое прохождение',
+    nextStage: 'Следующий уровень', retry: 'Ещё раз', failTitle: 'Время вышло!',
+    failDesc: 'Не все цели выполнены. Попробуйте ещё раз!',
+    album: 'Альбом', albumTitle: 'Альбом Коми и Момо', totalCoins: 'Монеты', totalStars: 'Звёзды',
+    albumCleared: 'Пройдено', badges: 'Значки', stagesLabel: 'Уровни', locked: 'Закрыто', close: 'Закрыть',
+    newBadge: 'Новый значок!',
+    badge1: 'Привет, Коми', badge2: 'Друг Данчхон', badge3: 'Ледокол', badge4: 'Мастер бомб',
+    badge5: 'Коллекционер звёзд', badge6: 'Мастер комбо', badge7: 'Мастер поп',
+    popGood: 'ХОРОШО!', popGreat: 'ОТЛИЧНО!', popAmazing: 'ВОТ ЭТО ДА!', popBoom: 'БАХ!',
+    popFever: 'ВРЕМЯ ЖАРА!', popClear: 'УРОВЕНЬ ПРОЙДЕН!', iceCrack: 'ХРУСТЬ!'
+  },
+  id: {
+    modeStage: 'Tahap', modeInfinite: '60 detik tanpa batas', stageWord: 'TAHAP', coin: 'Koin',
+    boostTitle: 'Bonus', boostBomb: 'Bom awal', boostTime: '+10 detik', notEnough: 'Koin kurang',
+    clearTitle: 'TAHAP SELESAI!', timeBonus: 'Bonus waktu', firstClear: 'Bonus pertama',
+    nextStage: 'Tahap berikutnya', retry: 'Coba lagi', failTitle: 'Waktu habis!',
+    failDesc: 'Belum semua target tercapai. Ayo coba lagi!',
+    album: 'Koleksi', albumTitle: 'Koleksi Komi & Momo', totalCoins: 'Koin', totalStars: 'Bintang',
+    albumCleared: 'Selesai', badges: 'Lencana', stagesLabel: 'Tahap', locked: 'Terkunci', close: 'Tutup',
+    newBadge: 'Lencana baru!',
+    badge1: 'Halo Komi', badge2: 'Sahabat Dancheong', badge3: 'Pemecah es', badge4: 'Ahli bom',
+    badge5: 'Kolektor bintang', badge6: 'Ahli kombo', badge7: 'Master pop',
+    popGood: 'BAGUS!', popGreat: 'HEBAT!', popAmazing: 'LUAR BIASA!', popBoom: 'BOOM!',
+    popFever: 'WAKTU DEMAM!', popClear: 'TAHAP SELESAI!', iceCrack: 'KRAAK!'
+  },
+  vi: {
+    modeStage: 'Màn chơi', modeInfinite: '60 giây vô tận', stageWord: 'MÀN', coin: 'Xu',
+    boostTitle: 'Trợ giúp', boostBomb: 'Bom đầu trận', boostTime: '+10 giây', notEnough: 'Không đủ xu',
+    clearTitle: 'HOÀN THÀNH MÀN!', timeBonus: 'Thưởng thời gian', firstClear: 'Thưởng lần đầu',
+    nextStage: 'Màn tiếp theo', retry: 'Chơi lại', failTitle: 'Hết giờ!',
+    failDesc: 'Chưa đạt đủ mục tiêu. Thử lại nhé!',
+    album: 'Bộ sưu tập', albumTitle: 'Bộ sưu tập Komi & Momo', totalCoins: 'Xu', totalStars: 'Sao',
+    albumCleared: 'Đã qua', badges: 'Huy hiệu', stagesLabel: 'Màn', locked: 'Khoá', close: 'Đóng',
+    newBadge: 'Huy hiệu mới!',
+    badge1: 'Chào Komi', badge2: 'Bạn hoa Dancheong', badge3: 'Phá băng', badge4: 'Bậc thầy bom',
+    badge5: 'Nhà sưu tầm sao', badge6: 'Bậc thầy chuỗi', badge7: 'Bậc thầy pop',
+    popGood: 'TỐT!', popGreat: 'TUYỆT!', popAmazing: 'QUÁ ĐỈNH!', popBoom: 'BÙM!',
+    popFever: 'GIỜ BÙNG NỔ!', popClear: 'HOÀN THÀNH MÀN!', iceCrack: 'RẮC!'
+  }
+};
+
+(function () {
+  var X = window.KOMI_POP_I18N_EXTRA || {};
+  var base = window.KOMI_POP_I18N || {};
+  for (var code in X) {
+    if (!base[code]) continue;
+    for (var k in X[code]) base[code][k] = X[code][k];
+  }
+})();
