@@ -337,7 +337,7 @@
     if (color) {
       var ag = g.createRadialGradient(cx, cy, r * 0.8, cx, cy, r * 1.16);
       ag.addColorStop(0, hexA(color, 0));
-      ag.addColorStop(0.62, hexA(color, 0.26));
+      ag.addColorStop(0.62, hexA(color, 0.2));
       ag.addColorStop(1, hexA(color, 0));
       g.fillStyle = ag;
       g.beginPath();
@@ -456,7 +456,7 @@
     left = PAD;
     right = W - PAD;
     floorY = H - PAD;
-    R = clamp(W * 0.075, 18, 30);
+    R = clamp(W * 0.084, 18, 31);
 
     buildBoard();
     if (ready) buildSprites();
