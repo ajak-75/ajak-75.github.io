@@ -78,6 +78,7 @@
   const COMBO_KEEP = 2.6;
   const SAVE_KEY = 'momoRun.v1';
   const QA = /(^|[?&])qa=1(&|$)/.test(location.search);   // 검수용: 목표를 짧게
+  const QAVP = /vp=(\d+)x(\d+)/.exec(location.search);    // 검수용: 화면 크기 고정
 
   /* ── DOM ────────────────────────────────────────────── */
   const $ = (id) => document.getElementById(id);
@@ -255,8 +256,15 @@
   let dpr = 1;
   function resize() {
     // 16:9 보다 넓은 화면은 꽉 채우고, 세로로 긴 화면은 16:9 로 레터박스한다
-    const wide = window.innerWidth / window.innerHeight >= 16 / 9 - 0.02;
+    const wide = !QAVP && window.innerWidth / window.innerHeight >= 16 / 9 - 0.02;
     els.wrap.classList.toggle('wide', wide);
+    if (QAVP) {
+      els.wrap.style.width = QAVP[1] + 'px';
+      els.wrap.style.height = QAVP[2] + 'px';
+      els.wrap.style.aspectRatio = 'auto';
+      els.wrap.style.maxHeight = 'none';
+      els.wrap.style.borderRadius = '0';
+    }
     const rect = els.wrap.getBoundingClientRect();
     dpr = Math.min(2, window.devicePixelRatio || 1);
     const w = Math.max(320, Math.round(rect.width * dpr));
@@ -301,7 +309,7 @@
     S.stage = STAGES[Math.max(0, Math.min(STAGES.length - 1, n - 1))];
     S.distGoal = S.stage.goal;
     S.foodGoal = S.stage.foodGoal;
-    if (QA) { S.distGoal = 90; S.foodGoal = 4; }
+    if (QA) { S.distGoal = 400; S.foodGoal = 4; }
     els.loadingVeil.hidden = false;
     Audio2.unlock();
 
