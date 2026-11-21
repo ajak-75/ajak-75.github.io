@@ -16,10 +16,6 @@
   window.addEventListener('error', (e) => { window.__momoErr.push('error: ' + (e.message || e.type)); });
   window.addEventListener('unhandledrejection', (e) => { window.__momoErr.push('reject: ' + e.reason); });
 
-  const QA = /(^|[?&])qa=1(&|$)/.test(location.search);           // 검수용: 목표를 짧게
-  const QAVP = /vp=(\d+)x(\d+)/.exec(location.search);            // 검수용: 화면 크기 고정
-  const QASPD = (function () { const m = /spd=([\d.]+)/.exec(location.search); return m ? Math.max(0.05, Math.min(1, parseFloat(m[1]))) : 1; })();
-
   /* ── 좌표계 (세로형) ───────────────────────────────── */
   const VW = 1000;                 // 가로는 고정
   let VH = 2165;                   // 세로는 화면 비율로 (375×812 → 2165)
@@ -226,10 +222,6 @@
   /* ── 크기/배율 ──────────────────────────────────────── */
   let dpr = 1;
   function resize() {
-    if (QAVP) {
-      els.wrap.style.width = QAVP[1] + 'px';
-      els.wrap.style.height = QAVP[2] + 'px';
-    }
     const rect = els.wrap.getBoundingClientRect();
     dpr = Math.min(2, window.devicePixelRatio || 1);
     const w = Math.max(240, Math.round(rect.width * dpr));
@@ -262,7 +254,6 @@
     S.stage = STAGES[Math.max(0, Math.min(STAGES.length - 1, n - 1))];
     S.distGoal = S.stage.goal;
     S.foodGoal = S.stage.foodGoal;
-    if (QA) { S.distGoal = 260; S.foodGoal = 4; }
     els.loadingVeil.hidden = false;
     Sfx.unlock();
 
@@ -270,7 +261,7 @@
     els.loadingVeil.hidden = true;
 
     S.worldX = 0; S.speed = SPEED_START; S.score = 0; S.coins = 0; S.runCoins = 0;
-    S.hearts = QA ? 9 : 3; S.combo = 0; S.comboTimer = 0; S.bestCombo = 0;
+    S.hearts = 3; S.combo = 0; S.comboTimer = 0; S.bestCombo = 0;
     S.fever = 0; S.feverTimer = 0; S.feverCount = 0; S.foodGot = 0;
     S.nextSpawn = 1200;
     S.hitFlash = 0; S.feverFlash = 0; S.shake = 0; S.runTime = 0;
@@ -608,7 +599,6 @@
     if (S.scene === 'title' || S.scene === 'stages') { updateAmbient(dt); return; }
     if (S.scene !== 'playing') { updateParticles(dt); return; }
 
-    dt *= QASPD;
     S.runTime += dt;
 
     const meters = S.worldX * M_PER_UNIT;
@@ -1315,16 +1305,6 @@
     }
     draw();
     requestAnimationFrame(frame);
-  }
-
-  if (QA) {
-    window.__momoState = () => ({
-      scene: S.scene, hearts: S.hearts, score: Math.round(S.score), food: S.foodGot,
-      sliding: +player.sliding.toFixed(2), jumps: player.jumps, y: Math.round(player.y),
-      vy: Math.round(player.vy), inv: +player.inv.toFixed(2), squash: +player.squash.toFixed(2),
-      speed: Math.round(S.speed), worldX: Math.round(S.worldX),
-      objects: objects.length, foods: foods.length, err: window.__momoErr.slice(0, 3)
-    });
   }
 
   /* ── 시작 ───────────────────────────────────────────── */
