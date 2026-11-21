@@ -1290,6 +1290,16 @@
     requestAnimationFrame(frame);
   }
 
+  if (QA) {
+    window.__momoState = () => ({
+      scene: S.scene, hearts: S.hearts, score: Math.round(S.score), food: S.foodGot,
+      sliding: +player.sliding.toFixed(2), jumps: player.jumps, y: Math.round(player.y),
+      vy: Math.round(player.vy), inv: +player.inv.toFixed(2), squash: +player.squash.toFixed(2),
+      speed: Math.round(S.speed), worldX: Math.round(S.worldX),
+      objects: objects.length, foods: foods.length, err: window.__momoErr.slice(0, 3)
+    });
+  }
+
   /* ── 시작 ───────────────────────────────────────────── */
   function boot() {
     loadSave();
