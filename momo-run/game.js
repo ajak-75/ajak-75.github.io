@@ -68,10 +68,10 @@
   const JUMP_V = 1200;
   const DJUMP_V = 1080;
   const SLIDE_TIME = 0.62;
-  const PLAYER_H = 200;
+  const PLAYER_H = 228;
   const HIT_W = 92;
-  const HIT_H = 154;
-  const SLIDE_HIT_H = 86;
+  const HIT_H = 168;
+  const SLIDE_HIT_H = 92;
   const TOP_BOTTOM = 646;        // 위 장애물의 아래 끝(이보다 낮으면 슬라이드)
   const FEVER_TIME = 7.2;
   const FEVER_MAX = 100;
@@ -317,7 +317,7 @@
     els.loadingVeil.hidden = true;
 
     S.worldX = 0; S.speed = SPEED_START; S.score = 0; S.coins = 0; S.runCoins = 0;
-    S.hearts = 3; S.combo = 0; S.comboTimer = 0; S.bestCombo = 0;
+    S.hearts = QA ? 9 : 3; S.combo = 0; S.comboTimer = 0; S.bestCombo = 0;
     S.fever = 0; S.feverTimer = 0; S.feverCount = 0; S.foodGot = 0;
     S.nextSpawn = 1500; S.spawnPattern = 0;
     S.hitFlash = 0; S.feverFlash = 0; S.shake = 0; S.runTime = 0;
@@ -647,7 +647,8 @@
     }
   }
   function addPop(x, y, text, color, big) {
-    pops.push({ x: x, y: y, text: text, color: color || '#fff', t: 0, life: big ? 1.1 : 0.9, big: !!big });
+    if (pops.length > 7) pops.shift();
+    pops.push({ x: x + (Math.random() - 0.5) * 16, y: y, text: text, color: color || '#fff', t: 0, life: big ? 1.1 : 0.85, big: !!big });
   }
 
   /* ── 업데이트 ───────────────────────────────────────── */
@@ -1240,10 +1241,10 @@
       ctx.globalAlpha = Math.max(0, a);
       ctx.translate(p.x, p.y);
       ctx.scale(scale, scale);
-      ctx.font = '900 ' + (p.big ? 34 : 26) + 'px "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif';
+      ctx.font = '900 ' + (p.big ? 25 : 19) + 'px "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.lineWidth = 7;
+      ctx.lineWidth = 5.5;
       ctx.strokeStyle = 'rgba(38,20,44,.72)';
       ctx.strokeText(p.text, 0, 0);
       ctx.fillStyle = p.color;
