@@ -924,7 +924,7 @@
     ctx.fillRect(0, 0, VW, VH);
     if (!img) return;
 
-    const zoom = 1.14;
+    const zoom = 1.10;
     const sc = Math.max(VW / img.width, VH / img.height) * zoom;
     const w = img.width * sc;
     const h = img.height * sc;
