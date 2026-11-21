@@ -657,6 +657,18 @@
         });
       }
     }
+    if (Math.random() < dt * 1.6) {
+      parts.push({
+        x: VW + 20, y: 60 + Math.random() * VH * 0.42,
+        vx: -60 - Math.random() * 50, vy: 12 + Math.random() * 18,
+        life: 3.2, t: 0, r: 3 + Math.random() * 4, color: 'rgba(255,220,236,.7)', kind: 'petal'
+      });
+    }
+    for (let i = 0; i < parts.length; i++) {
+      const pp = parts[i];
+      if (pp.kind === 'petal') pp.x += Math.sin(S.time * 1.6 + pp.y * 0.02) * 22 * dt;
+    }
+
     if (S.feverTimer > 0) {
       player.trailT -= dt;
       if (player.trailT <= 0) {

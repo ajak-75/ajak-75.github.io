@@ -191,6 +191,9 @@ html, body {
 }
 
 .combo-tag {
+  position: absolute;
+  top: calc(104 * var(--s) * 1px);
+  right: calc(14 * var(--s) * 1px);
   font-size: calc(11 * var(--s) * 1px);
   font-weight: 900;
   color: #fff;
