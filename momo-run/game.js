@@ -938,13 +938,21 @@
   /* 지면 아래: 빠르게 흐르는 도로 표시 + 접지 그림자 */
   function drawGround() {
     const st = S.stage;
-    const top = GROUND_Y - 40;
+    const top = GROUND_Y - 150;
     const g = ctx.createLinearGradient(0, top, 0, VH);
-    g.addColorStop(0, 'rgba(18,10,24,0)');
-    g.addColorStop(0.35, 'rgba(18,10,24,.42)');
-    g.addColorStop(1, 'rgba(12,7,18,.8)');
+    g.addColorStop(0, 'rgba(16,9,22,0)');
+    g.addColorStop(0.28, 'rgba(16,9,22,.34)');
+    g.addColorStop(0.5, 'rgba(14,8,20,.6)');
+    g.addColorStop(1, 'rgba(10,6,16,.88)');
     ctx.fillStyle = g;
     ctx.fillRect(0, top, VW, VH - top);
+
+    // 발밑 접지 띠 — 사진 앞쪽 소품 위로 모모가 서 있는 느낌을 준다
+    const cg = ctx.createLinearGradient(0, GROUND_Y - 60, 0, GROUND_Y + 90);
+    cg.addColorStop(0, 'rgba(12,7,18,0)');
+    cg.addColorStop(1, 'rgba(12,7,18,.55)');
+    ctx.fillStyle = cg;
+    ctx.fillRect(0, GROUND_Y - 60, VW, 150);
 
     // 속도 대시 — 지면선 근처에서 빠르게 흐른다
     const span = 340;
