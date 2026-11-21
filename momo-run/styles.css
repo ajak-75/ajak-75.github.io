@@ -143,8 +143,8 @@ html, body {
   display: flex; align-items: center; gap: calc(6 * var(--s) * 1px);
   padding: calc(3 * var(--s) * 1px) calc(11 * var(--s) * 1px);
   border-radius: 999px;
-  background: rgba(20, 12, 30, .42);
-  border: calc(1 * var(--s) * 1px) solid rgba(255, 255, 255, .22);
+  background: rgba(18, 11, 26, .72);
+  border: calc(1 * var(--s) * 1px) solid rgba(255, 255, 255, .16);
   color: #fff;
   font-size: calc(11 * var(--s) * 1px);
   font-weight: 800;
@@ -164,8 +164,8 @@ html, body {
   width: 92%;
   height: calc(7 * var(--s) * 1px);
   border-radius: 999px;
-  background: rgba(20, 12, 30, .45);
-  border: calc(1 * var(--s) * 1px) solid rgba(255, 255, 255, .28);
+  background: rgba(18, 11, 26, .72);
+  border: calc(1 * var(--s) * 1px) solid rgba(255, 255, 255, .2);
 }
 .prog-fill {
   height: 100%; width: 0%;
@@ -216,8 +216,8 @@ html, body {
   align-self: center;
   padding: calc(3 * var(--s) * 1px) calc(9 * var(--s) * 1px);
   border-radius: 999px;
-  background: rgba(20, 12, 30, .38);
-  border: calc(1 * var(--s) * 1px) solid rgba(255, 255, 255, .2);
+  background: rgba(18, 11, 26, .6);
+  border: calc(1 * var(--s) * 1px) solid rgba(255, 255, 255, .16);
   width: 62%;
   max-width: calc(260 * var(--s) * 1px);
 }
