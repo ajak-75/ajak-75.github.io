@@ -79,6 +79,7 @@
   const SAVE_KEY = 'momoRun.v1';
   const QA = /(^|[?&])qa=1(&|$)/.test(location.search);   // 검수용: 목표를 짧게
   const QAVP = /vp=(\d+)x(\d+)/.exec(location.search);    // 검수용: 화면 크기 고정
+  const QASPD = (function () { const m = /spd=([\d.]+)/.exec(location.search); return m ? Math.max(0.05, Math.min(1, parseFloat(m[1]))) : 1; })();
 
   /* ── DOM ────────────────────────────────────────────── */
   const $ = (id) => document.getElementById(id);
@@ -591,7 +592,7 @@
   }
   function makeTop(x, w) {
     const img = IMG[itemSrc(S.stage.top)];
-    const h = 176 + Math.random() * 40;
+    const h = 152 + Math.random() * 26;
     const ww = img ? h * img.width / img.height : w;
     return { kind: 'top', x: x, y: TOP_BOTTOM, w: ww, h: h, img: img, wob: Math.random() * 6.28 };
   }
@@ -657,6 +658,7 @@
     if (S.scene === 'title' || S.scene === 'stages') { updateAmbient(dt); return; }
     if (S.scene !== 'playing') { updateParticles(dt); return; }
 
+    dt *= QASPD;
     S.runTime += dt;
 
     /* 속도 */
