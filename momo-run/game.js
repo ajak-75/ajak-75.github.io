@@ -591,8 +591,14 @@
     }
   }
   function addPop(x, y, text, color, big) {
-    if (pops.length > 6) pops.shift();
-    pops.push({ x: x + (Math.random() - 0.5) * 14, y: y, text: text, color: color || '#fff', t: 0, life: big ? 1.1 : 0.85, big: !!big });
+    if (pops.length > 4) pops.shift();
+    // 겹치지 않게 위로 계단처럼 쌓는다
+    const step = pops.filter((p) => p.t < 0.3).length;
+    pops.push({
+      x: x + 34 + (Math.random() - 0.5) * 18,
+      y: y - 34 - Math.min(3, step) * 30,
+      text: text, color: color || '#fff', t: 0, life: big ? 1.05 : 0.8, big: !!big
+    });
   }
 
   /* ── 업데이트 ───────────────────────────────────────── */
@@ -1177,7 +1183,7 @@
       ctx.globalAlpha = Math.max(0, a);
       ctx.translate(p.x, p.y);
       ctx.scale(scale, scale);
-      ctx.font = '900 ' + (p.big ? 34 : 25) + 'px "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif';
+      ctx.font = '900 ' + (p.big ? 32 : 23) + 'px "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.lineWidth = 7;
