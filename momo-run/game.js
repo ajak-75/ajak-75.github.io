@@ -647,7 +647,7 @@
         player.dustT = 0.12;
         parts.push({
           x: PLAYER_X - 26, y: GROUND_Y - 6, vx: -S.speed * 0.4, vy: -50 - Math.random() * 60,
-          life: 0.45, t: 0, r: 5 + Math.random() * 9, color: 'rgba(255,255,255,.55)', kind: 'puff'
+          life: 0.4, t: 0, r: 4 + Math.random() * 7, color: 'rgba(255,255,255,.38)', kind: 'puff'
         });
       }
     }
@@ -1060,7 +1060,7 @@
     }
 
     let alpha = 1;
-    if (p.inv > 0 && S.feverTimer <= 0) alpha = (Math.floor(p.inv * 18) % 2) ? 0.35 : 1;
+    if (p.inv > 0 && S.feverTimer <= 0) alpha = (Math.floor(p.inv * 16) % 2) ? 0.6 : 1;
 
     // 몸 뒤 옅은 그림자 실루엣 — 사진 배경과 겹쳐도 모모가 또렷하게 보인다
     ctx.save();
