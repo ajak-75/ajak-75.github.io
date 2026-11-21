@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>모모의 어드벤처 런 — MOMO ADVENTURE RUN</title>
+<meta name="description" content="명동·북촌·남산·자갈치·제주를 달리는 가로형 2D 러너. 길거리 음식을 먹고 장애물을 피해 5개 지역을 클리어하세요 — MOMO ADVENTURE RUN by Ajak Studio.">
+<meta name="theme-color" content="#FF5D9B">
+<meta name="color-scheme" content="light">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="canonical" href="https://ajak-75.github.io/momo-run/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ajak Studio">
+<meta property="og:title" content="모모의 어드벤처 런 — MOMO ADVENTURE RUN">
+<meta property="og:description" content="명동·북촌·남산·자갈치·제주를 달리는 가로형 2D 러너. 길거리 음식을 먹고 장애물을 피해 5개 지역을 클리어하세요!">
+<meta property="og:url" content="https://ajak-75.github.io/momo-run/">
+<meta property="og:image" content="https://ajak-75.github.io/momo-run/icon-512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="모모의 어드벤처 런">
+<meta name="twitter:description" content="명동에서 제주까지 — 길거리 음식 먹고 장애물 피하는 가로형 러너">
+<meta name="twitter:image" content="https://ajak-75.github.io/momo-run/icon-512.png">
+
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="stylesheet" href="./styles.css?v=1">
+</head>
+<body>
+
+<div class="app" id="app">
+  <div class="stage-wrap" id="stageWrap">
+    <canvas id="game" width="1600" height="900" aria-label="MOMO ADVENTURE RUN game"></canvas>
+
+    <!-- ── HUD ─────────────────────────────────────────── -->
+    <div class="hud" id="hud" aria-hidden="true">
+      <div class="hud-left">
+        <div class="hearts" id="hearts">
+          <span class="heart"></span><span class="heart"></span><span class="heart"></span>
+        </div>
+        <div class="score-row">
+          <span class="score-label" data-i18n="score">점수</span>
+          <b id="scoreVal">0</b>
+        </div>
+        <div class="coin-row">
+          <svg class="coin-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.4 8.6c0-1 .9-1.7 2.6-1.7 1.2 0 2.1.4 2.7.9l-.9 1.6c-.5-.4-1.1-.6-1.8-.6-.5 0-.8.2-.8.5 0 .9 3.7.6 3.7 3.2 0 1.2-.9 2-2.4 2.3v1.1h-1.5v-1.1c-1.1-.2-2-.7-2.6-1.3l1-1.5c.6.5 1.3.9 2.1.9.6 0 .9-.2.9-.6 0-.9-3.7-.6-3.7-3.2z"/></svg>
+          <b id="coinVal">0</b>
+        </div>
+      </div>
+
+      <div class="hud-mid">
+        <div class="stage-chip"><span id="stageChip">명동</span><em id="stageGoalChip"></em></div>
+        <div class="prog" id="prog">
+          <div class="prog-fill" id="progFill"></div>
+          <i class="prog-pip" style="left:33.3%"></i>
+          <i class="prog-pip" style="left:66.6%"></i>
+          <div class="prog-pup" id="progPup"></div>
+        </div>
+        <div class="combo-tag" id="comboTag"></div>
+      </div>
+
+      <div class="hud-right">
+        <button class="round-btn" id="btnSound" type="button" data-i18n-aria="soundOn">
+          <svg class="ico ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3L12 5v14l-5-4.5H4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18 6a8.5 8.5 0 0 1 0 12"/></svg>
+          <svg class="ico ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3L12 5v14l-5-4.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+        </button>
+        <button class="round-btn lang-btn" id="btnLang" type="button" data-i18n-aria="lang">KO</button>
+        <button class="round-btn" id="btnPause" type="button" data-i18n-aria="pause">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="5.5" width="3.6" height="13" rx="1.4"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1.4"/></svg>
+        </button>
+      </div>
+
+      <div class="fever-wrap" id="feverWrap">
+        <div class="fever-label" data-i18n="fever">피버</div>
+        <div class="fever-bar"><div class="fever-fill" id="feverFill"></div></div>
+      </div>
+    </div>
+
+    <!-- ── 터치 조작 ──────────────────────────────────── -->
+    <div class="controls" id="controls">
+      <button class="pad pad-slide" id="btnSlide" type="button">
+        <span class="pad-ico">▼</span><span class="pad-txt">SLIDE</span>
+      </button>
+      <button class="pad pad-jump" id="btnJump" type="button">
+        <span class="pad-ico">▲</span><span class="pad-txt">JUMP</span>
+      </button>
+    </div>
+
+    <div class="rotate-badge" id="rotateBadge" hidden>
+      <span class="rb-ico">⟳</span>
+      <span class="rb-txt" data-i18n="rotate">폰을 가로로 돌리면 더 넓게 달려요</span>
+      <button class="rb-x" id="rotateClose" type="button" aria-label="close">×</button>
+    </div>
+    <div class="toast" id="toast" hidden></div>
+
+    <!-- ── 타이틀 ─────────────────────────────────────── -->
+    <section class="screen screen-title" id="screenTitle">
+      <div class="title-inner">
+        <img class="title-icon" src="./icon-192.png" alt="" width="86" height="86">
+        <h1 class="title">
+          <span class="title-momo">MOMO</span>
+          <span class="title-run">ADVENTURE RUN</span>
+        </h1>
+        <p class="tagline" data-i18n="tagline">명동에서 제주까지, 모모와 내달려요!</p>
+
+        <div class="howto">
+          <div class="howto-item"><span class="hi j">▲</span><span data-i18n="howtoJump">점프 · 두 번 누르면 2단 점프</span></div>
+          <div class="howto-item"><span class="hi s">▼</span><span data-i18n="howtoSlide">슬라이드 · 낮은 장애물 피하기</span></div>
+          <div class="howto-item"><span class="hi f">★</span><span data-i18n="howtoFood">길거리 음식을 먹으면 점수·코인·콤보!</span></div>
+        </div>
+
+        <div class="title-btns">
+          <button class="btn btn-main" id="btnPlay" type="button" data-i18n="play">달리기 시작</button>
+          <button class="btn btn-ghost" id="btnStages" type="button" data-i18n="stages">지역 선택</button>
+        </div>
+
+        <div class="title-meta">
+          <span><b id="titleBest">0</b> <em data-i18n="best">최고</em></span>
+          <span><b id="titleCoins">0</b> <em data-i18n="coins">코인</em></span>
+          <a class="studio-link" href="https://ajak-75.github.io/" target="_blank" rel="noopener">Ajak Studio</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 지역 선택 ──────────────────────────────────── -->
+    <section class="screen screen-stages" id="screenStages" hidden>
+      <div class="stages-head">
+        <button class="round-btn back-btn" id="btnStagesBack" type="button" data-i18n-aria="back">←</button>
+        <h2 data-i18n="stages">지역 선택</h2>
+        <span class="coins-mini"><b id="stagesCoins">0</b></span>
+      </div>
+      <div class="stage-grid" id="stageGrid"></div>
+      <p class="stages-hint" data-i18n="hint">← 왼쪽 버튼 = 슬라이드 · 오른쪽 버튼 = 점프 (PC: Space / ↑ / ↓)</p>
+    </section>
+
+    <!-- ── 결과: 클리어 ───────────────────────────────── -->
+    <section class="screen screen-result" id="screenClear" hidden>
+      <div class="result-card">
+        <div class="result-stars" id="clearStars"><span>★</span><span>★</span><span>★</span></div>
+        <h2 class="result-title" data-i18n="stageClear">스테이지 클리어!</h2>
+        <p class="result-sub" id="clearSub" data-i18n="clearSub">목표 거리를 달성했어요</p>
+        <div class="result-stats">
+          <div><em data-i18n="score">점수</em><b id="clearScore">0</b></div>
+          <div><em data-i18n="earned">이번 판</em><b id="clearCoins">0</b></div>
+          <div><em data-i18n="best">최고</em><b id="clearBest">0</b></div>
+        </div>
+        <p class="unlock-line" id="clearUnlock" hidden></p>
+        <div class="result-btns">
+          <button class="btn btn-main" id="btnNext" type="button" data-i18n="nextStage">다음 지역</button>
+          <button class="btn btn-ghost" id="btnRetryClear" type="button" data-i18n="retry">다시 달리기</button>
+          <button class="btn btn-ghost" id="btnToList" type="button" data-i18n="stageList">지역 목록</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 결과: 게임 오버 ────────────────────────────── -->
+    <section class="screen screen-result" id="screenOver" hidden>
+      <div class="result-card over">
+        <img class="over-momo" src="./assets/sprites/momo-wave.webp" alt="">
+        <h2 class="result-title" data-i18n="gameOver">게임 오버</h2>
+        <p class="result-sub" data-i18n="overSub">하트를 모두 잃었어요</p>
+        <div class="result-stats">
+          <div><em data-i18n="score">점수</em><b id="overScore">0</b></div>
+          <div><em data-i18n="distance">거리</em><b id="overDist">0m</b></div>
+          <div><em data-i18n="earned">이번 판</em><b id="overCoins">0</b></div>
+        </div>
+        <p class="record-line" id="overRecord" hidden data-i18n="newRecord">신기록!</p>
+        <div class="result-btns">
+          <button class="btn btn-main" id="btnRetryOver" type="button" data-i18n="retry">다시 달리기</button>
+          <button class="btn btn-ghost" id="btnOverList" type="button" data-i18n="stageList">지역 목록</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 일시정지 ───────────────────────────────────── -->
+    <section class="screen screen-pause" id="screenPause" hidden>
+      <div class="pause-card">
+        <h2 data-i18n="paused">잠깐 쉬는 중</h2>
+        <div class="result-btns">
+          <button class="btn btn-main" id="btnResume" type="button" data-i18n="resume">계속하기</button>
+          <button class="btn btn-ghost" id="btnQuit" type="button" data-i18n="quit">그만하기</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="loading-veil" id="loadingVeil" hidden>
+      <div class="paw-spin"></div>
+      <p data-i18n="loading">모모가 준비 중…</p>
+    </div>
+  </div>
+</div>
+
+<script src="./i18n.js?v=1"></script>
+<script src="./game.js?v=1"></script>
+</body>
+</html>

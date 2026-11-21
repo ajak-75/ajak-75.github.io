@@ -90,6 +90,33 @@ window.AJAK_STUDIO_APPS = [
     }
   },
   {
+    id: 'momo-run',
+    name: 'MOMO ADVENTURE RUN',
+    status: 'live',
+    category: 'Game · Runner',
+    url: 'https://ajak-75.github.io/momo-run/',
+    icon: './apps/momo-run.png?v=1',
+    icon2x: './apps/momo-run-512.png?v=1',
+    iconBg: 'transparent',
+    desc: {
+      ko: '명동·북촌·남산·자갈치·제주를 달리는 가로형 2D 러너. 길거리 음식을 먹어 점수·코인·콤보를 쌓고 피버 질주를 터뜨리세요. 5개 지역 목표 거리를 넘으면 다음 지역이 열리고, 모두 깨면 무한 질주가 시작됩니다.',
+      en: 'A side-scrolling 2D runner across Myeongdong, Bukchon, Namsan, Jagalchi and Jeju. Grab street food for score, coins and combo, then fire a Fever dash. Clear five region goals to unlock the next, and finish them all for the endless run.',
+      ja: '明洞・北村・南山・チャガルチ・済州を走る横スクロール2Dランナー。屋台のたべものでスコア・コイン・コンボを伸ばし、フィーバーダッシュを発動！ 5つの地域の目標距離を超えると次が解放され、全部クリアでエンドレスランへ。',
+      zh: '横穿明洞、北村、南山、札嘎其、济州的横版2D跑酷。吃街头小吃攒分数、金币和连击，攒满触发狂热冲刺。跑过五个地区的目标距离即可解锁下一地区，全部通关后开启无尽奔跑。',
+      'zh-tw': '橫穿明洞、北村、南山、札嘎其、濟州的橫向2D跑酷。吃街頭小吃累積分數、金幣與連擊，集滿觸發狂熱衝刺。跑過五個地區的目標距離即可解鎖下一地區，全部通關後開啟無盡奔跑。',
+      es: 'Un runner 2D de desplazamiento lateral por Myeongdong, Bukchon, Namsan, Jagalchi y Jeju. Recoge comida callejera para sumar puntos, monedas y combo, y activa el impulso Fiebre. Supera el objetivo de cada región para abrir la siguiente y, al terminar las cinco, llega la carrera infinita.',
+      fr: 'Un runner 2D à défilement latéral à travers Myeongdong, Bukchon, Namsan, Jagalchi et Jeju. Ramassez la street food pour les points, les pièces et le combo, puis déclenchez la ruée Fièvre. Atteignez l’objectif de chaque région pour ouvrir la suivante et, après les cinq, place à la course infinie.',
+      de: 'Ein seitlich scrollender 2D-Runner durch Myeongdong, Bukchon, Namsan, Jagalchi und Jeju. Sammle Streetfood für Punkte, Münzen und Combo und löse den Fieber-Sprint aus. Erreiche das Ziel jeder Region, um die nächste freizuschalten – nach allen fünf startet der Endlos-Lauf.',
+      pt: 'Um runner 2D de rolagem lateral por Myeongdong, Bukchon, Namsan, Jagalchi e Jeju. Pegue comida de rua para pontos, moedas e combo, e dispare o avanço Febre. Cumpra a meta de cada região para abrir a seguinte e, depois das cinco, começa a corrida infinita.',
+      it: 'Un runner 2D a scorrimento laterale tra Myeongdong, Bukchon, Namsan, Jagalchi e Jeju. Raccogli lo street food per punti, monete e combo e scatena lo scatto Febbre. Raggiungi l’obiettivo di ogni regione per aprire la successiva e, dopo tutte e cinque, parte la corsa infinita.',
+      ru: 'Двухмерный раннер с боковой прокруткой по Мёндону, Пукчхону, Намсану, Чагальчхи и Чеджу. Собирайте уличную еду ради очков, монет и комбо и запускайте рывок «Жар». Пройдите цель каждого района, чтобы открыть следующий, а после всех пяти начнётся бесконечный забег.',
+      id: 'Runner 2D bergulir samping melintasi Myeongdong, Bukchon, Namsan, Jagalchi, dan Jeju. Kumpulkan jajanan jalanan untuk skor, koin, dan kombo, lalu picu ledakan Fever. Capai target tiap wilayah untuk membuka wilayah berikutnya, dan setelah kelimanya dimulai lari tanpa akhir.',
+      vi: 'Game runner 2D cuộn ngang qua Myeongdong, Bukchon, Namsan, Jagalchi và Jeju. Nhặt đồ ăn đường phố để tăng điểm, xu và combo, rồi kích hoạt cú lao Fever. Đạt mục tiêu từng vùng để mở vùng kế tiếp, và khi xong cả năm sẽ mở chế độ chạy vô tận.',
+      th: 'เกมวิ่ง 2D แบบเลื่อนด้านข้างผ่านมยองดง บุกชอน นัมซาน จากัลชี และเชจู เก็บอาหารข้างทางเพื่อเพิ่มคะแนน เหรียญ และคอมโบ แล้วปล่อยพลังฟีเวอร์ ผ่านเป้าหมายของแต่ละพื้นที่เพื่อปลดล็อกพื้นที่ถัดไป และเมื่อครบทั้งห้าจะเปิดโหมดวิ่งไม่รู้จบ',
+      ar: 'لعبة جري ثنائية الأبعاد بتمرير جانبي عبر ميونغدونغ وبوكشون ونامسان وجاغالتشي وجيجو. اجمع طعام الشارع لزيادة النقاط والعملات والتسلسل، ثم أطلق اندفاعة الحماس. حقّق هدف كل منطقة لفتح التالية، وبعد الخمس جميعًا تبدأ الجولة اللانهائية.'
+    }
+  },
+  {
     id: 'k-sajoo',
     name: 'K-Sajoo',
     status: 'live',
