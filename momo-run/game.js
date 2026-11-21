@@ -1062,6 +1062,14 @@
     let alpha = 1;
     if (p.inv > 0 && S.feverTimer <= 0) alpha = (Math.floor(p.inv * 18) % 2) ? 0.35 : 1;
 
+    // 몸 뒤 옅은 그림자 실루엣 — 사진 배경과 겹쳐도 모모가 또렷하게 보인다
+    ctx.save();
+    if (alpha < 0.99) ctx.globalAlpha = 0.2;
+    else ctx.globalAlpha = 0.32;
+    ctx.filter = 'brightness(0)';
+    drawSprite(img, PLAYER_X + 3, bottom + bob + 4, h, { rotate: rot, sy: sy });
+    ctx.restore();
+
     ctx.save();
     if (p.hurt > 0) ctx.filter = 'saturate(.55) brightness(1.05)';
     drawSprite(img, PLAYER_X, bottom + bob, h, { rotate: rot, alpha: alpha, sy: sy });
