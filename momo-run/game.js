@@ -41,14 +41,15 @@
       ground: ['s5-4', 's5-5'], top: 's5-6', goal: 1040, foodGoal: 38, dash: '#fff0bd' }
   ];
 
+  const ASSET_V = '2';           // 이미지 교체 시 올린다 — 폰 캐시에 옛 그림이 남지 않게
   const SPRITE_SRC = {
-    run: 'assets/sprites/momo-run.webp',
-    jump: 'assets/sprites/momo-jump.webp',
-    djump: 'assets/sprites/momo-djump.webp',
-    slide: 'assets/sprites/momo-slide.webp',
-    idle: 'assets/sprites/momo-idle.webp',
-    victory: 'assets/sprites/momo-victory.webp',
-    wave: 'assets/sprites/momo-wave.webp'
+    run: 'assets/sprites/momo-run.webp?v=' + ASSET_V,
+    jump: 'assets/sprites/momo-jump.webp?v=' + ASSET_V,
+    djump: 'assets/sprites/momo-djump.webp?v=' + ASSET_V,
+    slide: 'assets/sprites/momo-slide.webp?v=' + ASSET_V,
+    idle: 'assets/sprites/momo-idle.webp?v=' + ASSET_V,
+    victory: 'assets/sprites/momo-victory.webp?v=' + ASSET_V,
+    wave: 'assets/sprites/momo-wave.webp?v=' + ASSET_V
   };
 
   /* ── 크기·물리 ──────────────────────────────────────── */
@@ -121,8 +122,8 @@
       im.src = src;
     });
   }
-  function bgSrc(st) { return 'assets/bg2/' + st.bg + '.webp'; }
-  function itemSrc(id) { return 'assets/items/' + id + '.webp'; }
+  function bgSrc(st) { return 'assets/bg2/' + st.bg + '.webp?v=' + ASSET_V; }
+  function itemSrc(id) { return 'assets/items/' + id + '.webp?v=' + ASSET_V; }
   function stageAssets(st) {
     const list = [bgSrc(st), itemSrc(st.top)];
     st.food.forEach((f) => list.push(itemSrc(f)));
@@ -428,7 +429,7 @@
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'stage-card' + (locked ? ' locked' : '');
-      card.style.backgroundImage = 'url("assets/bg2/thumb-' + st.n + '.webp")';
+      card.style.backgroundImage = 'url("assets/bg2/thumb-' + st.n + '.webp?v=' + ASSET_V + '")';
       const stars = save.stars[st.n] || 0;
       const starHtml = [1, 2, 3].map((i) => '<i class="' + (i <= stars ? 'on' : '') + '">★</i>').join('');
       card.innerHTML =
