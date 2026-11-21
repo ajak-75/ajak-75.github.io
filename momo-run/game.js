@@ -961,7 +961,7 @@
     g.addColorStop(0, 'rgba(16,9,22,0)');
     g.addColorStop(0.28, 'rgba(16,9,22,.34)');
     g.addColorStop(0.5, 'rgba(14,8,20,.6)');
-    g.addColorStop(1, 'rgba(10,6,16,.88)');
+    g.addColorStop(1, 'rgba(10,6,16,.78)');
     ctx.fillStyle = g;
     ctx.fillRect(0, top, VW, VH - top);
 
