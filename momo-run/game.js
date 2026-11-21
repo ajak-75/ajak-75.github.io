@@ -37,7 +37,7 @@
       ground: ['s5-4', 's5-5'], top: 's5-6', goal: 1040, foodGoal: 38, dash: '#fff0bd' }
   ];
 
-  const ASSET_V = '2';           // 이미지 교체 시 올린다 — 폰 캐시에 옛 그림이 남지 않게
+  const ASSET_V = '3';           // 이미지 교체 시 올린다 — 폰 캐시에 옛 그림이 남지 않게
   const SPRITE_SRC = {
     run: 'assets/sprites/momo-run.webp?v=' + ASSET_V,
     jump: 'assets/sprites/momo-jump.webp?v=' + ASSET_V,
