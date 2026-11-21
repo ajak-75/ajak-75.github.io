@@ -9,6 +9,11 @@
 (function () {
   'use strict';
 
+  /* 화면 오류를 모아 두면 검수 때 한 번에 확인할 수 있다 */
+  window.__momoErr = [];
+  window.addEventListener('error', (e) => { window.__momoErr.push('error: ' + (e.message || e.type)); });
+  window.addEventListener('unhandledrejection', (e) => { window.__momoErr.push('reject: ' + e.reason); });
+
   /* ── 좌표계 ─────────────────────────────────────────── */
   const VH = 900;
   let VW = 1600;                 // 보이는 가로 폭(단위). 화면이 넓으면 늘어난다 — resize()가 정한다
@@ -72,6 +77,7 @@
   const FEVER_MAX = 100;
   const COMBO_KEEP = 2.6;
   const SAVE_KEY = 'momoRun.v1';
+  const QA = /(^|[?&])qa=1(&|$)/.test(location.search);   // 검수용: 목표를 짧게
 
   /* ── DOM ────────────────────────────────────────────── */
   const $ = (id) => document.getElementById(id);
@@ -295,6 +301,7 @@
     S.stage = STAGES[Math.max(0, Math.min(STAGES.length - 1, n - 1))];
     S.distGoal = S.stage.goal;
     S.foodGoal = S.stage.foodGoal;
+    if (QA) { S.distGoal = 90; S.foodGoal = 4; }
     els.loadingVeil.hidden = false;
     Audio2.unlock();
 
@@ -1019,16 +1026,16 @@
   function drawTitleMomo() {
     const img = IMG[SPRITE_SRC.run];
     if (!img) return;
-    const bob = Math.sin(player.runPhase) * 6;
-    const x = VW * 0.5;
+    const bob = Math.sin(player.runPhase) * 5;
+    const x = Math.min(VW * 0.15, 300);
     ctx.save();
     ctx.globalAlpha = 0.5;
     ctx.fillStyle = '#120c1c';
     ctx.beginPath();
-    ctx.ellipse(x, GROUND_Y + 4, 120, 18, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, GROUND_Y + 4, 96, 15, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
-    drawSprite(img, x, GROUND_Y + bob, 250, { flip: false });
+    drawSprite(img, x, GROUND_Y + bob, 218, { flip: false });
   }
 
   function drawSprite(img, cx, bottomY, h, opt) {

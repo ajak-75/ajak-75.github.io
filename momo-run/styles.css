@@ -307,7 +307,11 @@ html, body {
 .screen[hidden] { display: none; }
 
 /* 타이틀 */
-.screen-title { background: radial-gradient(70% 80% at 50% 20%, rgba(30, 16, 40, .35), rgba(12, 8, 20, .82) 75%); }
+.screen-title {
+  background: radial-gradient(70% 80% at 50% 20%, rgba(26, 14, 36, .32), rgba(12, 8, 20, .74) 78%);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
 .title-inner { text-align: center; color: #fff; display: flex; flex-direction: column; align-items: center; gap: calc(6 * var(--s) * 1px); }
 .title-icon {
   width: calc(76 * var(--s) * 1px); height: calc(76 * var(--s) * 1px);
