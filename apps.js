@@ -95,8 +95,8 @@ window.AJAK_STUDIO_APPS = [
     status: 'live',
     category: 'Game · Runner',
     url: 'https://ajak-75.github.io/momo-run/',
-    icon: './apps/momo-run.png?v=1',
-    icon2x: './apps/momo-run-512.png?v=1',
+    icon: './apps/momo-run.png?v=2',
+    icon2x: './apps/momo-run-512.png?v=2',
     iconBg: 'transparent',
     desc: {
       ko: '명동·북촌·남산·자갈치·제주를 달리는 세로형 2D 러너. 길거리 음식을 먹어 점수·코인·콤보를 쌓고 피버 질주를 터뜨리세요. 5개 지역 목표 거리를 넘으면 다음 지역이 열리고, 모두 깨면 무한 질주가 시작됩니다.',
