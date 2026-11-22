@@ -98,7 +98,7 @@
     clearStars: $('clearStars'), clearScore: $('clearScore'), clearCoins: $('clearCoins'),
     clearBest: $('clearBest'), clearUnlock: $('clearUnlock'), clearSub: $('clearSub'),
     clearRecordBanner: $('clearRecordBanner'), clearRecordBadge: $('clearRecordBadge'), clearRecordGap: $('clearRecordGap'),
-    celebrateArt: $('celebrateArt'),
+    celebrateArt: $('celebrateArt'), celebrateLayer: $('celebrateLayer'),
     overScore: $('overScore'), overDist: $('overDist'), overCoins: $('overCoins'),
     overRecordBanner: $('overRecordBanner'), overRecordBadge: $('overRecordBadge'), overRecordGap: $('overRecordGap'),
     loadingVeil: $('loadingVeil'), toast: $('toast')
@@ -666,7 +666,28 @@
       if (isRecord) showCelebrationArt();
       else els.celebrateArt.hidden = true;
     }
+    if (which === 'clear') buildConfettiLayer(isRecord);   // 카드 위로 내리는 황금 색종이(결과 화면 층)
     return isRecord;
+  }
+
+  /* 결과 화면 위 색종이 — 캔버스 파티클은 어두운 오버레이에 가리므로, 카드 둘레에 떨어지는 층을 따로 그린다 */
+  function buildConfettiLayer(on) {
+    const layer = els.celebrateLayer;
+    if (!layer) return;
+    layer.innerHTML = '';
+    els.screenClear.classList.toggle('is-record', !!on);
+    if (!on) return;
+    const colors = ['#ffd75e', '#ffb02e', '#fff3b0', '#ffe08a', '#ff8fd0', '#6fd3ff'];
+    for (let i = 0; i < 18; i++) {
+      const s = document.createElement('i');
+      s.style.left = (Math.random() * 100).toFixed(1) + '%';
+      s.style.animationDelay = (Math.random() * 2.6).toFixed(2) + 's';
+      s.style.animationDuration = (2.8 + Math.random() * 2.2).toFixed(2) + 's';
+      s.style.setProperty('--c', colors[i % colors.length]);
+      s.style.setProperty('--w', (6 + Math.random() * 8).toFixed(1) + 'px');
+      s.style.setProperty('--h', (4 + Math.random() * 7).toFixed(1) + 'px');
+      layer.appendChild(s);
+    }
   }
 
   function refreshRecordText() {

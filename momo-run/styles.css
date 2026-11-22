@@ -505,6 +505,25 @@ html, body {
 .record-line { margin: calc(9 * var(--s) * 1px) 0 0; font-size: calc(11 * var(--s) * 1px); font-weight: 900; color: #e63b7d; }
 
 /* 기록 비교 · 신기록 축하 */
+.celebrate-layer {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.celebrate-layer i {
+  position: absolute; top: -12%;
+  width: var(--w, 8px); height: var(--h, 5px);
+  background: var(--c, #ffd75e);
+  border-radius: 1px;
+  box-shadow: 0 0 calc(7 * var(--s) * 1px) rgba(255, 200, 80, .85);
+  animation: confettiFall 3.4s linear infinite;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: .95; }
+  100% { transform: translateY(118vh) rotate(560deg); opacity: .9; }
+}
+.screen-result.is-record {
+  background: radial-gradient(80% 55% at 50% 28%, rgba(74, 44, 8, .62), rgba(16, 8, 10, .93) 78%);
+}
 .record-banner {
   display: flex; flex-direction: column; align-items: center; gap: calc(6 * var(--s) * 1px);
   margin-top: calc(10 * var(--s) * 1px);
@@ -600,4 +619,5 @@ html, body {
   .fever-wrap.full { animation: none; }
   .record-badge { animation: recordPop .55s ease; }
   .record-badge > i { animation: none; }
+  .celebrate-layer { display: none; }
 }
