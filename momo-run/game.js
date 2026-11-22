@@ -695,11 +695,20 @@
 
   function celebrateRecord() {
     // 황금 색종이 퍼레이드 + 폭죽 + 팡파르
-    for (let i = 0; i < 150; i++) {
-      const gold = i % 4 !== 0;
+    goldWave(150);
+    S.celebrate = 3.4;
+    S.celebrateNext = 0;
+    Sfx.fanfare();
+    buzz([18, 50, 18, 50, 120]);
+  }
+
+  /* 황금 색종이 한 무리 — 결과 카드가 뜬 순간에도 한 번 더 터뜨린다 */
+  function goldWave(n) {
+    for (let i = 0; i < n; i++) {
+      const gold = i % 5 !== 0;
       confetti.push({
-        x: Math.random() * VW, y: -80 - Math.random() * 520,
-        vx: (Math.random() - 0.5) * 240, vy: 150 + Math.random() * 300,
+        x: Math.random() * VW, y: -60 - Math.random() * 380,
+        vx: (Math.random() - 0.5) * 240, vy: 120 + Math.random() * 260,
         rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 12,
         t: 0, gold: gold,
         color: gold
@@ -708,10 +717,11 @@
         w: 7 + Math.random() * 11, h: 4 + Math.random() * 8
       });
     }
-    S.celebrate = 3.2;
-    S.celebrateNext = 0;
-    Sfx.fanfare();
-    buzz([18, 50, 18, 50, 120]);
+  }
+
+  function recordWave() {
+    goldWave(90);
+    S.celebrate = Math.max(S.celebrate, 2.2);
   }
 
   function fireworkBurst(x, y) {
@@ -870,7 +880,7 @@
       S.celebrateNext -= dt;
       if (S.celebrateNext <= 0) {
         S.celebrateNext = 0.24;
-        fireworkBurst(VW * (0.12 + Math.random() * 0.76), VH * (0.07 + Math.random() * 0.34));
+        fireworkBurst(VW * (0.12 + Math.random() * 0.76), VH * (0.04 + Math.random() * 0.26));
       }
     }
     for (let i = parts.length - 1; i >= 0; i--) {
@@ -1027,7 +1037,10 @@
     Sfx.clear();
     buzz([15, 40, 15, 40, 90]);
     if (isRecord) celebrateRecord();          // 기록을 깼을 때만 성대하게
-    setTimeout(() => showScreen('clear'), 720);
+    setTimeout(() => {
+      showScreen('clear');
+      if (isRecord) recordWave();             // 카드가 뜨는 순간 황금 색종이 한 번 더
+    }, 720);
   }
 
   function gameOver() {
@@ -1497,6 +1510,7 @@
           S.worldX = S.distGoal / M_PER_UNIT + 5;
         },
         score(v) { S.score = v; },
+        counts() { return { confetti: confetti.length, parts: parts.length, celebrate: S.celebrate }; },
         invuln(on) { player.inv = on ? 9999 : 0; },
         start(n, endless) { startStage(n, endless); }
       };
