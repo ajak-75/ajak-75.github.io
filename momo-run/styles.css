@@ -310,7 +310,7 @@ html, body {
       rgba(20, 30, 56, .12) 46%,
       rgba(14, 16, 28, .03) 62%,
       rgba(10, 10, 20, .46) 100%),
-    url("./assets/title.webp?v=1") center top / cover no-repeat,
+    url("./assets/title.webp?v=4") center top / cover no-repeat,
     linear-gradient(180deg, #8fd0f4, #2a1b3d);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
