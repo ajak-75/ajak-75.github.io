@@ -50,7 +50,7 @@
 
   /* ── 크기·물리 ──────────────────────────────────────── */
   const M_PER_UNIT = 1 / 22;      // 22 단위 = 1m
-  const PLAYER_H = 314;           // 스프라이트 높이(단위)
+  const PLAYER_H = 360;           // 스프라이트 높이(단위) — 3D 모모 실사형 비율(머리·귀 포함)에 맞춰 키움
   const HIT_W = 148;
   const HIT_H = 236;
   const SLIDE_HIT_H = 132;
