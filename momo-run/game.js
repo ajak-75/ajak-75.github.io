@@ -710,7 +710,10 @@
       const rr = f.size * 0.44;
       const bodyH = player.sliding > 0 ? SLIDE_HIT_H : HIT_H;
       const cy = pBot - bodyH / 2;
-      if (Math.abs(sx - px) < rr + 52 && Math.abs(f.y - cy) < rr + bodyH / 2 + 10) eatFood(f, sx);
+      if (Math.abs(sx - px) < rr + 52 && Math.abs(f.y - cy) < rr + bodyH / 2 + 10) {
+        eatFood(f, sx);
+        foods.splice(i, 1);        // 먹은 그 음식만 즉시 목록에서 제거(못 먹은 음식은 왼쪽으로 계속 흘러간다)
+      }
     }
 
     updateParticles(dt);
@@ -1118,6 +1121,7 @@
 
   function drawFoods() {
     for (const f of foods) {
+      if (f.done) continue;      // 이미 먹힌 음식은 한 프레임도 그리지 않는다
       const sx = f.x - S.worldX;
       if (sx < -140 || sx > VW + 140) continue;
       const bob = Math.sin(S.time * 3 + sx * 0.02) * 5;
