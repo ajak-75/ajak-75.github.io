@@ -678,7 +678,7 @@
     els.screenClear.classList.toggle('is-record', !!on);
     if (!on) return;
     const colors = ['#ffd75e', '#ffb02e', '#fff3b0', '#ffe08a', '#ff8fd0', '#6fd3ff'];
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 26; i++) {
       const s = document.createElement('i');
       s.style.left = (Math.random() * 100).toFixed(1) + '%';
       s.style.animationDelay = (Math.random() * 2.6).toFixed(2) + 's';
