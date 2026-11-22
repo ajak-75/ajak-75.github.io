@@ -49,7 +49,7 @@
       spdStart: 460, spdMax: 740, gapMul: 0.79, topRate: 0.40, mixRate: 0.33, rampPow: 0.76 }
   ];
 
-  const ASSET_V = '4';           // 이미지 교체 시 올린다 — 폰 캐시에 옛 그림이 남지 않게
+  const ASSET_V = '5';           // 이미지 교체 시 올린다 — 폰 캐시에 옛 그림이 남지 않게
   const SPRITE_SRC = {
     run: 'assets/sprites/momo-run.webp?v=' + ASSET_V,
     jump: 'assets/sprites/momo-jump.webp?v=' + ASSET_V,
