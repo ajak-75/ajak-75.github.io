@@ -73,7 +73,7 @@
   const SLIDE_TIME = 0.62;
   const SPEED_START = 400;        // 스테이지 값이 없을 때의 기본값
   const SPEED_MAX = 690;
-  const CELEBRATE_SRC = 'assets/celebration/record.webp?v=1';   // 사용자가 보내 줄 축하 이미지 자리
+  const CELEBRATE_SRC = 'assets/celebration/record.webp?v=2';   // 사용자가 보내 줄 축하 이미지 자리
   const FEVER_TIME = 7.2;
   const FEVER_MAX = 100;
   const COMBO_KEEP = 2.6;

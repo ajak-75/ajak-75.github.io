@@ -566,9 +566,16 @@ html, body {
 @keyframes sparkleTwinkle { 0%, 100% { opacity: .55; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.25); } }
 .record-gap { font-size: calc(10.5 * var(--s) * 1px); font-weight: 800; color: var(--ink-soft); }
 .record-banner.is-record .record-gap { color: #b25b00; }
+/* 축하 이미지는 9:16 세로형 → 카드 안에서는 가로 배너로 잘라 쓰고,
+   FINISH 게이트와 만세하는 모모가 함께 남도록 세로 위치를 62%로 잡는다 */
 .celebrate-art {
-  width: 100%; max-width: calc(250 * var(--s) * 1px); height: auto;
+  width: 100%; max-width: calc(232 * var(--s) * 1px);
+  height: calc(158 * var(--s) * 1px);
+  object-fit: cover; object-position: 50% 62%;
+  display: block; background: #f7ecdf;
   border-radius: calc(14 * var(--s) * 1px); margin-top: calc(2 * var(--s) * 1px);
+  box-shadow: 0 calc(6 * var(--s) * 1px) calc(16 * var(--s) * 1px) rgba(90, 45, 10, .18),
+    inset 0 0 0 calc(1 * var(--s) * 1px) rgba(255, 255, 255, .55);
   animation: recordPop .6s cubic-bezier(.2, 1.6, .5, 1);
 }
 .celebrate-art[hidden] { display: none; }
