@@ -41,6 +41,12 @@
       howtoSlide: '슬라이드 · 낮은 장애물 피하기',
       howtoFood: '길거리 음식을 먹으면 점수·코인·콤보!',
       newRecord: '신기록!',
+      newRecordBadge: 'NEW RECORD!',
+      recordBeat: '이전 최고보다 +{n}점!',
+      recordBehind: '최고기록까지 {n}점 남았어요',
+      recordTie: '최고기록과 동점이에요!',
+      recordFirst: '첫 기록을 세웠어요!',
+      celebrateAlt: '신기록 축하 이미지',
       unlocked: '새 지역이 열렸어요!',
       starsEarned: '별',
       clearSub: '목표 거리를 달성했어요',
@@ -112,6 +118,12 @@
       howtoSlide: 'Slide — duck under low obstacles',
       howtoFood: 'Grab street food for score, coins and combo!',
       newRecord: 'New record!',
+      newRecordBadge: 'NEW RECORD!',
+      recordBeat: 'Beat your best by +{n} points!',
+      recordBehind: '{n} points to your best record',
+      recordTie: 'You tied your best score!',
+      recordFirst: 'Your first record is set!',
+      celebrateAlt: 'New record celebration image',
       unlocked: 'A new region is open!',
       starsEarned: 'stars',
       clearSub: 'You reached the goal distance',
@@ -183,6 +195,12 @@
       howtoSlide: 'スライド — 低い障害物をよける',
       howtoFood: '屋台のたべものでスコア・コイン・コンボ！',
       newRecord: '新記録！',
+      newRecordBadge: 'NEW RECORD!',
+      recordBeat: '前回のベストより +{n} 点！',
+      recordBehind: 'ベストまであと {n} 点',
+      recordTie: 'ベストと同点です！',
+      recordFirst: 'はじめての記録をつけました！',
+      celebrateAlt: '新記録のお祝い画像',
       unlocked: '新しい地域が開きました！',
       starsEarned: 'スター',
       clearSub: '目標距離を走りきりました',
@@ -254,6 +272,12 @@
       howtoSlide: '滑铲 — 躲过低位障碍',
       howtoFood: '吃街头小吃：分数、金币、连击！',
       newRecord: '新纪录！',
+      newRecordBadge: 'NEW RECORD!',
+      recordBeat: '比上次最高分 +{n} 分！',
+      recordBehind: '距最高分还差 {n} 分',
+      recordTie: '与最高分持平！',
+      recordFirst: '创下第一个记录！',
+      celebrateAlt: '新纪录庆祝图',
       unlocked: '新地区解锁了！',
       starsEarned: '星',
       clearSub: '跑完了目标距离',
@@ -334,6 +358,9 @@
       });
       document.querySelectorAll('[data-i18n-aria]').forEach(function (el) {
         el.setAttribute('aria-label', window.MomoI18n.t(el.getAttribute('data-i18n-aria')));
+      });
+      document.querySelectorAll('[data-i18n-alt]').forEach(function (el) {
+        el.setAttribute('alt', window.MomoI18n.t(el.getAttribute('data-i18n-alt')));
       });
       const b = document.getElementById('btnLang');
       if (b) b.textContent = LABEL[lang];

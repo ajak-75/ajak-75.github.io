@@ -29,7 +29,7 @@
 <link rel="icon" href="./icon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<link rel="stylesheet" href="./styles.css?v=13">
+<link rel="stylesheet" href="./styles.css?v=14">
 </head>
 <body>
 
@@ -145,6 +145,11 @@
           <div><em data-i18n="earned">이번 판</em><b id="clearCoins">0</b></div>
           <div><em data-i18n="best">최고</em><b id="clearBest">0</b></div>
         </div>
+        <div class="record-banner" id="clearRecordBanner" hidden>
+          <span class="record-badge" id="clearRecordBadge" hidden><i>★</i><b data-i18n="newRecordBadge">NEW RECORD!</b><i>★</i></span>
+          <span class="record-gap" id="clearRecordGap"></span>
+          <img class="celebrate-art" id="celebrateArt" alt="" data-i18n-alt="celebrateAlt" hidden>
+        </div>
         <p class="unlock-line" id="clearUnlock" hidden></p>
         <div class="result-btns">
           <button class="btn btn-main" id="btnNext" type="button" data-i18n="nextStage">다음 지역</button>
@@ -165,7 +170,10 @@
           <div><em data-i18n="distance">거리</em><b id="overDist">0m</b></div>
           <div><em data-i18n="earned">이번 판</em><b id="overCoins">0</b></div>
         </div>
-        <p class="record-line" id="overRecord" hidden data-i18n="newRecord">신기록!</p>
+        <div class="record-banner" id="overRecordBanner" hidden>
+          <span class="record-badge small" id="overRecordBadge" hidden><b data-i18n="newRecordBadge">NEW RECORD!</b></span>
+          <span class="record-gap" id="overRecordGap"></span>
+        </div>
         <div class="result-btns">
           <button class="btn btn-main" id="btnRetryOver" type="button" data-i18n="retry">다시 달리기</button>
           <button class="btn btn-ghost" id="btnOverList" type="button" data-i18n="stageList">지역 목록</button>
@@ -191,7 +199,7 @@
   </div>
 </div>
 
-<script src="./i18n.js?v=1"></script>
-<script src="./game.js?v=20"></script>
+<script src="./i18n.js?v=2"></script>
+<script src="./game.js?v=21"></script>
 </body>
 </html>

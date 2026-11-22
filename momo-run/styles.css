@@ -503,6 +503,51 @@ html, body {
 .result-stats b { font-size: calc(16 * var(--s) * 1px); font-weight: 900; font-variant-numeric: tabular-nums; }
 .unlock-line { margin: calc(9 * var(--s) * 1px) 0 0; font-size: calc(10 * var(--s) * 1px); font-weight: 800; color: #12945f; }
 .record-line { margin: calc(9 * var(--s) * 1px) 0 0; font-size: calc(11 * var(--s) * 1px); font-weight: 900; color: #e63b7d; }
+
+/* 기록 비교 · 신기록 축하 */
+.record-banner {
+  display: flex; flex-direction: column; align-items: center; gap: calc(6 * var(--s) * 1px);
+  margin-top: calc(10 * var(--s) * 1px);
+}
+.record-banner[hidden] { display: none; }
+.record-badge {
+  position: relative;
+  display: inline-flex; align-items: center; gap: calc(6 * var(--s) * 1px);
+  padding: calc(5 * var(--s) * 1px) calc(14 * var(--s) * 1px);
+  border-radius: 999px;
+  background: linear-gradient(120deg, #ff9f1a, #ffd75e 30%, #fff8d6 47%, #ffcf3d 62%, #f59a12 100%);
+  background-size: 220% 100%;
+  border: calc(1.5 * var(--s) * 1px) solid #fff6cf;
+  box-shadow: 0 calc(4 * var(--s) * 1px) calc(14 * var(--s) * 1px) rgba(255, 170, 30, .5), 0 0 calc(20 * var(--s) * 1px) rgba(255, 215, 94, .65);
+  animation: recordShine 1.5s linear infinite, recordPop .55s cubic-bezier(.2, 1.7, .5, 1);
+}
+.record-badge[hidden] { display: none; }
+.record-badge > i {
+  font-style: normal; font-size: calc(11 * var(--s) * 1px); color: #7a4200;
+  animation: sparkleTwinkle 1.1s ease-in-out infinite;
+}
+.record-badge > i:last-child { animation-delay: .55s; }
+.record-badge b {
+  font-size: calc(14 * var(--s) * 1px); font-weight: 900; letter-spacing: .06em;
+  color: #6a3600; text-shadow: 0 calc(1 * var(--s) * 1px) 0 rgba(255, 255, 255, .7);
+}
+.record-badge.small { padding: calc(3 * var(--s) * 1px) calc(11 * var(--s) * 1px); }
+.record-badge.small b { font-size: calc(11 * var(--s) * 1px); }
+@keyframes recordShine { 0% { background-position: 0% 50%; } 100% { background-position: 220% 50%; } }
+@keyframes recordPop {
+  0% { transform: scale(.3) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(1.12) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0); }
+}
+@keyframes sparkleTwinkle { 0%, 100% { opacity: .55; transform: scale(.9); } 50% { opacity: 1; transform: scale(1.25); } }
+.record-gap { font-size: calc(10.5 * var(--s) * 1px); font-weight: 800; color: var(--ink-soft); }
+.record-banner.is-record .record-gap { color: #b25b00; }
+.celebrate-art {
+  width: 100%; max-width: calc(250 * var(--s) * 1px); height: auto;
+  border-radius: calc(14 * var(--s) * 1px); margin-top: calc(2 * var(--s) * 1px);
+  animation: recordPop .6s cubic-bezier(.2, 1.6, .5, 1);
+}
+.celebrate-art[hidden] { display: none; }
 .result-btns { display: flex; flex-direction: column; gap: calc(7 * var(--s) * 1px); margin-top: calc(14 * var(--s) * 1px); }
 .result-btns .btn { width: 100%; }
 .over-momo { width: calc(84 * var(--s) * 1px); height: auto; margin: calc(-42 * var(--s) * 1px) auto calc(2 * var(--s) * 1px); display: block; filter: drop-shadow(0 calc(6 * var(--s) * 1px) calc(10 * var(--s) * 1px) rgba(60, 20, 40, .3)); }
@@ -553,4 +598,6 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .paw-spin { animation-duration: 3s; }
   .fever-wrap.full { animation: none; }
+  .record-badge { animation: recordPop .55s ease; }
+  .record-badge > i { animation: none; }
 }

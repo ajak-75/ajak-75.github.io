@@ -24,17 +24,29 @@
   const PLAYER_X = 250;            // 화면 속 모모의 x
 
   /* ── 스테이지 ───────────────────────────────────────── */
+  /* goal = 클리어까지 달릴 거리(m) · foodGoal = 3별 조건 음식 수  (한 판 ≈ 1분 10초)
+     난이도 축 — 1탄 명동은 부담 없이, 5탄 제주로 갈수록 스릴 있게
+       spdStart / spdMax : 시작·최고 속도(단위/초)
+       gapMul            : 장애물 사이 간격 배율 (작을수록 촘촘)
+       topRate           : 위(슬라이드) 장애물 기본 비율
+       mixRate           : 위+아래 복합 패턴 비율 (뒤로 갈수록 늘어난다)
+       rampPow           : 거리 대비 속도 상승 곡선 (작을수록 빨리 빨라진다) */
   const STAGES = [
     { n: 1, key: 'myeongdong', bg: 'stage1', food: ['s1-1', 's1-2', 's1-3'],
-      ground: ['s1-4', 's1-5'], top: 's3-6', goal: 860, foodGoal: 30, dash: '#ffd2e2' },
+      ground: ['s1-4', 's1-5'], top: 's3-6', goal: 1720, foodGoal: 60, dash: '#ffd2e2',
+      spdStart: 380, spdMax: 600, gapMul: 1.16, topRate: 0.30, mixRate: 0.03, rampPow: 1.15 },
     { n: 2, key: 'bukchon', bg: 'stage2', food: ['s2-1', 's2-2', 's2-3'],
-      ground: ['s2-4', 's2-5'], top: 's2-6', goal: 900, foodGoal: 32, dash: '#ffe6c2' },
+      ground: ['s2-4', 's2-5'], top: 's2-6', goal: 1800, foodGoal: 64, dash: '#ffe6c2',
+      spdStart: 400, spdMax: 635, gapMul: 1.05, topRate: 0.33, mixRate: 0.09, rampPow: 1.02 },
     { n: 3, key: 'namsan', bg: 'stage3', food: ['s3-1', 's3-2', 's3-3'],
-      ground: ['s3-4', 's3-5'], top: 's3-6', goal: 940, foodGoal: 34, dash: '#ffd9b8' },
+      ground: ['s3-4', 's3-5'], top: 's3-6', goal: 1880, foodGoal: 68, dash: '#ffd9b8',
+      spdStart: 420, spdMax: 670, gapMul: 0.95, topRate: 0.36, mixRate: 0.17, rampPow: 0.92 },
     { n: 4, key: 'jagalchi', bg: 'stage4', food: ['s4-1', 's4-2', 's4-3'],
-      ground: ['s4-4', 's4-6'], top: 's4-5', goal: 980, foodGoal: 36, dash: '#cfeaff' },
+      ground: ['s4-4', 's4-6'], top: 's4-5', goal: 1960, foodGoal: 72, dash: '#cfeaff',
+      spdStart: 440, spdMax: 705, gapMul: 0.87, topRate: 0.38, mixRate: 0.25, rampPow: 0.84 },
     { n: 5, key: 'jeju', bg: 'stage5', food: ['s5-1', 's5-2', 's5-3'],
-      ground: ['s5-4', 's5-5'], top: 's5-6', goal: 1040, foodGoal: 38, dash: '#fff0bd' }
+      ground: ['s5-4', 's5-5'], top: 's5-6', goal: 2080, foodGoal: 76, dash: '#fff0bd',
+      spdStart: 460, spdMax: 740, gapMul: 0.79, topRate: 0.40, mixRate: 0.33, rampPow: 0.76 }
   ];
 
   const ASSET_V = '4';           // 이미지 교체 시 올린다 — 폰 캐시에 옛 그림이 남지 않게
@@ -59,8 +71,9 @@
   const JUMP_V = 1180;            // 최고 높이 ≈ 258 단위
   const DJUMP_V = 1080;
   const SLIDE_TIME = 0.62;
-  const SPEED_START = 400;
+  const SPEED_START = 400;        // 스테이지 값이 없을 때의 기본값
   const SPEED_MAX = 690;
+  const CELEBRATE_SRC = 'assets/celebration/record.webp?v=1';   // 사용자가 보내 줄 축하 이미지 자리
   const FEVER_TIME = 7.2;
   const FEVER_MAX = 100;
   const COMBO_KEEP = 2.6;
@@ -84,7 +97,10 @@
     stagesCoins: $('stagesCoins'),
     clearStars: $('clearStars'), clearScore: $('clearScore'), clearCoins: $('clearCoins'),
     clearBest: $('clearBest'), clearUnlock: $('clearUnlock'), clearSub: $('clearSub'),
-    overScore: $('overScore'), overDist: $('overDist'), overCoins: $('overCoins'), overRecord: $('overRecord'),
+    clearRecordBanner: $('clearRecordBanner'), clearRecordBadge: $('clearRecordBadge'), clearRecordGap: $('clearRecordGap'),
+    celebrateArt: $('celebrateArt'),
+    overScore: $('overScore'), overDist: $('overDist'), overCoins: $('overCoins'),
+    overRecordBanner: $('overRecordBanner'), overRecordBadge: $('overRecordBadge'), overRecordGap: $('overRecordGap'),
     loadingVeil: $('loadingVeil'), toast: $('toast')
   };
 
@@ -179,6 +195,14 @@
       hit() { tone(220, 0.3, 'sawtooth', 0.2, 90); noise(0.22, 0.16, 300); },
       fever() { [523, 659, 784, 1046].forEach((f, i) => tone(f, 0.2, 'triangle', 0.14, null, i * 0.07)); },
       clear() { [523, 659, 784, 1046, 1318].forEach((f, i) => tone(f, 0.32, 'triangle', 0.13, null, i * 0.1)); },
+      /* 신기록 팡파르 — 밝은 아르페지오 + 화음 + 반짝임 */
+      fanfare() {
+        [523, 659, 784, 1046, 1318, 1568, 2093].forEach((f, i) => tone(f, 0.3, 'square', 0.1, null, i * 0.075));
+        [523, 659, 784, 1046].forEach((f) => tone(f, 1.5, 'triangle', 0.075, null, 0.52));
+        [1046, 1318, 1568].forEach((f, i) => tone(f, 0.6, 'sine', 0.05, null, 0.8 + i * 0.06));
+        noise(0.45, 0.1, 2600);
+      },
+      firework() { tone(1200 + Math.random() * 700, 0.12, 'sine', 0.05, 240); noise(0.16, 0.045, 2200); },
       over() { [440, 349, 294, 220].forEach((f, i) => tone(f, 0.34, 'triangle', 0.14, null, i * 0.12)); },
       ui() { tone(700, 0.07, 'sine', 0.08); }
     };
@@ -202,6 +226,8 @@
     fever: 0, feverTimer: 0, feverCount: 0,
     foodGot: 0, distGoal: 0, foodGoal: 0,
     nextSpawn: 0,
+    recordPrev: null, recordNow: 0,
+    celebrate: 0, celebrateNext: 0,
     hitFlash: 0, feverFlash: 0, shake: 0,
     time: 0, runTime: 0,
     bannerTimer: 0, bannerText: '', bannerSub: '',
@@ -260,11 +286,12 @@
     await preload(stageAssets(S.stage));
     els.loadingVeil.hidden = true;
 
-    S.worldX = 0; S.speed = SPEED_START; S.score = 0; S.coins = 0; S.runCoins = 0;
+    S.worldX = 0; S.speed = S.stage.spdStart || SPEED_START; S.score = 0; S.coins = 0; S.runCoins = 0;
     S.hearts = 3; S.combo = 0; S.comboTimer = 0; S.bestCombo = 0;
     S.fever = 0; S.feverTimer = 0; S.feverCount = 0; S.foodGot = 0;
     S.nextSpawn = 1200;
     S.hitFlash = 0; S.feverFlash = 0; S.shake = 0; S.runTime = 0;
+    S.recordPrev = null; S.recordNow = 0; S.celebrate = 0; S.celebrateNext = 0;
     S.bannerTimer = 2.4;
     S.bannerText = 'STAGE ' + S.stage.n;
     S.bannerSub = T('stage' + S.stage.n);
@@ -487,23 +514,47 @@
     if (S.scene === 'stages') buildStageGrid();
     if (S.bannerTimer > 0) S.bannerSub = T('stage' + S.stage.n);
     updateStageChip();
+    refreshRecordText();
   };
 
   /* ── 스폰 ───────────────────────────────────────────── */
+  /* 스테이지 난이도 = 속도(update) + 간격(gapMul) + 복합 패턴(mixRate) + 2연속 장애물
+     같은 스테이지 안에서도 골인 지점에 가까울수록 조금씩 더 조여진다. */
   function spawnPattern() {
-    const diff = Math.min(1, (S.worldX * M_PER_UNIT) / Math.max(1, S.distGoal));
-    const baseGap = 620 - diff * 130;
+    const st = S.stage;
+    const diff = S.endless
+      ? Math.min(1, S.runTime / 120)
+      : Math.min(1, (S.worldX * M_PER_UNIT) / Math.max(1, S.distGoal));
+    const gapMul = st.gapMul || 1;
+    const baseGap = (620 - diff * 130) * gapMul;
+    const pMix = Math.max(0, (st.mixRate || 0) * (0.55 + diff * 0.45));
+    const pFood = Math.max(0.06, 0.21 - pMix * 0.42);
+    const pTop = Math.max(0.2, (st.topRate || 0.36) - pMix * 0.1);
     const pick = Math.random();
     let cursor = S.nextSpawn;
 
-    if (pick < 0.4) {
+    if (pick < pMix) {
+      /* 위 + 아래 복합: 슬라이드로 위를 지나 곧바로 점프 */
+      const wTop = 200 + Math.random() * 70;
+      objects.push(makeTop(cursor, wTop));
+      cursor += wTop + Math.max(260, S.speed * 0.58);
+      const wg = 120 + Math.random() * 50;
+      objects.push(makeGround(cursor, wg));
+      cursor += wg + 140;
+      cursor = spawnFoodArc(cursor + 20, 3, 175);
+      cursor += baseGap * (0.95 + Math.random() * 0.25);
+    } else if (pick < pMix + pTop) {
       const w = 210 + Math.random() * 70;
       objects.push(makeTop(cursor, w));
       cursor += w + 110;
       cursor = spawnFoodArc(cursor + 50, 4, 190);
       cursor += baseGap * (0.9 + Math.random() * 0.3);
-    } else if (pick < 0.78) {
-      const n = Math.random() < 0.3 + diff * 0.2 ? 2 : 1;
+    } else if (pick < pMix + pTop + pFood) {
+      cursor = spawnFoodLine(cursor, 4 + Math.floor(Math.random() * 3));
+      cursor += baseGap * (0.55 + Math.random() * 0.2);
+    } else {
+      const dbl = Math.min(0.62, 0.26 + diff * 0.18 + (1 - gapMul) * 0.5);
+      const n = Math.random() < dbl ? 2 : 1;
       for (let i = 0; i < n; i++) {
         const w = 110 + Math.random() * 60;
         objects.push(makeGround(cursor, w));
@@ -511,9 +562,6 @@
       }
       cursor = spawnFoodArc(cursor + 20, 3 + Math.floor(Math.random() * 2), 150);
       cursor += baseGap * (0.85 + Math.random() * 0.3);
-    } else {
-      cursor = spawnFoodLine(cursor, 4 + Math.floor(Math.random() * 3));
-      cursor += baseGap * (0.55 + Math.random() * 0.2);
     }
     S.nextSpawn = Math.max(cursor, S.nextSpawn + 260);
   }
@@ -593,6 +641,98 @@
     });
   }
 
+  /* ── 기록 비교 · 신기록 축하 ──────────────────────── */
+  function gapText(prev, now) {
+    if (!prev) return T('recordFirst');
+    if (now > prev) return T('recordBeat').replace('{n}', String(now - prev));
+    if (now === prev) return T('recordTie');
+    return T('recordBehind').replace('{n}', String(prev - now));
+  }
+
+  /* 결과 카드의 기록 줄 — 신기록이면 배지, 아니면 최고기록과의 차이를 보여 준다 */
+  function renderRecordBanner(which, prev, now) {
+    const banner = which === 'over' ? els.overRecordBanner : els.clearRecordBanner;
+    const badge = which === 'over' ? els.overRecordBadge : els.clearRecordBadge;
+    const gap = which === 'over' ? els.overRecordGap : els.clearRecordGap;
+    if (!banner || !badge || !gap) return false;
+    const isRecord = now > prev;
+    banner.hidden = false;
+    banner.classList.toggle('is-record', isRecord);
+    badge.hidden = !isRecord;
+    gap.textContent = gapText(prev, now);
+    if (which === 'clear' && els.celebrateArt) {
+      /* 사용자가 보내 준 축하 이미지(assets/celebration/record.webp)가 있으면 신기록 카드에 꽂아 준다.
+         이미지는 필요할 때만 한 번 확인하고, 없으면 조용히 비워 둔다. */
+      if (isRecord) showCelebrationArt();
+      else els.celebrateArt.hidden = true;
+    }
+    return isRecord;
+  }
+
+  function refreshRecordText() {
+    if (S.recordPrev === null) return;
+    if (S.scene === 'clear') renderRecordBanner('clear', S.recordPrev, S.recordNow);
+    else if (S.scene === 'over') renderRecordBanner('over', S.recordPrev, S.recordNow);
+  }
+
+  /* 신기록 축하 이미지 자리 — 파일을 넣어 두면 자동으로 뜨고, 없으면 아무 일도 일어나지 않는다 */
+  let celebrateProbe = null;
+  function showCelebrationArt() {
+    const art = els.celebrateArt;
+    if (!art) return;
+    if (IMG[CELEBRATE_SRC]) {
+      if (art.getAttribute('src') !== CELEBRATE_SRC) art.src = CELEBRATE_SRC;
+      art.hidden = false;
+      return;
+    }
+    if (celebrateProbe === null) celebrateProbe = loadImg(CELEBRATE_SRC);
+    celebrateProbe.then((im) => {
+      if (!im) return;
+      if (art.getAttribute('src') !== CELEBRATE_SRC) art.src = CELEBRATE_SRC;
+      if (S.scene === 'clear' && S.recordNow > (S.recordPrev || 0)) art.hidden = false;
+    });
+  }
+
+  function celebrateRecord() {
+    // 황금 색종이 퍼레이드 + 폭죽 + 팡파르
+    for (let i = 0; i < 150; i++) {
+      const gold = i % 4 !== 0;
+      confetti.push({
+        x: Math.random() * VW, y: -80 - Math.random() * 520,
+        vx: (Math.random() - 0.5) * 240, vy: 150 + Math.random() * 300,
+        rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 12,
+        t: 0, gold: gold,
+        color: gold
+          ? ['#ffd75e', '#ffb02e', '#fff3b0', '#ffe08a'][Math.floor(Math.random() * 4)]
+          : ['#ff5d9b', '#6fd3ff', '#3ecf8e', '#ff8a5b', '#b98bff'][Math.floor(Math.random() * 5)],
+        w: 7 + Math.random() * 11, h: 4 + Math.random() * 8
+      });
+    }
+    S.celebrate = 3.2;
+    S.celebrateNext = 0;
+    Sfx.fanfare();
+    buzz([18, 50, 18, 50, 120]);
+  }
+
+  function fireworkBurst(x, y) {
+    const gold = Math.random() < 0.72;
+    const n = 22 + Math.floor(Math.random() * 12);
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * 6.28 + Math.random() * 0.24;
+      const sp = 190 + Math.random() * 300;
+      parts.push({
+        x: x, y: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+        life: 0.75 + Math.random() * 0.7, t: 0, r: 3 + Math.random() * 4,
+        color: gold
+          ? ['#ffe7a0', '#ffd75e', '#ffb02e', '#fffbe0'][Math.floor(Math.random() * 4)]
+          : 'hsl(' + Math.floor(Math.random() * 360) + ',95%,72%)',
+        kind: 'firework'
+      });
+    }
+    parts.push({ x: x, y: y, vx: 0, vy: 0, life: 0.42, t: 0, r: 26, color: '#fff4c2', kind: 'ring' });
+    Sfx.firework();
+  }
+
   /* ── 업데이트 ───────────────────────────────────────── */
   function update(dt) {
     S.time += dt;
@@ -602,8 +742,10 @@
     S.runTime += dt;
 
     const meters = S.worldX * M_PER_UNIT;
-    const ramp = S.endless ? Math.min(1, S.runTime / 130) : Math.min(1, meters / Math.max(1, S.distGoal));
-    let target = SPEED_START + (SPEED_MAX - SPEED_START) * ramp;
+    const ramp = Math.min(1, Math.pow(S.endless ? Math.min(1, S.runTime / 130) : Math.min(1, meters / Math.max(1, S.distGoal)), S.stage.rampPow || 1));
+    const sStart = S.stage.spdStart || SPEED_START;
+    const sMax = S.stage.spdMax || SPEED_MAX;
+    let target = sStart + (sMax - sStart) * ramp;
     if (S.feverTimer > 0) target *= 1.18;
     S.speed += (target - S.speed) * Math.min(1, dt * 1.6);
 
@@ -723,6 +865,14 @@
   }
 
   function updateParticles(dt) {
+    if (S.celebrate > 0) {
+      S.celebrate -= dt;
+      S.celebrateNext -= dt;
+      if (S.celebrateNext <= 0) {
+        S.celebrateNext = 0.24;
+        fireworkBurst(VW * (0.12 + Math.random() * 0.76), VH * (0.07 + Math.random() * 0.34));
+      }
+    }
     for (let i = parts.length - 1; i >= 0; i--) {
       const p = parts[i];
       p.t += dt;
@@ -730,6 +880,7 @@
       p.x += p.vx * dt; p.y += p.vy * dt;
       if (p.kind === 'puff') p.vy -= 60 * dt;
       if (p.kind === 'spark') p.vy += 380 * dt;
+      if (p.kind === 'firework') { p.vy += 260 * dt; p.vx *= 0.985; }
     }
     for (let i = pops.length - 1; i >= 0; i--) {
       const p = pops[i];
@@ -822,6 +973,7 @@
   function stageClear() {
     S.scene = 'clear';
     hudOn(false);
+    const now = Math.round(S.score);
     const alive = S.hearts;
     const stars = (alive >= 3 && S.foodGot >= S.foodGoal) ? 3 : (alive >= 2 ? 2 : 1);
     const key = String(S.stage.n);
@@ -830,21 +982,24 @@
       save.stars[key] = Math.max(prevStars, stars);
       save.unlocked = Math.max(save.unlocked, Math.min(STAGES.length, S.stage.n + 1));
     } else {
-      save.endlessBest = Math.max(save.endlessBest || 0, Math.round(S.score));
+      save.endlessBest = Math.max(save.endlessBest || 0, now);
     }
     const bestKey = S.endless ? 'endless' : key;
     const prevBest = save.best[bestKey] || 0;
-    save.best[bestKey] = Math.max(prevBest, Math.round(S.score));
+    save.best[bestKey] = Math.max(prevBest, now);
     save.coins += S.runCoins;
     writeSave();
 
     els.clearStars.children[0].className = stars >= 1 ? 'on' : '';
     els.clearStars.children[1].className = stars >= 2 ? 'on' : '';
     els.clearStars.children[2].className = stars >= 3 ? 'on' : '';
-    els.clearScore.textContent = String(Math.round(S.score));
+    els.clearScore.textContent = String(now);
     els.clearCoins.textContent = '+' + S.runCoins;
     els.clearBest.textContent = String(save.best[bestKey]);
     els.clearSub.textContent = T('clearSub');
+
+    S.recordPrev = prevBest; S.recordNow = now;
+    const isRecord = renderRecordBanner('clear', prevBest, now);
 
     if (S.endless) {
       els.clearUnlock.textContent = T('endlessTag');
@@ -860,7 +1015,7 @@
     nextBtn.textContent = (S.endless || S.stage.n >= STAGES.length) ? T('endless') : T('nextStage');
     nextBtn.hidden = false;
 
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < (isRecord ? 90 : 60); i++) {
       confetti.push({
         x: Math.random() * VW, y: -60 - Math.random() * 300,
         vx: (Math.random() - 0.5) * 140, vy: 180 + Math.random() * 240,
@@ -871,23 +1026,27 @@
     }
     Sfx.clear();
     buzz([15, 40, 15, 40, 90]);
+    if (isRecord) celebrateRecord();          // 기록을 깼을 때만 성대하게
     setTimeout(() => showScreen('clear'), 720);
   }
 
   function gameOver() {
     player.dead = true;
     S.scene = 'over';
+    const now = Math.round(S.score);
     const key = S.endless ? 'endless' : String(S.stage.n);
     const prevBest = save.best[key] || 0;
-    const isRecord = Math.round(S.score) > prevBest;
-    save.best[key] = Math.max(prevBest, Math.round(S.score));
+    const isRecord = now > prevBest;
+    save.best[key] = Math.max(prevBest, now);
     save.coins += S.runCoins;
     writeSave();
 
-    els.overScore.textContent = String(Math.round(S.score));
+    els.overScore.textContent = String(now);
     els.overDist.textContent = Math.round(S.worldX * M_PER_UNIT) + 'm';
     els.overCoins.textContent = '+' + S.runCoins;
-    els.overRecord.hidden = !isRecord;
+    S.recordPrev = prevBest; S.recordNow = now;
+    renderRecordBanner('over', prevBest, now);
+    if (isRecord) { sparkle(PLAYER_X, GROUND_Y - 300, '#ffd75e'); sparkle(PLAYER_X, GROUND_Y - 200, '#fff3b0'); }
     Sfx.over();
     buzz(120);
     setTimeout(() => { hudOn(false); showScreen('over'); }, 900);
@@ -1172,6 +1331,12 @@
         ctx.beginPath();
         ctx.ellipse(p.x, p.y, p.r, p.r * 0.6, S.time * 2 + p.x * 0.01, 0, Math.PI * 2);
         ctx.fill();
+      } else if (p.kind === 'firework') {
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, Math.max(0.6, p.r * a), 0, Math.PI * 2);
+        ctx.fill();
       } else {
         ctx.fillStyle = p.color;
         ctx.beginPath();
@@ -1209,6 +1374,7 @@
       ctx.rotate(c.rot);
       ctx.fillStyle = c.color;
       ctx.globalAlpha = Math.max(0, 1 - c.t / 4);
+      if (c.gold) { ctx.shadowColor = 'rgba(255, 205, 80, .95)'; ctx.shadowBlur = 9; }
       ctx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
       ctx.restore();
     }
@@ -1321,6 +1487,20 @@
     window.addEventListener('orientationchange', () => setTimeout(resize, 120));
     goTitle();
     requestAnimationFrame(frame);
+    /* 검수용 훅 — 주소에 ?test=1 이 붙었을 때만 열린다. 일반 플레이에는 영향이 없다. */
+    if (/[?&]test=1/.test(location.search)) {
+      window.__momoTest = {
+        S: S, player: player, save: save, stages: STAGES,
+        goal(n) { const st = STAGES[n - 1]; return st ? { goal: st.goal, foodGoal: st.foodGoal } : null; },
+        clearNow() {
+          if (S.endless) return;
+          S.worldX = S.distGoal / M_PER_UNIT + 5;
+        },
+        score(v) { S.score = v; },
+        invuln(on) { player.inv = on ? 9999 : 0; },
+        start(n, endless) { startStage(n, endless); }
+      };
+    }
   }
 
   document.addEventListener('pointerdown', () => Sfx.unlock(), { once: true });
