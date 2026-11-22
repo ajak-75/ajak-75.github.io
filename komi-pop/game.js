@@ -401,6 +401,70 @@
   var failScoreEl = $('failScore');
 
   /* =========================================================
+     3-1. 화면 고정 — 인앱 브라우저(카카오톡·네이버 등) 대응
+     주소창·하단 내비 바가 있어 보이는 높이가 줄어도 문서는 스크롤되지 않는다.
+     body 높이를 실제 보이는 높이(--app-h)로 못박고, 남은 스크롤을 계속 0으로 되돌린다.
+     ========================================================= */
+  var rootEl = document.documentElement;
+  var SCROLLABLE_SEL = '.overlay, .album-panel, .lang-menu';
+
+  function viewportHeight() {
+    var vv = window.visualViewport;
+    var h = 0;
+    if (vv && vv.height) h = vv.height;                      /* 실제 보이는 높이(주소창·하단 바 제외) */
+    if (!h) h = window.innerHeight || rootEl.clientHeight || 0;
+    return Math.round(h);
+  }
+
+  function lockViewportHeight() {
+    var h = viewportHeight();
+    if (h <= 0) return h;
+    /* 1~2px 흔들림은 무시하고, 의미 있게 바뀐 보이는 높이만 반영한다 */
+    if (Math.abs(h - (window.__KOMI_APP_H || 0)) >= 3 || !window.__KOMI_APP_H) {
+      window.__KOMI_APP_H = h;
+      rootEl.style.setProperty('--app-h', h + 'px');
+    }
+    return h;
+  }
+
+  /* 남아 있는 스크롤(1~2px 흔들림·가로 넘침)을 0으로 되돌린다 */
+  function keepStill() {
+    if (window.scrollY || window.pageYOffset) window.scrollTo(0, 0);
+    if (rootEl.scrollTop) rootEl.scrollTop = 0;
+    if (document.body && document.body.scrollTop) document.body.scrollTop = 0;
+    if (rootEl.scrollLeft) rootEl.scrollLeft = 0;
+  }
+
+  function inScroller(node) {
+    while (node && node !== document.body && node !== rootEl) {
+      if (node.matches && node.matches(SCROLLABLE_SEL)) return node;
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  function onTouchMove(ev) {
+    if (ev.touches && ev.touches.length > 1) { ev.preventDefault(); return; }   /* 두 손가락 확대·이동 차단 */
+    var t = ev.target;
+    if (inScroller(t)) return;                     /* 오버레이·도감·언어 목록 안에서만 세로 스크롤 허용 */
+    if (t && t.closest && t.closest('#stageWrap')) return;  /* 게임판은 touch-action:none + pointer 이벤트 담당 */
+    ev.preventDefault();
+  }
+
+  window.addEventListener('scroll', keepStill, { passive: true });
+  document.addEventListener('touchmove', onTouchMove, { passive: false });
+  document.addEventListener('gesturestart', function (ev) { ev.preventDefault(); }, { passive: false });
+  document.addEventListener('dblclick', function (ev) { ev.preventDefault(); }, { passive: false });
+  if (window.ResizeObserver) {
+    try { new ResizeObserver(keepStill).observe(rootEl); } catch (e) {}
+  }
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', lockViewportHeight, { passive: true });
+    window.visualViewport.addEventListener('scroll', keepStill, { passive: true });
+  }
+  lockViewportHeight();
+
+  /* =========================================================
      4. 스테이지 설계 · 저장
      ========================================================= */
   var S_CUR = 'komi_pop_stage_v1';
@@ -665,10 +729,20 @@
   var albumOpen = false;
   var lastHint = 0;
 
+  /* 구슬 반지름 — 폭만 보고 정하면 인앱 브라우저처럼 판이 짧을 때 구슬 더미가 판 위로 삐져나와 윗줄이 잘린다.
+     실제 가용 높이까지 함께 계산해, 구슬 50개가 항상 판 안에 들어오는 크기로 자동 축소한다. */
+  function fitRadius(w, h) {
+    var rW = w * 0.088;                                        /* 기준: 화면 폭 */
+    var usableW = Math.max(60, w - PAD * 2);
+    var usableH = Math.max(60, h - PAD * 2 - 22);              /* 위·아래 여유 */
+    var rH = Math.sqrt((usableH * usableW) / (MAX_BEADS * 3.62));  /* 판 면적 ÷ 구슬 50개(≈3.6R²) */
+    return Math.min(rW, rH);
+  }
+
   function resize() {
     var rect = wrap.getBoundingClientRect();
     W = Math.max(200, Math.round(rect.width));
-    H = Math.max(240, Math.round(rect.height));
+    H = Math.max(160, Math.round(rect.height));   /* 인앱 브라우저의 짧은 높이에서도 판이 실제 가용 높이에 맞춰 줄어든다 */
     DPR = Math.min(window.devicePixelRatio || 1, 2.5);
     cv.width = Math.max(1, Math.round(W * DPR));
     cv.height = Math.max(1, Math.round(H * DPR));
@@ -677,7 +751,7 @@
     left = PAD;
     right = W - PAD;
     floorY = H - PAD;
-    R = clamp(W * 0.088, 18, 32);
+    R = clamp(fitRadius(W, H), 15, 32);
 
     buildBoard();
     if (ready) buildSprites();
@@ -2224,14 +2298,18 @@
 
   var resizeTimer = 0;
   window.addEventListener('resize', function () {
+    lockViewportHeight();
+    keepStill();
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
+      lockViewportHeight();
+      keepStill();
       resize();
       if (state === 'intro') fillBoard();
     }, 120);
   });
   window.addEventListener('orientationchange', function () {
-    setTimeout(function () { resize(); if (state === 'intro') fillBoard(); }, 260);
+    setTimeout(function () { lockViewportHeight(); keepStill(); resize(); if (state === 'intro') fillBoard(); }, 260);
   });
 
   buildLangMenu();

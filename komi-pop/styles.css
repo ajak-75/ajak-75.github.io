@@ -22,9 +22,24 @@
 [hidden] { display: none !important; }
 
 html, body { height: 100%; margin: 0; }
-html { -webkit-text-size-adjust: 100%; }
+
+/* 인앱 브라우저(카카오톡·네이버 등) 고정판 —
+   주소창·하단 바 때문에 보이는 높이가 줄어도 문서 자체는 절대 스크롤되지 않는다.
+   html/body 를 position:fixed 로 붙이고, 높이는 JS가 --app-h(실제 보이는 높이)로 덮어쓴다. */
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: #FFFCFF;
+}
 
 body {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  height: var(--app-h, 100dvh);
   font-family: var(--font);
   color: var(--ink);
   background:
@@ -34,7 +49,11 @@ body {
     #FFFCFF;
   overflow: hidden;
   overscroll-behavior: none;
+  touch-action: manipulation;
   -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -64,7 +83,9 @@ body::after {
   z-index: 1;
   width: 100%;
   max-width: 480px;
-  height: 100dvh;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   padding: max(8px, env(safe-area-inset-top)) 12px calc(8px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
@@ -81,6 +102,8 @@ body::after {
   justify-content: space-between;
   gap: 8px;
   padding: 2px 2px 0;
+  min-width: 0;
+  overflow: hidden;   /* 좁은 화면에서 헤더가 가로로 넘쳐 문서가 스크롤되는 것을 막는다 */
 }
 
 .brand {
@@ -88,6 +111,9 @@ body::after {
   align-items: center;
   gap: 5px;
   margin: 0;
+  min-width: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
   font-size: clamp(15px, 4.5vw, 18px);
   font-weight: 900;
   letter-spacing: -.03em;
@@ -102,7 +128,7 @@ body::after {
   transform: rotate(-8deg);
 }
 .brand-paw svg { width: 100%; height: 100%; fill: currentColor; }
-.brand-name { display: inline-flex; align-items: baseline; gap: 1px; }
+.brand-name { display: inline-flex; align-items: baseline; gap: 1px; min-width: 0; overflow: hidden; }
 .brand .amp {
   font-size: .78em;
   color: var(--pink);
@@ -121,7 +147,7 @@ body::after {
   box-shadow: 0 3px 8px rgba(255, 78, 146, .35);
 }
 
-.tools { display: flex; align-items: center; gap: 6px; }
+.tools { display: flex; align-items: center; justify-content: flex-end; gap: 6px; flex: 0 1 auto; min-width: 0; }
 
 .icon-btn {
   width: 34px; height: 34px;
@@ -144,14 +170,14 @@ body::after {
 .icon-btn .wave { fill: none; }
 .icon-btn .ico-album { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linejoin: round; }
 
-.lang { position: relative; display: inline-flex; align-items: center; flex: 0 0 auto; }
+.lang { position: relative; display: inline-flex; align-items: center; flex: 0 1 auto; min-width: 0; }
 .lang-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 92px;
-  max-width: 128px;
+  min-width: 74px;
+  max-width: 118px;   /* 375px 폭에서 헤더 전체가 한 줄에 들어오도록 축소 (이전 92/128은 4px 넘침) */
   height: 34px;
   padding: 0 26px 0 11px;
   border: 1px solid var(--pink-line);
@@ -483,29 +509,42 @@ body::after {
   max-height: 640px;   /* 큰 화면에서 판이 지나치게 길어지지 않게 — 위아래 여백으로 가운데 */
   width: 100%;
   margin-block: auto;
+  overscroll-behavior: none;
 }
 #game {
   display: block;
   width: 100%;
   height: 100%;
   touch-action: none;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
   border-radius: 26px;
   cursor: grab;
 }
 #game:active { cursor: grabbing; }
 
 /* ---------- 시작 / 결과 오버레이 ---------- */
+/* 시작·결과 패널은 게임판 위를 덮는 오버레이다.
+   판이 짧은 인앱 브라우저에서 내용이 길면 '오버레이 안에서만' 세로 스크롤된다(문서는 고정). */
 .overlay {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
   border-radius: 26px;
   background: rgba(255, 247, 251, .68);
   -webkit-backdrop-filter: blur(5px) saturate(118%);
   backdrop-filter: blur(5px) saturate(118%);
   transition: opacity .22s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 .overlay[hidden] { display: none; }
 
@@ -517,6 +556,8 @@ body::after {
   gap: 7px;
   padding: 4px 6px;
   text-align: center;
+  margin: auto;   /* 넘칠 때는 위에서부터 스크롤되도록 auto 마진 */
+  flex: 0 0 auto;
 }
 .bead-strip { display: flex; gap: 3px; justify-content: center; margin-bottom: 1px; }
 .bead-strip img { width: 38px; height: 38px; display: block; }
@@ -691,7 +732,7 @@ body::after {
 @media (min-width: 720px) {
   body { align-items: center; }
   .app {
-    height: min(900px, 94dvh);
+    height: min(900px, 94%);
     max-width: 440px;
     padding: 14px 16px 14px;
     border-radius: 32px;
@@ -717,6 +758,21 @@ body::after {
   .shuffle-btn { height: 40px; }
   .stat-v { font-size: 20px; }
   .time-ring { width: 44px; height: 44px; }
+}
+
+/* 인앱 브라우저처럼 세로가 짧은 화면(≈600px) — 위·아래 고정 바를 조금 더 조여
+   게임판이 한 화면에 확실히 남도록 한다. */
+@media (max-height: 620px) {
+  .app { padding-top: max(6px, env(safe-area-inset-top)); padding-bottom: calc(6px + env(safe-area-inset-bottom)); gap: 5px; }
+  .icon-btn { width: 32px; height: 32px; }
+  .lang-btn { height: 32px; }
+  .stat-v { font-size: 19px; }
+  .time-ring { width: 42px; height: 42px; }
+  .time-num { font-size: 15px; }
+  .shuffle-btn { height: 38px; font-size: 13px; padding: 0 15px; }
+  .dock { gap: 8px; }
+  .overlay { padding: 10px; }
+  .panel { gap: 6px; }
 }
 
 /* ---------- 시작 패널: 모드 탭 · 스테이지 카드 · 부스터 ---------- */
@@ -960,6 +1016,7 @@ body::after {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  touch-action: pan-y;
   padding: 14px 14px 16px;
   border-radius: 22px;
   background: #FFFDFE;
