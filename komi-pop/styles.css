@@ -112,7 +112,7 @@ body::after {
   gap: 5px;
   margin: 0;
   min-width: 0;
-  flex: 0 1 auto;
+  flex: 0 0 auto;   /* 로고는 줄이지 않는다 — 공간이 모자라면 언어 버튼 쪽 글자가 말줄임된다 */
   overflow: hidden;
   font-size: clamp(15px, 4.5vw, 18px);
   font-weight: 900;
@@ -176,10 +176,10 @@ body::after {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 74px;
+  min-width: 58px;
   max-width: 118px;   /* 375px 폭에서 헤더 전체가 한 줄에 들어오도록 축소 (이전 92/128은 4px 넘침) */
   height: 34px;
-  padding: 0 26px 0 11px;
+  padding: 0 22px 0 10px;
   border: 1px solid var(--pink-line);
   border-radius: 11px;
   background: #fff;
@@ -746,6 +746,23 @@ body::after {
   .stat-v { font-size: 25px; }
   .time-ring { width: 52px; height: 52px; }
   .time-num { font-size: 17px; }
+}
+
+@media (max-width: 374px) {
+  /* 360px급 작은 폰 — 헤더 도구를 조금 줄여 브랜드 글자가 잘리지 않게 한다 */
+  .tools { gap: 4px; }
+  .icon-btn { width: 30px; height: 30px; border-radius: 10px; }
+  .icon-btn .ico { width: 17px; height: 17px; }
+  .lang-btn { min-width: 68px; padding: 0 20px 0 9px; }
+  .lang-caret { right: 6px; }
+}
+
+@media (max-width: 340px) {
+  /* 320px급 — 한 단계 더 조인다 */
+  .brand { font-size: 13.5px; gap: 4px; }
+  .brand-paw { width: 17px; height: 17px; }
+  .brand-pop { font-size: .58em; padding: 2px 5px 2px 6px; }
+  .lang-btn { min-width: 62px; height: 30px; font-size: 11px; }
 }
 
 @media (max-height: 680px) {
