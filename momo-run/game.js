@@ -183,11 +183,39 @@
       const g = a.createGain(); g.gain.value = gain || 0.12;
       s.connect(f); f.connect(g); g.connect(a.destination); s.start();
     }
+    /* 바람 소리 — 노이즈를 밴드패스로 걸러 위로 쓸어올려 "슈욱~" 공기 흐름을 만든다.
+       저역은 하이패스로 깎아내 충돌음(hit)의 묵직한 저음과 절대 겹치지 않게 한다. */
+    function whoosh(dur, gain, f0, f1, q) {
+      if (save.muted) return;
+      const a = ensure(); if (!a) return;
+      const t0 = a.currentTime;
+      const len = Math.max(1, Math.floor(a.sampleRate * dur));
+      const buf = a.createBuffer(1, len, a.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) {
+        const t = i / len;
+        const env = Math.sin(Math.PI * Math.pow(t, 0.75));   /* 중반에 부풀었다 사라지는 공기 */
+        d[i] = (Math.random() * 2 - 1) * env;
+      }
+      const s = a.createBufferSource(); s.buffer = buf;
+      const bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = q || 1.2;
+      bp.frequency.setValueAtTime(f0, t0);
+      bp.frequency.exponentialRampToValueAtTime(f1, t0 + dur);
+      const hp = a.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 900;
+      const g = a.createGain(); g.gain.value = gain || 0.12;
+      s.connect(bp); bp.connect(hp); hp.connect(g); g.connect(a.destination);
+      s.start(t0); s.stop(t0 + dur + 0.03);
+    }
     return {
       unlock() { ensure(); },
       jump() { tone(520, 0.16, 'square', 0.1, 880); },
       djump() { tone(660, 0.18, 'square', 0.1, 1180); tone(990, 0.12, 'sine', 0.06, 1320, 0.04); },
-      slide() { noise(0.26, 0.1, 1200); tone(300, 0.2, 'sawtooth', 0.05, 150); },
+      /* 슬라이드 — 가볍고 경쾌한 "슈욱~" 바람 (충돌음과 음높이·음색·파형 모두 다르게) */
+      slide() {
+        whoosh(0.34, 0.24, 700, 3800, 1.3);        /* 공기 흐름: 중역→고역으로 쓸어올리는 노이즈 */
+        tone(1450, 0.2, 'sine', 0.055, 2600);       /* 쓩~ 가볍게 미끄러지는 휘파람 */
+        tone(2300, 0.1, 'sine', 0.03, 3400, 0.09);  /* 끝에 사라지는 잔향 */
+      },
       coin(i) {
         const base = 880 * Math.pow(1.0595, Math.min(12, i || 0));
         tone(base, 0.09, 'sine', 0.14); tone(base * 1.5, 0.11, 'sine', 0.1, null, 0.05);
