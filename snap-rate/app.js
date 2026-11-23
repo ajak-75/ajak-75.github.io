@@ -39,7 +39,7 @@
 
   var state = {
     lang: "ko", locale: "ko", home: "KRW", local: "JPY", side: "local",
-    input: "", rates: FALLBACK, rateMeta: { source: "fallback", ts: 0 }, taxOn: false
+    input: "", rates: FALLBACK, rateMeta: { source: "fallback", ts: 0 }, taxOn: false, lastCands: null
   };
 
   function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -227,6 +227,11 @@
 
     var sel = $("langSelect");
     if (sel) sel.value = lang.code;
+
+    if (state.lastCands && state.lastCands.length) {
+      renderChips(state.lastCands, "chips");
+      if (!$("scanSheet").hidden) renderChips(state.lastCands, "scanChips");
+    }
     renderRate();
     renderDisplay();
   }
@@ -629,6 +634,7 @@
       .then(function (cands) {
         progressCb = null;
         $("shotLoading").hidden = true;
+        state.lastCands = (cands && cands.length) ? cands : null;
         if (cands && cands.length) {
           $("scanMsg").textContent = t("scanFound");
           renderChips(cands, "scanChips");
