@@ -511,22 +511,15 @@
   }
 
   function extractCandidates(data) {
-    var found = new Map();
+    var found = {};
     function push(v, conf, raw) {
       if (!isFinite(v) || v < 1 || v > 99999999) return;
       v = v >= 100 ? Math.round(v) : Math.round(v * 100) / 100;
-      var prev = found.get(v);
-      if (!prev || prev.conf < conf) found.set(v, { v: v, conf: conf, raw: raw });
+      var prev = found[v];
+      if (!prev || prev.conf < conf) found[v] = { v: v, conf: conf, raw: raw };
     }
     var words = (data && data.words) || [];
     var i, w, txt, digits, conf;
-    try {
-      window.__srDbg = (window.__srDbg || []).concat([{
-        words: words.length,
-        text: String((data && data.text) || "").slice(0, 120),
-        sample: words.slice(0, 6).map(function (x) { return [String(x.text), Math.round(x.confidence || 0)]; })
-      }]);
-    } catch (e) {}
 
     for (i = 0; i < words.length; i++) {
       w = words[i];
@@ -555,7 +548,7 @@
       push(parseFloat(joined), c2, ta + " " + tb);
     }
 
-    if (!found.size && data && data.text) {
+    if (!Object.keys(found).length && data && data.text) {
       var m = String(data.text).match(/\d[\d.,]{0,10}/g) || [];
       m.forEach(function (s) {
         var dg = s.replace(/[^\d]/g, "");
@@ -563,7 +556,7 @@
       });
     }
 
-    var arr = Array.prototype.slice.call(found.values());
+    var arr = Object.keys(found).map(function (k) { return found[k]; });
     arr.sort(function (x, y) { return (y.conf - x.conf) || (String(y.v).length - String(x.v).length); });
     return arr.slice(0, 8);
   }
