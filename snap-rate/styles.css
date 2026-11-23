@@ -417,6 +417,12 @@ html[dir="rtl"] .tax-toggle[aria-pressed="true"] .switch i{ transform:translateX
 @keyframes rise{ from{ transform:translateY(14px); opacity:.6 } to{ transform:translateY(0); opacity:1 } }
 @keyframes spin{ to{ transform:rotate(360deg) } }
 
+/* 아랍어(RTL)에서도 숫자판·금액은 왼쪽→오른쪽 순서를 지킨다 */
+html[dir="rtl"] .keypad,
+html[dir="rtl"] .disp-main,
+html[dir="rtl"] .disp-conv,
+html[dir="rtl"] .rate-line{ direction:ltr; }
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{ animation-duration:.001s !important; transition-duration:.001s !important; }
 }
