@@ -448,7 +448,7 @@
       $("taxVal").textContent = "₩" + num(round(lo)) + " ~ ₩" + num(round(hi));
       $("netVal").textContent = "₩" + num(round(localVal - hi)) + " ~ ₩" + num(round(localVal - lo));
     }
-    $("taxNet").hidden = !state.taxOn;
+    $("taxNet").hidden = !state.taxOn || !(localVal > 0);
     $("taxBtn").setAttribute("aria-pressed", state.taxOn ? "true" : "false");
   }
 
