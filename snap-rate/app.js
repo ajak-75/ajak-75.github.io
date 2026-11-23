@@ -317,8 +317,9 @@
 
   function chooseCurrency(code) {
     var other = sheetRole === "home" ? state.local : state.home;
+    /* 같은 통화를 고르면 두 통화를 맞바꾼다 */
+    var old = inputCur();
     if (code === other) {
-      /* 같은 통화를 고르면 두 통화를 맞바꾼다 */
       var tmp = state.home;
       state.home = state.local;
       state.local = tmp;
@@ -327,6 +328,7 @@
     } else {
       state.local = code;
     }
+    reExpress(old);
     safeSet(LS.home, state.home);
     safeSet(LS.local, state.local);
     closeSheet("curSheet");
@@ -407,6 +409,21 @@
     var d = decOf(state.local);
     state.input = d === 0 ? String(Math.round(v)) : String(Math.round(v * 100) / 100);
     renderDisplay();
+  }
+
+  /* 입력 통화가 바뀌면 같은 금액을 새 통화로 다시 적는다 (¥12,000 → ₩101,594) */
+  function inputCur() { return state.side === "local" ? state.local : state.home; }
+
+  function reExpress(fromCur) {
+    var toCur = inputCur();
+    if (!fromCur || fromCur === toCur) return;
+    var v = currentValue();
+    if (!(v > 0)) return;
+    var r = state.rates || FALLBACK;
+    if (!r[fromCur] || !r[toCur]) return;
+    var out = v * (r[toCur] / r[fromCur]);
+    var d = decOf(toCur);
+    state.input = d === 0 ? String(Math.round(out)) : String(Math.round(out * 100) / 100);
   }
 
   /* ── 택스프리 (한국 결제) ──────────────── */
@@ -633,9 +650,11 @@
     $("homeBtn").addEventListener("click", function () { sheetRole = "home"; buildCurList(""); $("curSearch").value = ""; openSheet("curSheet"); });
     $("localBtn").addEventListener("click", function () { sheetRole = "local"; buildCurList(""); $("curSearch").value = ""; openSheet("curSheet"); });
     $("swapBtn").addEventListener("click", function () {
+      var old = inputCur();
       var tmp = state.home;
       state.home = state.local;
       state.local = tmp;
+      reExpress(old);
       safeSet(LS.home, state.home);
       safeSet(LS.local, state.local);
       renderCurrencies(); renderRate(); renderDisplay();
@@ -650,8 +669,8 @@
     Array.prototype.forEach.call(document.querySelectorAll(".key[data-key]"), function (k) {
       k.addEventListener("click", function () { pressKey(k.getAttribute("data-key")); });
     });
-    $("segLocal").addEventListener("click", function () { state.side = "local"; renderDisplay(); });
-    $("segHome").addEventListener("click", function () { state.side = "home"; renderDisplay(); });
+    $("segLocal").addEventListener("click", function () { var old = inputCur(); state.side = "local"; reExpress(old); renderDisplay(); });
+    $("segHome").addEventListener("click", function () { var old = inputCur(); state.side = "home"; reExpress(old); renderDisplay(); });
 
     $("scanBtn").addEventListener("click", function () { $("camInput").click(); });
     $("photoBtn").addEventListener("click", function () { $("libInput").click(); });
