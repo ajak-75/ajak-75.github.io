@@ -64,13 +64,16 @@
   const M_PER_UNIT = 1 / 22;      // 22 단위 = 1m
   const PLAYER_H = 360;           // 스프라이트 높이(단위) — 3D 모모 실사형 비율(머리·귀 포함)에 맞춰 키움
   const HIT_W = 148;
-  const HIT_H = 236;
+  const HIT_H = 272;              // 위 장애물 판정 높이 — TOP_GAP보다 반드시 커야 "서서는 못 지나간다"
   const SLIDE_HIT_H = 132;
-  const TOP_GAP = 223;            // 위 장애물의 아래 끝 = 지면선 - 223
+  const TOP_GAP = 246;            // 위 장애물의 아래 끝 = 지면선 - 246 (슬라이드 스프라이트 높이 202보다 44 위 → 눈으로 봐도 여유)
   const GRAVITY = 2700;
   const JUMP_V = 1180;            // 최고 높이 ≈ 258 단위
   const DJUMP_V = 1080;
-  const SLIDE_TIME = 0.62;
+  const SLIDE_TIME = 0.90;        // 한 번 탭했을 때 숙이고 있는 시간 — 넓은 위 장애물을 끝까지 지나갈 수 있게
+  const SLIDE_HOLD_MAX = 1.40;    // 꾹 누르고 있어도 이 이상은 못 버틴다(너무 쉬워지지 않게)
+  const SLIDE_MIN = 0.50;         // 손을 일찍 떼도 최소 이만큼은 숙인 자세 유지
+  const FAST_DROP_V = 1900;       // 공중에서 슬라이드 → 바닥으로 빠르게 내려온다
   const SPEED_START = 400;        // 스테이지 값이 없을 때의 기본값
   const SPEED_MAX = 690;
   const CELEBRATE_SRC = 'assets/celebration/record.webp?v=2';   // 사용자가 보내 줄 축하 이미지 자리
@@ -264,6 +267,7 @@
 
   const player = {
     y: 0, vy: 0, jumps: 0, sliding: 0, hurt: 0, inv: 0, dead: false,
+    slideHold: false, slideElapsed: 0,
     squash: 1, runPhase: 0, dustT: 0, trailT: 0
   };
 
@@ -325,6 +329,7 @@
     S.bannerSub = T('stage' + S.stage.n);
 
     player.y = 0; player.vy = 0; player.jumps = 0; player.sliding = 0;
+    player.slideHold = false; player.slideElapsed = 0;
     player.hurt = 0; player.inv = 0; player.dead = false; player.squash = 1;
 
     objects = []; foods = []; parts = []; pops = []; confetti = [];
@@ -390,22 +395,35 @@
     player.vy = player.jumps === 0 ? -JUMP_V : -DJUMP_V;
     player.jumps++;
     player.sliding = 0;
+    player.slideHold = false;
+    player.slideElapsed = 0;
     player.squash = 0.86;
     if (player.jumps === 1) { Sfx.jump(); puff(PLAYER_X, GROUND_Y, 6, '#fff'); }
     else { Sfx.djump(); ring(PLAYER_X, GROUND_Y + player.y - PLAYER_H * 0.5); buzz(12); }
   }
   function doSlide() {
     if (S.scene !== 'playing' || player.dead) return;
-    if (player.sliding > 0) return;
+    player.slideHold = true;              // 누르고 있는 동안은 계속 숙인다(아래 update에서 상한 판단)
+    if (player.sliding > 0) return;       // 이미 숙인 중이면 홀드만 갱신
     player.sliding = SLIDE_TIME;
+    player.slideElapsed = 0;
     player.squash = 0.9;
+    if (player.jumps > 0 || player.y < 0) {
+      /* 공중에서 누르면 곧바로 아래로 — 바닥에 닿자마자 슬라이드가 이어진다 */
+      player.vy = Math.max(player.vy, FAST_DROP_V);
+      puff(PLAYER_X, GROUND_Y + player.y, 4, '#fff');
+    } else {
+      puff(PLAYER_X - 40, GROUND_Y, 8, '#ffffff');
+    }
     Sfx.slide();
-    puff(PLAYER_X - 40, GROUND_Y, 8, '#ffffff');
     buzz(8);
   }
-  function bindPad(btn, fn) {
+  function endSlide() {
+    player.slideHold = false;
+  }
+  function bindPad(btn, fn, onUp) {
     const down = (e) => { e.preventDefault(); btn.classList.add('down'); fn(); Sfx.unlock(); };
-    const up = (e) => { if (e) e.preventDefault(); btn.classList.remove('down'); };
+    const up = (e) => { if (e) e.preventDefault(); btn.classList.remove('down'); if (onUp) onUp(); };
     btn.addEventListener('pointerdown', down);
     btn.addEventListener('pointerup', up);
     btn.addEventListener('pointercancel', up);
@@ -413,7 +431,7 @@
     btn.addEventListener('contextmenu', (e) => e.preventDefault());
   }
   bindPad(els.btnJump, doJump);
-  bindPad(els.btnSlide, doSlide);
+  bindPad(els.btnSlide, doSlide, endSlide);
 
   canvas.addEventListener('pointerdown', (e) => {
     if (S.scene !== 'playing') return;
@@ -422,6 +440,8 @@
     const r = canvas.getBoundingClientRect();
     if ((e.clientX - r.left) / r.width < 0.45) doSlide(); else doJump();
   });
+  canvas.addEventListener('pointerup', endSlide);
+  canvas.addEventListener('pointercancel', endSlide);
 
   window.addEventListener('keydown', (e) => {
     if (S.scene === 'playing') {
@@ -434,12 +454,16 @@
       if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); startStage(save.unlocked, false); }
     }
   });
+  window.addEventListener('keyup', (e) => {
+    if (e.code === 'ArrowDown' || e.code === 'KeyS') endSlide();
+  });
 
   /* ── 일시정지 ───────────────────────────────────────── */
   function togglePause(on) {
     if (on && S.scene !== 'playing') return;
     if (!on && S.scene !== 'paused') return;
     S.scene = on ? 'paused' : 'playing';
+    if (on) player.slideHold = false;      // 쉬는 동안엔 누른 상태를 풀어 둔다
     showScreen(on ? 'pause' : null);
     hudOn(!on);
     Sfx.ui();
@@ -824,7 +848,19 @@
       if (S.feverTimer <= 0) { S.fever = 0; S.feverFlash = 0.6; }
     }
 
-    if (player.sliding > 0) player.sliding = Math.max(0, player.sliding - dt);
+    if (player.sliding > 0) {
+      player.slideElapsed += dt;
+      const room = SLIDE_HOLD_MAX - player.slideElapsed;      // 이번 슬라이드에 남은 여유
+      /* 손을 떼도 지금 위 장애물 밑에 있으면 상한까지는 계속 숙인다 —
+         "넓은 장애물 도중에 일어나 걸리는" 억울함을 없앤다 */
+      const keepDown = room > 0 && (player.slideHold || underTopObstacle());
+      if (keepDown) {
+        player.sliding = Math.min(Math.max(player.sliding, 0.06), Math.max(0.02, room));
+      } else {
+        player.sliding = Math.max(0, Math.min(player.sliding - dt, room));
+        if (player.sliding <= 0 && player.slideElapsed < SLIDE_MIN) player.sliding = SLIDE_MIN - player.slideElapsed;
+      }
+    }
     if (player.hurt > 0) player.hurt = Math.max(0, player.hurt - dt);
     if (player.inv > 0) player.inv = Math.max(0, player.inv - dt);
 
@@ -921,6 +957,18 @@
 
     if (!S.endless && meters >= S.distGoal) stageClear();
     syncHud();
+  }
+
+  /* 모모의 몸 폭 안에 위(슬라이드) 장애물이 걸려 있는가 */
+  function underTopObstacle() {
+    const half = 96 * 0.7;
+    for (let i = 0; i < objects.length; i++) {
+      const o = objects[i];
+      if (o.kind !== 'top') continue;
+      const ox = (o.x - S.worldX) - o.w / 2;
+      if (PLAYER_X + half > ox && PLAYER_X - half < ox + o.w) return true;
+    }
+    return false;
   }
 
   function updateParticles(dt) {
@@ -1561,7 +1609,24 @@
         score(v) { S.score = v; },
         counts() { return { confetti: confetti.length, parts: parts.length, celebrate: S.celebrate }; },
         invuln(on) { player.inv = on ? 9999 : 0; },
-        start(n, endless) { startStage(n, endless); }
+        start(n, endless) { startStage(n, endless); },
+        /* ── 장애물 판정 검수용 (슬라이드/점프 타이밍 시험) ── */
+        ground() { return GROUND_Y; },
+        tuning() { return { HIT_H, SLIDE_HIT_H, TOP_GAP, SLIDE_TIME, SLIDE_HOLD_MAX, SLIDE_MIN, FAST_DROP_V }; },
+        objs() { return objects; },
+        clearObjs() { objects.length = 0; foods.length = 0; },
+        mkTop(x, h) {
+          const img = IMG[itemSrc(S.stage.top)];
+          const hh = h || 230;
+          return { kind: 'top', x: x, y: GROUND_Y - TOP_GAP, w: img ? hh * img.width / img.height : 240, h: hh, img: img };
+        },
+        mkGround(x, h) {
+          const img = IMG[itemSrc(S.stage.ground[0])];
+          const hh = h || 150;
+          return { kind: 'ground', x: x, y: GROUND_Y, w: img ? hh * img.width / img.height : 140, h: hh, img: img };
+        },
+        push(o) { objects.push(o); },
+        span() { return { x: PLAYER_X, half: 96 * 0.7 }; }
       };
     }
   }
