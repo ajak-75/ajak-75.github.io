@@ -302,8 +302,8 @@ html[dir="rtl"] .tax-toggle[aria-pressed="true"] .switch i{ transform:translateX
 .key-fn{ color:var(--ink-2); font-size:18px; font-weight:700; background:var(--surface-2); }
 .key-fn svg{ width:23px; height:23px; }
 .key-dot{ font-size:23px; font-weight:700; }
-.key-zero{ grid-column:1 / span 3; }
-.key-00{ grid-column:4; font-size:20px; color:var(--ink-2); }
+.key-zero{ grid-column:1 / span 2; }
+.key-00{ grid-column:3 / span 2; font-size:20px; color:var(--ink-2); }
 
 .foot-note{
   font-size:10.5px; color:var(--muted); text-align:center;

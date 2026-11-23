@@ -486,6 +486,7 @@
     return ocrLoading;
   }
 
+  /* 사진을 OCR이 좋아하는 크기로만 맞춘다 — 회색·대비 처리는 실측에서 오히려 숫자를 잃었다 */
   function prepCanvas(file) {
     return new Promise(function (resolve, reject) {
       var url = URL.createObjectURL(file);
@@ -495,20 +496,11 @@
           var w0 = img.naturalWidth || img.width, h0 = img.naturalHeight || img.height;
           var scale = 1, longest = Math.max(w0, h0);
           if (longest > 1600) scale = 1600 / longest;
-          else if (w0 < 900) scale = Math.min(2, 900 / w0);
+          else if (longest < 900) scale = Math.min(2, 900 / longest);
           var w = Math.max(1, Math.round(w0 * scale)), h = Math.max(1, Math.round(h0 * scale));
           var c = document.createElement("canvas");
           c.width = w; c.height = h;
-          var ctx = c.getContext("2d");
-          ctx.drawImage(img, 0, 0, w, h);
-          var data = ctx.getImageData(0, 0, w, h), p = data.data;
-          for (var i = 0; i < p.length; i += 4) {
-            var g = 0.299 * p[i] + 0.587 * p[i + 1] + 0.114 * p[i + 2];
-            g = (g - 128) * 1.28 + 128;
-            g = g < 0 ? 0 : g > 255 ? 255 : g;
-            p[i] = p[i + 1] = p[i + 2] = g;
-          }
-          ctx.putImageData(data, 0, 0);
+          c.getContext("2d").drawImage(img, 0, 0, w, h);
           URL.revokeObjectURL(url);
           resolve(c);
         } catch (err) { URL.revokeObjectURL(url); reject(err); }
@@ -569,6 +561,19 @@
     return arr.slice(0, 8);
   }
 
+  /* 두 번 읽기: 흩어진 숫자(psm 11) → 안 되면 한 덩이(psm 6) */
+  function recognizeCandidates(worker, canvas) {
+    return worker.setParameters({ tessedit_pageseg_mode: "11" })
+      .then(function () { return worker.recognize(canvas); })
+      .then(function (out) {
+        var c = extractCandidates(out && out.data);
+        if (c.length) return c;
+        return worker.setParameters({ tessedit_pageseg_mode: "6" })
+          .then(function () { return worker.recognize(canvas); })
+          .then(function (out2) { return extractCandidates(out2 && out2.data); });
+      });
+  }
+
   function renderChips(cands, target) {
     var box = $(target || "scanChips");
     box.innerHTML = "";
@@ -613,12 +618,11 @@
     };
 
     Promise.all([ensureWorker(), prepCanvas(file)])
-      .then(function (res) { return res[0].recognize(res[1]); })
-      .then(function (out) {
+      .then(function (res) { return recognizeCandidates(res[0], res[1]); })
+      .then(function (cands) {
         progressCb = null;
-        var cands = extractCandidates(out && out.data);
         $("shotLoading").hidden = true;
-        if (cands.length) {
+        if (cands && cands.length) {
           $("scanMsg").textContent = t("scanFound");
           renderChips(cands, "scanChips");
           renderChips(cands, "chips");
