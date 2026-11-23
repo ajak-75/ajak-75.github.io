@@ -70,9 +70,9 @@
   const GRAVITY = 2700;
   const JUMP_V = 1180;            // 최고 높이 ≈ 258 단위
   const DJUMP_V = 1080;
-  const SLIDE_TIME = 0.68;        // 한 번 탭했을 때 숙이고 있는 시간 — 짧고 경쾌하게(가장 넓은 위 장애물 0.66초분은 덮는다)
+  const SLIDE_TIME = 0.58;        // 한 번 탭했을 때 숙이고 있는 시간 — 짧고 경쾌하게(넓은 위 장애물은 밑 보호가 이어받는다)
   const SLIDE_HOLD_MAX = 1.40;    // 꾹 누르고 있어도 이 이상은 못 버틴다(너무 쉬워지지 않게)
-  const SLIDE_MIN = 0.40;         // 손을 일찍 떼도 최소 이만큼은 숙인 자세 유지
+  const SLIDE_MIN = 0.33;         // 손을 일찍 떼도 최소 이만큼은 숙인 자세 유지
   const FAST_DROP_V = 1900;       // 공중에서 슬라이드 → 바닥으로 빠르게 내려온다
   const SPEED_START = 400;        // 스테이지 값이 없을 때의 기본값
   const SPEED_MAX = 690;
@@ -855,10 +855,14 @@
          "넓은 장애물 도중에 일어나 걸리는" 억울함을 없앤다 */
       const keepDown = room > 0 && (player.slideHold || underTopObstacle());
       if (keepDown) {
-        player.sliding = Math.min(Math.max(player.sliding, 0.06), Math.max(0.02, room));
+        /* 장애물 밑이거나 꾹 누르는 동안은 시간을 흘려보내지 않고 계속 숙인다.
+           밑에서는 장애물 폭과 관계없이 조금 더 숙이는 쪽으로만 쓴다 */
+        player.sliding = Math.max(0.02, Math.min(0.5, room));
       } else {
-        player.sliding = Math.max(0, Math.min(player.sliding - dt, room));
-        if (player.sliding <= 0 && player.slideElapsed < SLIDE_MIN) player.sliding = SLIDE_MIN - player.slideElapsed;
+        /* 숙인 시간은 누적 시간으로만 센다 — 장애물을 벗어나거나 손을 떼면
+           그 프레임에 곧바로 일어난다(남은 시간을 따로 세지 않는다) */
+        const remain = Math.max(SLIDE_TIME, SLIDE_MIN) - player.slideElapsed;
+        player.sliding = remain > 0 ? remain : 0;
       }
     }
     if (player.hurt > 0) player.hurt = Math.max(0, player.hurt - dt);
