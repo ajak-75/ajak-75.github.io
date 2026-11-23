@@ -1,7 +1,7 @@
 {
-  "name": "SnapRate — 여행 가격표 스캔 · 환율 예산",
+  "name": "SnapRate — 여행 가격표 스캔 · 환율 계산",
   "short_name": "SnapRate",
-  "description": "가격표를 찍으면 숫자를 읽고, 내 나라 돈으로 바꾸고, 오늘 예산에서 바로 빼 줍니다.",
+  "description": "가격표를 찍으면 숫자를 읽어 내 나라 돈으로 바로 바꿔 줍니다. 큰 키패드로 1초 수정, 16개 언어.",
   "lang": "ko",
   "start_url": "./index.html",
   "scope": "./",

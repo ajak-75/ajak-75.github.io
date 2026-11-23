@@ -1,15 +1,15 @@
-/* SnapRate — app.js
-   서버 없는 정적 앱: 환율(open.er-api.com) + localStorage 캐시 + Tesseract.js(CDN) OCR */
+/* SnapRate v1 — app.js
+   정적 웹앱: 무료 환율(open.er-api.com) + localStorage 캐시 + Tesseract.js(CDN, 필요할 때만) */
 (function () {
   "use strict";
-
-  var $ = function (id) { return document.getElementById(id); };
-  var t = function (key) { return (DICT[state.lang] && DICT[state.lang][key]) || DICT.en[key] || key; };
 
   var DICT = (window.I18N && window.I18N.strings) || { en: {} };
   var LANGS = (window.I18N && window.I18N.langs) || [{ code: "en", name: "English", dir: "ltr" }];
 
-  /* ── 통화 목록 ───────────────────────────── */
+  var $ = function (id) { return document.getElementById(id); };
+  var t = function (key) { return (DICT[state.lang] && DICT[state.lang][key]) || DICT.en[key] || key; };
+
+  /* ── 통화 ─────────────────────────────── */
   var CUR = [
     ["KRW", "🇰🇷"], ["USD", "🇺🇸"], ["JPY", "🇯🇵"], ["CNY", "🇨🇳"], ["TWD", "🇹🇼"], ["EUR", "🇪🇺"],
     ["THB", "🇹🇭"], ["VND", "🇻🇳"], ["SGD", "🇸🇬"], ["GBP", "🇬🇧"], ["AUD", "🇦🇺"], ["CAD", "🇨🇦"],
@@ -22,6 +22,7 @@
     ["NPR", "🇳🇵"], ["LKR", "🇱🇰"]
   ].map(function (p) { return { code: p[0], flag: p[1] }; });
 
+  /* 오프라인·첫 실행 기본값(USD 1 기준, 근사치) */
   var FALLBACK = {
     USD: 1, KRW: 1450, JPY: 152, CNY: 7.12, TWD: 31.6, EUR: 0.86, THB: 32.6, VND: 26100,
     SGD: 1.30, GBP: 0.76, AUD: 1.52, CAD: 1.39, HKD: 7.78, PHP: 58.4, MYR: 4.18, IDR: 16650,
@@ -34,14 +35,11 @@
 
   var ZERO_DEC = { KRW: 1, JPY: 1, VND: 1, IDR: 1, CLP: 1, ISK: 1, HUF: 1, TWD: 1, KHR: 1, LAK: 1, MMK: 1, UZS: 1 };
   var CACHE_MS = 12 * 60 * 60 * 1000;
+  var LS = { home: "sr.home", local: "sr.local", lang: "sr.lang", rates: "sr.rates", tax: "sr.tax" };
 
-  var LS = { home: "sr.home", local: "sr.local", lang: "sr.lang", budget: "sr.budget", exp: "sr.exp", rates: "sr.rates", tax: "sr.tax" };
-
-  /* ── 상태 ────────────────────────────────── */
   var state = {
     lang: "ko", locale: "ko", home: "KRW", local: "JPY", side: "local",
-    input: "", rates: FALLBACK, rateMeta: { source: "fallback", ts: 0 },
-    budget: 0, expenses: [], taxOpen: false
+    input: "", rates: FALLBACK, rateMeta: { source: "fallback", ts: 0 }, taxOn: false
   };
 
   function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -66,8 +64,14 @@
     return n;
   }
 
-  /* ── 숫자 포맷 ───────────────────────────── */
+  /* ── 숫자 포맷 ────────────────────────── */
   function decOf(code) { return ZERO_DEC[code] ? 0 : 2; }
+
+  function num(v, maxDec) {
+    try {
+      return new Intl.NumberFormat(state.locale, { maximumFractionDigits: maxDec == null ? 0 : maxDec }).format(v);
+    } catch (e) { return String(Math.round(v)); }
+  }
 
   function fmt(value, code) {
     var d = decOf(code);
@@ -78,14 +82,8 @@
         minimumFractionDigits: d, maximumFractionDigits: d
       }).format(v);
     } catch (e) {
-      return num(v) + " " + code;
+      return num(v, d) + " " + code;
     }
-  }
-
-  function num(v, maxDec) {
-    try {
-      return new Intl.NumberFormat(state.locale, { maximumFractionDigits: maxDec == null ? 0 : maxDec }).format(v);
-    } catch (e) { return String(Math.round(v)); }
   }
 
   function fmtRate(v) {
@@ -100,13 +98,7 @@
     return parts.length > 1 ? gi + "." + parts[1] : gi;
   }
 
-  function roundFor(v, code) {
-    var d = decOf(code);
-    var m = Math.pow(10, d);
-    return Math.round(v * m) / m;
-  }
-
-  /* ── 환율 ────────────────────────────────── */
+  /* ── 환율 ─────────────────────────────── */
   function homePerLocal() {
     var r = state.rates || FALLBACK;
     var a = r[state.home], b = r[state.local];
@@ -127,8 +119,6 @@
     state.rateMeta = { source: source, ts: ts || 0 };
     renderRate();
     renderDisplay();
-    renderBudget();
-    renderExpenses();
   }
 
   function rateLabel() {
@@ -159,12 +149,12 @@
 
     var ctl = null, timer = null;
     var done = function () {
-      rateBusy = false; setSpin(false);
+      rateBusy = false;
+      setSpin(false);
       if (timer) { clearTimeout(timer); timer = null; }
     };
 
     try { ctl = new AbortController(); } catch (e) { ctl = null; }
-
     var opts = { cache: "no-store" };
     if (ctl) {
       opts.signal = ctl.signal;
@@ -195,7 +185,7 @@
     if (b) b.classList.toggle("is-spin", !!on);
   }
 
-  /* ── 언어 ────────────────────────────────── */
+  /* ── 언어 ─────────────────────────────── */
   function detectedLang() {
     var saved = safeGet(LS.lang);
     if (saved && DICT[saved]) return saved;
@@ -237,15 +227,11 @@
 
     var sel = $("langSelect");
     if (sel) sel.value = lang.code;
-    updateBudgetCurLabel();
     renderRate();
     renderDisplay();
-    renderBudget();
-    renderExpenses();
-    renderTax();
   }
 
-  /* ── 통화 선택 ───────────────────────────── */
+  /* ── 통화 선택 ────────────────────────── */
   function defaultHome(lang) {
     var map = { ko: "KRW", ja: "JPY", "zh-CN": "CNY", "zh-TW": "TWD", es: "EUR", fr: "EUR", de: "EUR", it: "EUR", pt: "EUR", ru: "RUB", vi: "VND", th: "THB", id: "IDR", ar: "AED", hi: "INR" };
     return map[lang] || "USD";
@@ -283,12 +269,6 @@
     $("localCode").textContent = l.code;
     $("segLocalCode").textContent = l.code;
     $("segHomeCode").textContent = h.code;
-    updateBudgetCurLabel();
-  }
-
-  function updateBudgetCurLabel() {
-    var el = $("budgetCur");
-    if (el) el.textContent = state.home;
   }
 
   var sheetRole = "home";
@@ -317,7 +297,6 @@
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "cur-item" + (active ? " is-on" : "");
-      btn.setAttribute("data-code", c.code);
 
       var flag = document.createElement("span");
       flag.className = "ci-flag"; flag.textContent = c.flag;
@@ -341,11 +320,9 @@
     if (code === other) {
       /* 같은 통화를 고르면 두 통화를 맞바꾼다 */
       var tmp = state.home;
-      rebaseHome(state.local);
       state.home = state.local;
       state.local = tmp;
     } else if (sheetRole === "home") {
-      rebaseHome(code);
       state.home = code;
     } else {
       state.local = code;
@@ -356,27 +333,9 @@
     renderCurrencies();
     renderRate();
     renderDisplay();
-    renderBudget();
-    renderExpenses();
-    renderTax();
   }
 
-  /* 홈 통화가 바뀌면 예산·내역을 새 통화로 환산 */
-  function rebaseHome(newHome) {
-    var oldHome = state.home;
-    if (newHome === oldHome) return;
-    var r = state.rates || FALLBACK;
-    if (!r[oldHome] || !r[newHome]) return;
-    var f = r[newHome] / r[oldHome];
-    if (state.budget) state.budget = roundFor(state.budget * f, newHome);
-    state.expenses.forEach(function (e) {
-      if (e.hc === oldHome) { e.home = roundFor(e.home * f, newHome); e.hc = newHome; }
-    });
-    saveBudget();
-    saveExpenses();
-  }
-
-  /* ── 계산기 ──────────────────────────────── */
+  /* ── 계산기 ───────────────────────────── */
   function currentValue() {
     var v = parseFloat(state.input || "0");
     return isFinite(v) ? v : 0;
@@ -388,16 +347,15 @@
   }
 
   function renderRate() {
-    var r = homePerLocal();
-    $("rateText").textContent = "1 " + state.local + " = " + fmtRate(r) + " " + state.home;
-    var label = rateLabel();
+    $("rateText").textContent = "1 " + state.local + " = " + fmtRate(homePerLocal()) + " " + state.home;
     var when = timeText(state.rateMeta.ts);
-    $("rateSub").textContent = label + (when ? " · " + t("updated") + " " + when : "");
+    $("rateSub").textContent = rateLabel() + (when ? " · " + t("updated") + " " + when : "");
   }
 
   function renderDisplay() {
     var mainCur = state.side === "local" ? state.local : state.home;
     var convCur = state.side === "local" ? state.home : state.local;
+
     var mainText = groupInput(state.input);
     var amt = $("amtMain");
     amt.textContent = mainText;
@@ -411,18 +369,17 @@
     var convBox = $("amtConv").parentNode;
     if (convBox) convBox.classList.toggle("is-zero", conv <= 0);
 
-    var segL = $("segLocal"), segH = $("segHome");
     var localOn = state.side === "local";
-    segL.classList.toggle("is-on", localOn);
-    segH.classList.toggle("is-on", !localOn);
-    segL.setAttribute("aria-pressed", localOn ? "true" : "false");
-    segH.setAttribute("aria-pressed", localOn ? "false" : "true");
+    $("segLocal").classList.toggle("is-on", localOn);
+    $("segHome").classList.toggle("is-on", !localOn);
+    $("segLocal").setAttribute("aria-pressed", localOn ? "true" : "false");
+    $("segHome").setAttribute("aria-pressed", localOn ? "false" : "true");
 
     renderTax();
   }
 
   function buzz(ms) {
-    try { if (navigator.vibrate) navigator.vibrate(ms || 8); } catch (e) {}
+    try { if (navigator.vibrate) navigator.vibrate(ms || 7); } catch (e) {}
   }
 
   function pressKey(k) {
@@ -444,186 +401,36 @@
     renderDisplay();
   }
 
-  function setInputFromNumber(v, cur) {
+  function fillLocal(v) {
     if (!isFinite(v) || v <= 0) { state.input = ""; renderDisplay(); return; }
-    var d = decOf(cur || (state.side === "local" ? state.local : state.home));
+    state.side = "local";
+    var d = decOf(state.local);
     state.input = d === 0 ? String(Math.round(v)) : String(Math.round(v * 100) / 100);
     renderDisplay();
   }
 
-  /* OCR 후보는 항상 현지 통화 금액이므로, 현지 통화 입력으로 맞춰 넣는다 */
-  function fillLocal(v) {
-    state.side = "local";
-    setInputFromNumber(v, state.local);
-  }
-
-  /* ── 오늘 예산 ───────────────────────────── */
-  function todayKey(d) {
-    d = d || new Date();
-    return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-  }
-
-  function todayExpenses() {
-    var k = todayKey();
-    return state.expenses.filter(function (e) { return todayKey(new Date(e.ts)) === k; });
-  }
-
-  function spentTotal() {
-    return todayExpenses().reduce(function (s, e) { return s + e.home; }, 0);
-  }
-
-  function saveBudget() { safeSet(LS.budget, JSON.stringify({ amount: state.budget, cur: state.home })); }
-  function saveExpenses() { safeSet(LS.exp, JSON.stringify(state.expenses.slice(-80))); }
-
-  function loadStored() {
-    try {
-      var b = JSON.parse(safeGet(LS.budget) || "null");
-      if (b && typeof b.amount === "number") {
-        state.budget = b.amount;
-        if (b.cur && b.cur !== state.home) {
-          var r = state.rates || FALLBACK;
-          if (r[b.cur] && r[state.home]) state.budget = roundFor(state.budget * (r[state.home] / r[b.cur]), state.home);
-        }
-      }
-    } catch (e) {}
-    try {
-      var ex = JSON.parse(safeGet(LS.exp) || "[]");
-      if (Array.isArray(ex)) state.expenses = ex.filter(function (e) { return e && e.ts && typeof e.home === "number" && typeof e.local === "number"; });
-    } catch (e) {}
-  }
-
-  function renderBudget() {
-    var hasBudget = state.budget > 0;
-    $("budgetEmpty").hidden = hasBudget;
-    $("budgetSet").hidden = !hasBudget;
-    $("budgetEditBtn").hidden = !hasBudget;
-
-    if (!hasBudget) return;
-
-    var spent = spentTotal();
-    var left = state.budget - spent;
-    var over = left < 0;
-
-    $("budgetAmount").textContent = fmt(state.budget, state.home);
-    var leftEl = $("budgetLeft");
-    leftEl.classList.toggle("is-over", over);
-    leftEl.innerHTML = "";
-    var b = document.createElement("b");
-    b.textContent = fmt(Math.abs(left), state.home);
-    leftEl.appendChild(document.createTextNode((over ? t("budgetOver") : t("budgetLeft")) + " "));
-    leftEl.appendChild(b);
-
-    var pct = state.budget > 0 ? (spent / state.budget) * 100 : 0;
-    var bar = $("barFill");
-    bar.style.width = Math.max(0, Math.min(100, pct)) + "%";
-    bar.classList.toggle("is-over", pct > 100);
-    $("bar").setAttribute("aria-valuenow", String(Math.round(Math.max(0, Math.min(100, pct)))));
-    $("bar").setAttribute("aria-valuetext", Math.round(pct) + "%");
-
-    $("spentLine").textContent = t("budgetSpent") + " " + fmt(spent, state.home);
-    var localLeft = left / homePerLocal();
-    $("leftLocal").textContent = "≈ " + fmt(localLeft, state.local);
-  }
-
-  function renderExpenses() {
-    var list = $("expList");
-    var items = todayExpenses().slice().sort(function (a, b) { return b.ts - a.ts; });
-    list.innerHTML = "";
-    $("expCount").textContent = String(items.length);
-    $("expEmpty").hidden = items.length > 0;
-
-    items.forEach(function (e) {
-      var li = document.createElement("li");
-      li.className = "exp-item";
-
-      var box = document.createElement("div");
-      var main = document.createElement("p");
-      main.className = "exp-main";
-      var a1 = document.createElement("span");
-      a1.textContent = fmt(e.local, e.lc || state.local);
-      var a2 = document.createElement("span");
-      a2.className = "e-home";
-      a2.textContent = "≈ " + fmt(e.home, e.hc || state.home);
-      main.appendChild(a1); main.appendChild(a2);
-
-      var time = document.createElement("p");
-      time.className = "exp-time";
-      try {
-        time.textContent = new Intl.DateTimeFormat(state.locale, { hour: "2-digit", minute: "2-digit" }).format(new Date(e.ts));
-      } catch (err) { time.textContent = ""; }
-
-      box.appendChild(main); box.appendChild(time);
-
-      var del = document.createElement("button");
-      del.type = "button";
-      del.className = "exp-del";
-      del.setAttribute("aria-label", t("delete"));
-      del.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12M9.5 7V5.4h5V7M8 7l.7 11.2A1.6 1.6 0 0 0 10.3 20h3.4a1.6 1.6 0 0 0 1.6-1.5L16 7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>';
-      del.addEventListener("click", function () { removeExpense(e.id); });
-
-      li.appendChild(box); li.appendChild(del);
-      list.appendChild(li);
-    });
-  }
-
-  function removeExpense(id) {
-    state.expenses = state.expenses.filter(function (e) { return e.id !== id; });
-    saveExpenses();
-    renderBudget();
-    renderExpenses();
-  }
-
-  function addExpense() {
-    var v = currentValue();
-    if (!(v > 0)) { toast(t("needAmount")); return; }
-    var rate = homePerLocal();
-    var localVal = state.side === "local" ? v : v / rate;
-    var homeVal = state.side === "local" ? v * rate : v;
-    state.expenses.push({
-      id: "e" + Date.now() + Math.random().toString(36).slice(2, 6),
-      ts: Date.now(),
-      local: roundFor(localVal, state.local),
-      home: roundFor(homeVal, state.home),
-      lc: state.local,
-      hc: state.home
-    });
-    saveExpenses();
-    state.input = "";
-    renderDisplay();
-    renderBudget();
-    renderExpenses();
-    toast(t("added"));
-  }
-
-  /* ── 택스프리(한국 결제) ──────────────────── */
+  /* ── 택스프리 (한국 결제) ──────────────── */
   function renderTax() {
     var isKRW = state.local === "KRW";
     $("taxRow").hidden = !isKRW;
     if (!isKRW) return;
 
     var localVal = state.side === "local" ? currentValue() : currentValue() / homePerLocal();
+    var round = function (x) { return x >= 1000 ? Math.round(x / 100) * 100 : Math.round(x); };
+
     if (!(localVal > 0)) {
       $("taxVal").textContent = "—";
+      $("netVal").textContent = "—";
     } else {
       var lo = localVal * 0.064, hi = localVal * 0.077;
-      var r = function (x) { return x >= 1000 ? Math.round(x / 100) * 100 : Math.round(x); };
-      $("taxVal").textContent = "₩" + num(r(lo)) + " ~ ₩" + num(r(hi));
+      $("taxVal").textContent = "₩" + num(round(lo)) + " ~ ₩" + num(round(hi));
+      $("netVal").textContent = "₩" + num(round(localVal - hi)) + " ~ ₩" + num(round(localVal - lo));
     }
-    $("taxNote").hidden = !state.taxOpen;
-    $("taxPill").setAttribute("aria-expanded", state.taxOpen ? "true" : "false");
+    $("taxNet").hidden = !state.taxOn;
+    $("taxBtn").setAttribute("aria-pressed", state.taxOn ? "true" : "false");
   }
 
-  /* ── 토스트 ──────────────────────────────── */
-  var toastTimer = null;
-  function toast(msg) {
-    var el = $("toast");
-    el.textContent = msg;
-    el.hidden = false;
-    if (toastTimer) clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { el.hidden = true; }, 1800);
-  }
-
-  /* ── 스캔 · OCR ───────────────────────────── */
+  /* ── 스캔 · OCR ────────────────────────── */
   var TESS_VER = "5.1.1";
   var ocrWorker = null, ocrLoading = null, progressCb = null, previewUrl = null;
 
@@ -633,7 +440,7 @@
       var s = document.createElement("script");
       s.src = src;
       s.async = true;
-      s.onload = function () { window.Tesseract ? resolve(window.Tesseract) : reject(new Error("no tesseract")); };
+      s.onload = function () { if (window.Tesseract) resolve(window.Tesseract); else reject(new Error("no tesseract")); };
       s.onerror = function () { reject(new Error("cdn")); };
       document.head.appendChild(s);
     });
@@ -669,8 +476,7 @@
       img.onload = function () {
         try {
           var w0 = img.naturalWidth || img.width, h0 = img.naturalHeight || img.height;
-          var scale = 1;
-          var longest = Math.max(w0, h0);
+          var scale = 1, longest = Math.max(w0, h0);
           if (longest > 1600) scale = 1600 / longest;
           else if (w0 < 900) scale = Math.min(2, 900 / w0);
           var w = Math.max(1, Math.round(w0 * scale)), h = Math.max(1, Math.round(h0 * scale));
@@ -710,15 +516,12 @@
       w = words[i];
       if (!w || !w.text) continue;
       txt = String(w.text).trim().replace(/\s+/g, "");
-      if (!/^\d[\d.,]*\d?$/.test(txt) && !/^\d$/.test(txt)) continue;
+      if (!/^\d[\d.,]*\d?$/.test(txt)) continue;
       conf = typeof w.confidence === "number" ? w.confidence : 45;
       digits = txt.replace(/[^\d]/g, "");
       if (!digits || digits.length > 8) continue;
       push(parseFloat(digits), conf, txt);
-      if (/[.,]\d{1,2}$/.test(txt)) {
-        var d2 = parseFloat(txt.replace(",", "."));
-        push(d2, conf - 12, txt);
-      }
+      if (/[.,]\d{1,2}$/.test(txt)) push(parseFloat(txt.replace(",", ".")), conf - 12, txt);
     }
 
     /* 붙어 있는 숫자 낱말 합치기: "12" + "000" = 12000 */
@@ -729,12 +532,13 @@
       if (!/^\d{1,4}$/.test(ta) || !/^\d{1,4}$/.test(tb)) continue;
       var joined = ta + tb;
       if (joined.length > 8) continue;
-      var c2 = Math.min(typeof a.confidence === "number" ? a.confidence : 45,
-                        typeof b.confidence === "number" ? b.confidence : 45) - 10;
+      var c2 = Math.min(
+        typeof a.confidence === "number" ? a.confidence : 45,
+        typeof b.confidence === "number" ? b.confidence : 45
+      ) - 10;
       push(parseFloat(joined), c2, ta + " " + tb);
     }
 
-    /* 낱말 정보가 없을 때: 전체 텍스트에서 숫자 뽑기 */
     if (!found.size && data && data.text) {
       var m = String(data.text).match(/\d[\d.,]{0,10}/g) || [];
       m.forEach(function (s) {
@@ -784,19 +588,15 @@
     $("shotLoading").hidden = false;
     $("scanStatus").textContent = t("scanPreparing");
 
-    var progressSeen = false;
     progressCb = function (m) {
       if (!m) return;
       if (m.status === "recognizing text" && typeof m.progress === "number") {
-        progressSeen = true;
         $("scanStatus").textContent = t("scanReading") + " " + Math.round(m.progress * 100) + "%";
       }
     };
 
     Promise.all([ensureWorker(), prepCanvas(file)])
-      .then(function (res) {
-        return res[0].recognize(res[1]);
-      })
+      .then(function (res) { return res[0].recognize(res[1]); })
       .then(function (out) {
         progressCb = null;
         var cands = extractCandidates(out && out.data);
@@ -816,7 +616,7 @@
       });
   }
 
-  /* ── 초기화 ──────────────────────────────── */
+  /* ── 초기화 ───────────────────────────── */
   function buildLangSelect() {
     var sel = $("langSelect");
     sel.innerHTML = "";
@@ -830,17 +630,15 @@
   }
 
   function wire() {
-    /* 통화 · 환율 */
     $("homeBtn").addEventListener("click", function () { sheetRole = "home"; buildCurList(""); $("curSearch").value = ""; openSheet("curSheet"); });
     $("localBtn").addEventListener("click", function () { sheetRole = "local"; buildCurList(""); $("curSearch").value = ""; openSheet("curSheet"); });
     $("swapBtn").addEventListener("click", function () {
       var tmp = state.home;
-      rebaseHome(state.local);
       state.home = state.local;
       state.local = tmp;
       safeSet(LS.home, state.home);
       safeSet(LS.local, state.local);
-      renderCurrencies(); renderRate(); renderDisplay(); renderBudget(); renderExpenses();
+      renderCurrencies(); renderRate(); renderDisplay();
     });
     $("rateRefresh").addEventListener("click", function () { loadRates(true); });
     $("curSearch").addEventListener("input", function (e) { buildCurList(e.target.value); });
@@ -849,30 +647,12 @@
       el.addEventListener("click", function () { closeSheet(el.getAttribute("data-close")); });
     });
 
-    /* 계산기 */
     Array.prototype.forEach.call(document.querySelectorAll(".key[data-key]"), function (k) {
       k.addEventListener("click", function () { pressKey(k.getAttribute("data-key")); });
     });
     $("segLocal").addEventListener("click", function () { state.side = "local"; renderDisplay(); });
     $("segHome").addEventListener("click", function () { state.side = "home"; renderDisplay(); });
-    $("addBtn").addEventListener("click", addExpense);
 
-    /* 예산 */
-    $("budgetInput").addEventListener("input", function (e) {
-      var digits = e.target.value.replace(/[^\d]/g, "").slice(0, 12);
-      e.target.value = digits ? groupInput(digits) : "";
-    });
-    $("budgetInput").addEventListener("keydown", function (e) { if (e.key === "Enter") saveBudgetFromInput(); });
-    $("budgetSave").addEventListener("click", saveBudgetFromInput);
-    $("budgetEditBtn").addEventListener("click", function () {
-      $("budgetInput").value = state.budget ? groupInput(String(Math.round(state.budget))) : "";
-      $("budgetEmpty").hidden = false;
-      $("budgetSet").hidden = true;
-      $("budgetEditBtn").hidden = true;
-      $("budgetInput").focus();
-    });
-
-    /* 스캔 */
     $("scanBtn").addEventListener("click", function () { $("camInput").click(); });
     $("photoBtn").addEventListener("click", function () { $("libInput").click(); });
     $("camInput").addEventListener("change", function (e) { var f = e.target.files && e.target.files[0]; e.target.value = ""; handleScan(f); });
@@ -881,54 +661,22 @@
     $("scanClose").addEventListener("click", function () { closeSheet("scanSheet"); });
     $("scanDone").addEventListener("click", function () { closeSheet("scanSheet"); });
 
-    /* 택스프리 */
-    $("taxPill").addEventListener("click", function () {
-      state.taxOpen = !state.taxOpen;
-      safeSet(LS.tax, state.taxOpen ? "1" : "0");
+    $("taxBtn").addEventListener("click", function () {
+      state.taxOn = !state.taxOn;
+      safeSet(LS.tax, state.taxOn ? "1" : "0");
       renderTax();
     });
-
-    /* 날짜가 바뀌면 오늘 내역 다시 */
-    document.addEventListener("visibilitychange", function () {
-      if (!document.hidden) { renderBudget(); renderExpenses(); }
-    });
-  }
-
-  function saveBudgetFromInput() {
-    var v = parseInt(($("budgetInput").value || "").replace(/[^\d]/g, ""), 10);
-    if (!v) { $("budgetInput").focus(); return; }
-    state.budget = v;
-    saveBudget();
-    $("budgetInput").value = "";
-    renderBudget();
-    $("budgetSet").hidden = false;
-    $("budgetEditBtn").hidden = false;
   }
 
   function init() {
     buildLangSelect();
     pickDefaults();
-
-    var savedTax = safeGet(LS.tax);
-    state.taxOpen = savedTax === "1";
-
-    loadStored();
-
+    state.taxOn = safeGet(LS.tax) === "1";
     applyLang(detectedLang());
     renderCurrencies();
-
-    if (state.budget) {
-      $("budgetSet").hidden = false;
-      $("budgetEmpty").hidden = true;
-      $("budgetEditBtn").hidden = false;
-    }
-
     wire();
     renderRate();
     renderDisplay();
-    renderBudget();
-    renderExpenses();
-
     loadRates(false);
   }
 

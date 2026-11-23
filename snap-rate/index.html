@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SnapRate — 여행 가격표 스캔 · 환율 예산</title>
-<meta name="description" content="여행지 가격표를 찍으면 숫자를 읽어 주고, 내 나라 돈으로 바꾸고, 오늘 예산에서 바로 빼 줍니다. 설치 없이 브라우저에서, 16개 언어.">
+<title>SnapRate — 여행 가격표 스캔 · 환율 계산</title>
+<meta name="description" content="여행지 가격표를 찍으면 숫자를 읽어 내 나라 돈으로 바로 바꿔 줍니다. 큰 키패드로 1초 수정, 한국 결제엔 택스프리까지. 설치 없이 브라우저에서, 16개 언어.">
 <meta name="theme-color" content="#FBF7EE">
 <meta name="color-scheme" content="light">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -13,23 +13,23 @@
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Ajak Studio">
-<meta property="og:title" content="SnapRate — 여행 가격표 스캔 · 환율 예산">
-<meta property="og:description" content="가격표를 찍으면 숫자를 읽고, 내 돈으로 바꾸고, 오늘 예산에서 빼 줍니다.">
+<meta property="og:title" content="SnapRate — 여행 가격표 스캔 · 환율 계산">
+<meta property="og:description" content="가격표를 찍으면 숫자를 읽고, 내 나라 돈으로 바로 바꿔 줍니다.">
 <meta property="og:url" content="https://ajak-75.github.io/snap-rate/">
 <meta property="og:image" content="https://ajak-75.github.io/snap-rate/icon-512.png">
 <meta property="og:image:width" content="512">
 <meta property="og:image:height" content="512">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SnapRate — 여행 가격표 스캔 · 환율 예산">
-<meta name="twitter:description" content="가격표를 찍으면 숫자를 읽고, 내 돈으로 바꾸고, 오늘 예산에서 빼 줍니다.">
+<meta name="twitter:title" content="SnapRate — 여행 가격표 스캔 · 환율 계산">
+<meta name="twitter:description" content="가격표를 찍으면 숫자를 읽고, 내 나라 돈으로 바로 바꿔 줍니다.">
 <meta name="twitter:image" content="https://ajak-75.github.io/snap-rate/icon-512.png">
 
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<link rel="stylesheet" href="./styles.css?v=1">
+<link rel="stylesheet" href="./styles.css?v=2">
 </head>
 <body>
 <div class="shell">
@@ -38,14 +38,14 @@
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12.4" cy="12.4" r="7.4" fill="#E0603C"/>
+          <circle cx="12.4" cy="12.4" r="7.4" fill="#DE5F3A"/>
           <circle cx="19.6" cy="19.6" r="7.4" fill="#FBF7EE"/>
           <circle cx="19.6" cy="19.6" r="5.1" stroke="#211E19" stroke-width="2.3"/>
         </svg>
       </span>
       <span class="brand-text">
         <span class="brand-name">SnapRate</span>
-        <span class="brand-sub" data-i18n="brandSub">가격표 스캔 · 환율 예산</span>
+        <span class="brand-sub" data-i18n="brandSub">가격표 스캔 · 환율 계산</span>
       </span>
     </div>
     <label class="lang-wrap">
@@ -82,42 +82,10 @@
         </div>
       </div>
       <div class="rate-meta">
-        <p class="rate-line"><span id="rateText">1 JPY = 9.21 KRW</span><span class="dot" aria-hidden="true">·</span><span class="rate-sub" id="rateSub">—</span></p>
+        <p class="rate-line"><span id="rateText">1 JPY = 8.47 KRW</span><span class="dot" aria-hidden="true">·</span><span class="rate-sub" id="rateSub">—</span></p>
         <button type="button" class="rate-refresh" id="rateRefresh" aria-label="환율 새로고침" data-i18n-aria="rateRefresh">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12a7 7 0 1 1-2.1-5M19 4.5V9h-4.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
         </button>
-      </div>
-    </section>
-
-    <!-- 오늘 예산 -->
-    <section class="card budget" aria-labelledby="budgetTitle">
-      <div class="card-head">
-        <h2 id="budgetTitle" class="card-title" data-i18n="budgetTitle">오늘 예산</h2>
-        <button type="button" class="mini" id="budgetEditBtn" hidden data-i18n="budgetEdit">수정</button>
-      </div>
-
-      <div class="budget-empty" id="budgetEmpty">
-        <div class="budget-input-row">
-          <label class="sr-only" for="budgetInput" data-i18n="budgetInputLabel">오늘 쓸 금액</label>
-          <input id="budgetInput" class="budget-input" type="text" inputmode="numeric" autocomplete="off" enterkeyhint="done" placeholder="100,000">
-          <span class="budget-cur" id="budgetCur">KRW</span>
-          <button type="button" class="btn btn-sm" id="budgetSave" data-i18n="save">저장</button>
-        </div>
-        <p class="hint" data-i18n="budgetInputLabel">내 나라 돈으로 오늘 쓸 금액</p>
-      </div>
-
-      <div class="budget-set" id="budgetSet" hidden>
-        <div class="budget-row">
-          <p class="budget-amount" id="budgetAmount">₩100,000</p>
-          <p class="budget-left" id="budgetLeft"><span class="blabel" data-i18n="budgetLeft">남은 돈</span> <b>₩100,000</b></p>
-        </div>
-        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar">
-          <span class="bar-fill" id="barFill"></span>
-        </div>
-        <div class="budget-foot">
-          <span id="spentLine">쓴 돈 ₩0</span>
-          <span id="leftLocal">≈ ¥0</span>
-        </div>
       </div>
     </section>
 
@@ -139,12 +107,17 @@
         <p class="disp-conv"><span class="approx" aria-hidden="true">≈</span> <span id="amtConv">₩0</span> <span class="conv-cur" id="curConv">KRW</span></p>
       </div>
 
-      <div class="tax-row" id="taxRow" hidden>
-        <button type="button" class="tax-pill" id="taxPill" aria-expanded="false">
+      <div class="tax" id="taxRow" hidden>
+        <button type="button" class="tax-toggle" id="taxBtn" aria-pressed="false">
           <span class="tax-mark" aria-hidden="true">%</span>
-          <span class="tax-txt"><span data-i18n="taxLabel">택스프리 환급 예상</span> <b id="taxVal">₩0</b></span>
+          <span class="tax-label" data-i18n="taxLabel">택스프리 환급 예상</span>
+          <span class="tax-val" id="taxVal">—</span>
+          <span class="switch" aria-hidden="true"><i></i></span>
         </button>
-        <p class="tax-note" id="taxNote" hidden data-i18n="taxNote"></p>
+        <div class="tax-net" id="taxNet" hidden>
+          <p class="net-line"><span data-i18n="taxNet">실구매가</span> <b id="netVal">—</b></p>
+          <p class="tax-note" data-i18n="taxNote">부가세 10%가 포함된 가격에서 수수료를 뺀 대략의 범위예요. 매장·금액에 따라 달라집니다.</p>
+        </div>
       </div>
 
       <div class="scan-row">
@@ -175,26 +148,11 @@
         <button type="button" class="key" data-key="1">1</button>
         <button type="button" class="key" data-key="2">2</button>
         <button type="button" class="key" data-key="3">3</button>
-
-        <button type="button" class="key" data-key="00">00</button>
-        <button type="button" class="key" data-key="0">0</button>
         <button type="button" class="key key-dot" data-key=".">.</button>
 
-        <button type="button" class="key key-add" id="addBtn">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-          <span data-i18n="addToBudget">예산에 담기</span>
-        </button>
+        <button type="button" class="key key-zero" data-key="0">0</button>
+        <button type="button" class="key key-00" data-key="00">00</button>
       </div>
-    </section>
-
-    <!-- 담은 내역 -->
-    <section class="card list" aria-labelledby="listTitle">
-      <div class="card-head">
-        <h2 id="listTitle" class="card-title" data-i18n="expensesTitle">담은 내역</h2>
-        <span class="count" id="expCount">0</span>
-      </div>
-      <ul class="exp-list" id="expList"></ul>
-      <p class="empty" id="expEmpty" data-i18n="expensesEmpty">아직 담은 게 없어요</p>
     </section>
 
     <p class="foot-note" data-i18n="footerNote">환율은 참고용이에요. 카드 실제 청구액과 다를 수 있어요.</p>
@@ -245,12 +203,10 @@
   </div>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-
 <input type="file" id="camInput" accept="image/*" capture="environment" hidden>
 <input type="file" id="libInput" accept="image/*" hidden>
 
-<script src="./i18n.js?v=1"></script>
-<script src="./app.js?v=1"></script>
+<script src="./i18n.js?v=2"></script>
+<script src="./app.js?v=2"></script>
 </body>
 </html>
