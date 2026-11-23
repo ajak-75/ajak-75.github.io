@@ -605,7 +605,14 @@
 
     if (previewUrl) { try { URL.revokeObjectURL(previewUrl); } catch (e) {} }
     previewUrl = URL.createObjectURL(file);
-    $("shot").src = previewUrl;
+
+    var shot = $("shot");
+    shot.onload = function () {
+      var r = shot.naturalWidth / shot.naturalHeight;
+      r = Math.min(1.4, Math.max(0.6, r));
+      $("shotWrap").style.aspectRatio = String(r);
+    };
+    shot.src = previewUrl;
 
     $("shotLoading").hidden = false;
     $("scanStatus").textContent = t("scanPreparing");
