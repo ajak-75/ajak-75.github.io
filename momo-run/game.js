@@ -70,9 +70,9 @@
   const GRAVITY = 2700;
   const JUMP_V = 1180;            // 최고 높이 ≈ 258 단위
   const DJUMP_V = 1080;
-  const SLIDE_TIME = 0.90;        // 한 번 탭했을 때 숙이고 있는 시간 — 넓은 위 장애물을 끝까지 지나갈 수 있게
+  const SLIDE_TIME = 0.68;        // 한 번 탭했을 때 숙이고 있는 시간 — 짧고 경쾌하게(가장 넓은 위 장애물 0.66초분은 덮는다)
   const SLIDE_HOLD_MAX = 1.40;    // 꾹 누르고 있어도 이 이상은 못 버틴다(너무 쉬워지지 않게)
-  const SLIDE_MIN = 0.50;         // 손을 일찍 떼도 최소 이만큼은 숙인 자세 유지
+  const SLIDE_MIN = 0.40;         // 손을 일찍 떼도 최소 이만큼은 숙인 자세 유지
   const FAST_DROP_V = 1900;       // 공중에서 슬라이드 → 바닥으로 빠르게 내려온다
   const SPEED_START = 400;        // 스테이지 값이 없을 때의 기본값
   const SPEED_MAX = 690;
