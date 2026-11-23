@@ -520,6 +520,13 @@
     }
     var words = (data && data.words) || [];
     var i, w, txt, digits, conf;
+    try {
+      window.__srDbg = (window.__srDbg || []).concat([{
+        words: words.length,
+        text: String((data && data.text) || "").slice(0, 120),
+        sample: words.slice(0, 6).map(function (x) { return [String(x.text), Math.round(x.confidence || 0)]; })
+      }]);
+    } catch (e) {}
 
     for (i = 0; i < words.length; i++) {
       w = words[i];
